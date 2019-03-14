@@ -1,5 +1,7 @@
-# Nazwa projektu
+# Gra w kółko i krzyżyk
 
 |Data  |Pesymistyczna|Realistyczna|Optymistyczna|
 :-------------------:|:-------------------:|:-------------------|-------------------:
-|data|opis pesymistyczny|opis realistyczny|opis optymistyczny
+|14.03|Wstępne przygotowanie projektu + diagram przepływu + karty CRC| + repreznetacja graczy na planszy| + tworzenie planszy o wymiarach 3x3
+
+Wszystkie funkcjonalności - pokrycie testami > 60%
