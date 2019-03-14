@@ -7,8 +7,8 @@
     <groupId>ogo.marcin.ox</groupId>
     <artifactId>OX</artifactId>
     <version>0.1</version>
-    <name>#NAME</name>
-    <description>#DESC</description>
+    <name>OX</name>
+    <description>Tic Tac Toe for learning purpose</description>
     <url></url>
   
     <properties>
