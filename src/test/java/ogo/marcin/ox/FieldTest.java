@@ -40,4 +40,10 @@ public class FieldTest {
         assert field1.equals(field2) == equalityResult: String.format("Equality for fields should be %s",
                 equalityResult);
     }
+
+    public void testFieldHashCodeIsEqual() {
+        Field field1 = new Field(Sign.DEFAULT);
+        Field field2 = new Field(Sign.DEFAULT);
+        assert field1.hashCode() == field2.hashCode() : "hashCode should be equals";
+    }
 }

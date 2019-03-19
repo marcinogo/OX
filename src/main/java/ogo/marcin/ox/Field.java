@@ -20,4 +20,9 @@ public class Field {
         Field field = (Field) o;
         return sign == field.sign;
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(sign);
+    }
 }
