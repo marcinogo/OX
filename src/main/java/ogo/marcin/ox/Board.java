@@ -7,7 +7,7 @@ public class Board {
     int width;
     int height;
 
-    Field[] matrix;
+    Field[][] matrix;
 
     public Board(int width, int height) {
         if(!validateDimensions(width, height)) {
@@ -16,7 +16,7 @@ public class Board {
         this.width = width;
         this.height = height;
 
-        this.matrix = new Field[height];
+        this.matrix = new Field[height][width];
     }
 
     private boolean validateDimensions(int width, int height) {

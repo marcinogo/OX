@@ -18,6 +18,11 @@ public class BoardTest {
             {4, 4},
             {100, 155},
             {200, 200},
+            {199, 3},
+            {3, 199},
+            {3, 200},
+            {200, 3},
+            {100, 100},
         };
     }
 
@@ -60,6 +65,12 @@ public class BoardTest {
     @Test(dataProvider = "createBoard")
     public void testIfBoardHaveMatrixOfGivenHeight(int width, int height) {
         Board board = new Board(width, height);
-        assert board.matrix.length == height : String.format("Matrix should have length of %d", height);
+        assert board.matrix.length == height : String.format("Matrix should have height of %d", height);
+    }
+
+    @Test(dataProvider = "createBoard")
+    public void testIfBoardHaveMatrixOfGivenWidth(int width, int height) {
+        Board board = new Board(width, height);
+        assert board.matrix[0].length == width : String.format("Matrix should have Width of %d", width);
     }
 }
