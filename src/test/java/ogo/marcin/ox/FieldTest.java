@@ -14,12 +14,6 @@ public class FieldTest {
         assert field.sign.equals(Sign.DEFAULT) : "Field have different sign than DEFAULT";
     }
 
-    public void testIfFieldsAreEqual() {
-        Field field1 = new Field(Sign.DEFAULT);
-        Field field2 = new Field(Sign.DEFAULT);
-        assert field1.equals(field2) : "Fields should be equal";
-    }
-
     @DataProvider
     public static Object[][] testEquality(){
         return new Object[][] {
@@ -29,6 +23,9 @@ public class FieldTest {
             {Sign.DEFAULT, Sign.O, false},
             {Sign.DEFAULT, Sign.X, false},
             {Sign.O, Sign.X, false},
+            {Sign.O, Sign.DEFAULT, false},
+            {Sign.X, Sign.DEFAULT, false},
+            {Sign.X, Sign.O, false},
         };
     }
 
@@ -37,13 +34,31 @@ public class FieldTest {
         Field field1 = new Field(sign1);
         Field field2 = new Field(sign2);
 
-        assert field1.equals(field2) == equalityResult: String.format("Equality for fields should be %s",
+        assert field1.equals(field2) == equalityResult: String.format("Equality for Fields should be %s",
                 equalityResult);
     }
 
-    public void testFieldHashCodeIsEqual() {
-        Field field1 = new Field(Sign.DEFAULT);
-        Field field2 = new Field(Sign.DEFAULT);
-        assert field1.hashCode() == field2.hashCode() : "hashCode should be equals";
+    @DataProvider
+    public static Object[][] testHashCode(){
+        return new Object[][] {
+                {Sign.DEFAULT, Sign.DEFAULT, true},
+                {Sign.X, Sign.X, true},
+                {Sign.O, Sign.O, true},
+                {Sign.DEFAULT, Sign.O, false},
+                {Sign.DEFAULT, Sign.X, false},
+                {Sign.O, Sign.X, false},
+                {Sign.O, Sign.DEFAULT, false},
+                {Sign.X, Sign.DEFAULT, false},
+                {Sign.X, Sign.O, false},
+        };
+    }
+
+    @Test(dataProvider = "testHashCode")
+    public void testHashCodeEquality(Sign sign1, Sign sign2, boolean hashCodeEqualityResult) {
+        Field field1 = new Field(sign1);
+        Field field2 = new Field(sign2);
+        boolean hashCodeComparisonResult = field1.hashCode() == field2.hashCode();
+        assert  hashCodeComparisonResult == hashCodeEqualityResult: String.format("Comparison for hashCodes " +
+                        "should return %s", hashCodeEqualityResult);
     }
 }
