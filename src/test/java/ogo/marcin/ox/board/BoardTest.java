@@ -132,11 +132,13 @@ public class BoardTest {
     @Test(dataProvider = "setAllBoardValue")
     public void testIfToStringReturnCorrectString(int width, int height, Sign sign) {
         Board board = new Board(width, height);
-        board = setBoardMatrixCellsToValue(board, sign);
+        board = board.setBoardMatrixCells(sign);
         String expected = createBoardExpectedStringRepresentation(board.width, board.height, sign);
         assert board.toString().equals(expected) : String.format("Wrong representation " +
                 "of board, get %s", board.toString());
     }
+
+//    TODO test for method setBoardMatrixCells moved form here and better toString test
 
     private String createBoardExpectedStringRepresentation(int width, int height, Sign sign) {
         StringBuilder expected = new StringBuilder();
@@ -149,14 +151,5 @@ public class BoardTest {
             }
         }
         return expected.toString();
-    }
-
-    private Board setBoardMatrixCellsToValue(Board board, Sign sign) {
-        for (int i = 0; i < board.matrix.length; i++) {
-            for(int j = 0; j < board.matrix[i].length; j++) {
-                board.matrix[i][j] = new Field(sign);
-            }
-        }
-        return board;
     }
 }
