@@ -73,4 +73,33 @@ public class BoardTest {
         Board board = new Board(width, height);
         assert board.matrix[0].length == width : String.format("Matrix should have Width of %d", width);
     }
+
+    @DataProvider
+    public static Object[][] setFieldValue(){
+        return new Object[][] {
+                {3, 3, 1, 1 , Sign.DEFAULT},
+                {3, 5, 2, 4, Sign.O},
+                {5, 5, 4, 4, Sign.X},
+                {9, 7, 0, 0, Sign.X},
+                {4, 4, 2, 3, Sign.DEFAULT},
+                {100, 155, 99, 25, Sign.X},
+                {200, 200, 199, 199, Sign.O},
+                {199, 3, 170, 1, Sign.DEFAULT},
+                {3, 199, 1, 170, Sign.DEFAULT},
+                {3, 200, 1, 100, Sign.X},
+                {200, 3, 100, 1, Sign.O},
+                {100, 100, 50, 50, Sign.DEFAULT},
+        };
+    }
+
+    @Test(dataProvider = "setFieldValue")
+    public void testIfBoardSetFieldValueInMatrix(int width, int height,
+                                                 int widthToUpdate, int heightToUpdate,
+                                                 Sign fieldSign) {
+        Board board = new Board(width, height);
+        Field field = new Field(fieldSign);
+        Board updateBoard = board.setField(widthToUpdate, heightToUpdate, field);
+        assert updateBoard.matrix[heightToUpdate][widthToUpdate] == field : String.format("Field should " +
+                "have value \"%s\"", fieldSign);
+    }
 }
