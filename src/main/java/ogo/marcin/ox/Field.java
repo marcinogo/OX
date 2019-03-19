@@ -6,10 +6,9 @@ import java.util.Objects;
  * @author Marcin Ogorzalek
  */
 public class Field {
+    final Sign sign;
 
-    public Sign sign;
-
-    public Field(Sign sign) {
+    Field(Sign sign) {
         this.sign = sign;
     }
 
@@ -26,7 +25,7 @@ public class Field {
         return Objects.hash(sign);
     }
 
-    public Field changeSign(Sign newSign) {
+    Field changeSign(Sign newSign) {
         return new Field(newSign);
     }
 
