@@ -1,5 +1,7 @@
-package ogo.marcin.ox;
+package ogo.marcin.ox.board;
 
+import ogo.marcin.ox.board.Field;
+import ogo.marcin.ox.board.Sign;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 

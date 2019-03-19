@@ -1,4 +1,4 @@
-package ogo.marcin.ox;
+package ogo.marcin.ox.board;
 
 import java.util.Objects;
 
