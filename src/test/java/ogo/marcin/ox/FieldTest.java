@@ -84,4 +84,14 @@ public class FieldTest {
         assert fieldWithNewValue.equals(new Field(newSign)) : String.format("changeSign should return " +
                 "Field with %s sign", newSign);
     }
+
+    public void testIfToStringReturnCorrectString() {
+        Field field1 = new Field(Sign.DEFAULT);
+        Field field2 = new Field(Sign.O);
+        Field field3 = new Field(Sign.X);
+
+        assert field1.toString().equals("[ ]") : String.format("Produced string should be \"[ ]\"");
+        assert field2.toString().equals("[O]") : String.format("Produced string should be \"[O]\"");
+        assert field3.toString().equals("[X]") : String.format("Produced string should be \"[X]\"");
+    }
 }

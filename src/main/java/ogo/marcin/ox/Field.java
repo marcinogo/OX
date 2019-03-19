@@ -29,4 +29,9 @@ public class Field {
     public Field changeSign(Sign newSign) {
         return new Field(newSign);
     }
+
+    @Override
+    public String toString() {
+        return String.format("[%s]", sign);
+    }
 }
