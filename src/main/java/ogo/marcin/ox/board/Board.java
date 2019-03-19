@@ -9,7 +9,7 @@ public class Board {
 
     Field[][] matrix;
 
-    public Board(int width, int height) {
+    Board(int width, int height) {
         if(!validateDimensions(width, height)) {
             throw new IllegalArgumentException("Width and height have to be at least 3");
         }
@@ -29,7 +29,7 @@ public class Board {
                 && height >=3  && height <= 200;
     }
 
-    public Board setField(int widthToUpdate, int heightToUpdate, Field field) {
+    Board setField(int widthToUpdate, int heightToUpdate, Field field) {
         Board newBoard = new Board(this);
         newBoard.matrix[heightToUpdate][widthToUpdate] = field;
         return newBoard;
