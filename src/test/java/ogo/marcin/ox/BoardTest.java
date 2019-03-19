@@ -1,5 +1,6 @@
 package ogo.marcin.ox;
 
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 /**
@@ -7,9 +8,22 @@ import org.testng.annotations.Test;
  */
 @Test
 public class BoardTest {
-    public void testIfBoardHaveDimensions() {
-        Board board = new Board(1, 1);
-        assert board.width == 1 : "Width should be 1";
-        assert board.height == 1 : "Height should be 1";
+    @DataProvider
+    public static Object[][] createBoard(){
+        return new Object[][] {
+            {1, 1},
+            {3, 3},
+            {3, 5},
+            {5, 5},
+            {9, 7},
+            {4, 4},
+        };
+    }
+
+    @Test(dataProvider = "createBoard")
+    public void testIfBoardHaveDimensions(int width, int height) {
+        Board board = new Board(width, height);
+        assert board.width == width : String.format("Width should be %d", width);
+        assert board.height == height : String.format("Height should be %d", height);
     }
 }
