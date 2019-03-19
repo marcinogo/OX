@@ -25,8 +25,8 @@ public class Board {
     }
 
     private boolean validateDimensions(int width, int height) {
-        return width >=3 && width <= 200
-                && height >=3  && height <= 200;
+        return width >=3 && width <= 40
+                && height >=3  && height <= 40;
     }
 
     Board setField(int widthToUpdate, int heightToUpdate, Field field) {

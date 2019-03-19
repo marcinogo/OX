@@ -19,13 +19,12 @@ public class BoardTest {
             {5, 5},
             {9, 7},
             {4, 4},
-            {100, 155},
-            {200, 200},
-            {199, 3},
-            {3, 199},
-            {3, 200},
-            {200, 3},
-            {100, 100},
+            {40, 40},
+            {40, 3},
+            {3, 40},
+            {25, 40},
+            {4, 40},
+            {40, 4},
         };
     }
 
@@ -55,6 +54,13 @@ public class BoardTest {
                 {10, 1000},
                 {Integer.MAX_VALUE, Integer.MAX_VALUE},
                 {3, Integer.MIN_VALUE},
+                {100, 155},
+                {200, 200},
+                {199, 3},
+                {3, 199},
+                {3, 200},
+                {200, 3},
+                {100, 100},
         };
     }
 
@@ -85,13 +91,13 @@ public class BoardTest {
                 {5, 5, 4, 4, new Field(Sign.X)},
                 {9, 7, 0, 0, new Field(Sign.X)},
                 {4, 4, 2, 3, new Field(Sign.DEFAULT)},
-                {100, 155, 99, 25, new Field(Sign.X)},
-                {200, 200, 199, 199, new Field(Sign.O)},
-                {199, 3, 170, 1, new Field(Sign.DEFAULT)},
-                {3, 199, 1, 170, new Field(Sign.DEFAULT)},
-                {3, 200, 1, 100, new Field(Sign.X)},
-                {200, 3, 100, 1, new Field(Sign.O)},
-                {100, 100, 50, 50, new Field(Sign.DEFAULT)},
+                {40, 36, 35, 25, new Field(Sign.X)},
+                {40, 40, 39, 39, new Field(Sign.O)},
+                {39, 3, 17, 1, new Field(Sign.DEFAULT)},
+                {3, 39, 1, 17, new Field(Sign.DEFAULT)},
+                {3, 40, 1, 20, new Field(Sign.X)},
+                {40, 3, 20, 1, new Field(Sign.O)},
+                {20, 20, 12, 12, new Field(Sign.DEFAULT)},
         };
     }
 
@@ -113,13 +119,13 @@ public class BoardTest {
                 {5, 5, Sign.X},
                 {9, 7, Sign.X},
                 {4, 4, Sign.DEFAULT},
-                {100, 155, Sign.X},
-                {200, 200, Sign.O},
-                {199, 3, Sign.DEFAULT},
-                {3, 199, Sign.DEFAULT},
-                {3, 200, Sign.X},
-                {200, 3, Sign.O},
-                {100, 100, Sign.DEFAULT},
+                {40, 40, Sign.X},
+                {20, 20, Sign.O},
+                {40, 3, Sign.DEFAULT},
+                {3, 40, Sign.DEFAULT},
+                {4, 40, Sign.X},
+                {4, 40, Sign.O},
+                {20, 20, Sign.DEFAULT},
         };
     }
 
