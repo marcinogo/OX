@@ -20,6 +20,7 @@ public class Board {
     }
 
     private boolean validateDimensions(int width, int height) {
-        return width >=3 && height >=3;
+        return width >=3 && width <= 200
+                && height >=3  && height <= 200;
     }
 }
