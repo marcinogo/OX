@@ -85,13 +85,19 @@ public class FieldTest {
                 "Field with %s sign", newSign);
     }
 
-    public void testIfToStringReturnCorrectString() {
-        Field field1 = new Field(Sign.DEFAULT);
-        Field field2 = new Field(Sign.O);
-        Field field3 = new Field(Sign.X);
 
-        assert field1.toString().equals("[ ]") : String.format("Produced string should be \"[ ]\"");
-        assert field2.toString().equals("[O]") : String.format("Produced string should be \"[O]\"");
-        assert field3.toString().equals("[X]") : String.format("Produced string should be \"[X]\"");
+    @DataProvider
+    public static Object[][] testToString(){
+        return new Object[][] {
+                {Sign.DEFAULT, "[ ]"},
+                {Sign.X, "[X]"},
+                {Sign.O, "[O]"},
+        };
+    }
+
+    @Test(dataProvider = "testToString")
+    public void testIfToStringReturnCorrectString(Sign sign, String toStringResult) {
+        Field field = new Field(sign);
+        assert field.toString().equals(toStringResult) : String.format("Produced string should be %s", toStringResult);
     }
 }
