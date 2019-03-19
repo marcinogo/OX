@@ -37,7 +37,7 @@ public class Board {
 
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder("");
+        StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[i].length; j++) {
                 stringBuilder.append(matrix[i][j]);

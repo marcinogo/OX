@@ -102,16 +102,52 @@ public class BoardTest {
                 "have value \"%s\"", field);
     }
 
-    public void testIfToStringReturnCorrectString() {
-        Board board = new Board(3, 3);
-        Field field = new Field(Sign.X);
-        for (int i = 0; i < 3; i++) {
-            for(int j = 0; j < 3; j++) {
-                board = board.setField(i, j, field);
+    @DataProvider
+    public static Object[][] setAllBoardValue(){
+        return new Object[][] {
+                {3, 3, Sign.DEFAULT},
+                {3, 5, Sign.O},
+                {5, 5, Sign.X},
+                {9, 7, Sign.X},
+                {4, 4, Sign.DEFAULT},
+                {100, 155, Sign.X},
+                {200, 200, Sign.O},
+                {199, 3, Sign.DEFAULT},
+                {3, 199, Sign.DEFAULT},
+                {3, 200, Sign.X},
+                {200, 3, Sign.O},
+                {100, 100, Sign.DEFAULT},
+        };
+    }
+
+    @Test(dataProvider = "setAllBoardValue")
+    public void testIfToStringReturnCorrectString(int width, int height, Sign sign) {
+        Board board = new Board(width, height);
+        board = setBoardMatrixCellsToValue(board, sign);
+        String expected = createBoardExpectedStringRepresentation(board.width, board.height, sign);
+        assert board.toString().equals(expected) : String.format("Wrong representation " +
+                "of board, get %s", board.toString());
+    }
+
+    private String createBoardExpectedStringRepresentation(int width, int height, Sign sign) {
+        StringBuilder expected = new StringBuilder();
+        for (int i = 0; i < height; i++) {
+            for(int j = 0; j < width; j++) {
+                expected.append(new Field(sign).toString());
+            }
+            if(i < height - 1) {
+                expected.append(System.lineSeparator());
             }
         }
+        return expected.toString();
+    }
 
-        assert board.toString().equals(String.format("[X][X][X]%n[X][X][X]%n[X][X][X]")) :
-                String.format("Wrong representation of board, get %s", board.toString());
+    private Board setBoardMatrixCellsToValue(Board board, Sign sign) {
+        for (int i = 0; i < board.matrix.length; i++) {
+            for(int j = 0; j < board.matrix[i].length; j++) {
+                board.matrix[i][j] = new Field(sign);
+            }
+        }
+        return board;
     }
 }
