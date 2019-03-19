@@ -8,7 +8,14 @@ public class Board {
     int height;
 
     public Board(int width, int height) {
+        if(!validateDimensions(width, height)) {
+            throw new IllegalArgumentException("Width and height have to be at least 3");
+        }
         this.width = width;
         this.height = height;
+    }
+
+    private boolean validateDimensions(int width, int height) {
+        return width >=3 && height >=3;
     }
 }
