@@ -101,4 +101,17 @@ public class BoardTest {
         assert updateBoard.matrix[heightToUpdate][widthToUpdate] == field : String.format("Field should " +
                 "have value \"%s\"", field);
     }
+
+    public void testIfToStringReturnCorrectString() {
+        Board board = new Board(3, 3);
+        Field field = new Field(Sign.X);
+        for (int i = 0; i < 3; i++) {
+            for(int j = 0; j < 3; j++) {
+                board = board.setField(i, j, field);
+            }
+        }
+
+        assert board.toString().equals(String.format("[X][X][X]%n[X][X][X]%n[X][X][X]")) :
+                String.format("Wrong representation of board, get %s", board.toString());
+    }
 }

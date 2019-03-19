@@ -15,12 +15,13 @@ public class Board {
         }
         this.width = width;
         this.height = height;
-
         this.matrix = new Field[height][width];
     }
 
     private Board(Board board) {
-        this(board.width, board.height);
+        this.width = board.width;
+        this.height = board.height;
+        this.matrix = board.matrix;
     }
 
     private boolean validateDimensions(int width, int height) {
@@ -32,5 +33,19 @@ public class Board {
         Board newBoard = new Board(this);
         newBoard.matrix[heightToUpdate][widthToUpdate] = field;
         return newBoard;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder("");
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                stringBuilder.append(matrix[i][j]);
+            }
+            if(i < matrix.length - 1) {
+                stringBuilder.append(System.lineSeparator());
+            }
+        }
+        return stringBuilder.toString();
     }
 }
