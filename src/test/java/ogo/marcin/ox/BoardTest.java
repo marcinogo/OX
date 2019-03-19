@@ -29,7 +29,7 @@ public class BoardTest {
     }
 
     @DataProvider
-    public static Object[][] tryCreateImproperBoard(){
+    public static Object[][] tryCreateImproperBoardDimensions(){
         return new Object[][] {
                 {0, 0},
                 {1, 1},
@@ -39,25 +39,6 @@ public class BoardTest {
                 {-3, 3},
                 {Integer.MIN_VALUE, Integer.MAX_VALUE},
                 {Integer.MIN_VALUE, Integer.MIN_VALUE},
-        };
-    }
-
-    @Test(dataProvider = "tryCreateImproperBoard", expectedExceptions = IllegalArgumentException.class)
-    public void testIfBoardThrowExceptionWhenCreateWithWrongDimensionsValue(int width, int height) {
-        Board board = new Board(width, height);
-        assert board.width == width : String.format("Width should be %d", width);
-        assert board.height == height : String.format("Height should be %d", height);
-    }
-
-    @Test(dataProvider = "createBoard")
-    public void testIfBoardHaveMatrixOfGivenHeight(int width, int height) {
-        Board board = new Board(width, height);
-        assert board.matrix.length == height : String.format("Matrix should have length of %d", height);
-    }
-
-    @DataProvider
-    public static Object[][] tryCreateImproperBoardUpperBound(){
-        return new Object[][] {
                 {201, 201},
                 {201, 3},
                 {3, 201},
@@ -69,10 +50,16 @@ public class BoardTest {
         };
     }
 
-    @Test(dataProvider = "tryCreateImproperBoardUpperBound", expectedExceptions = IllegalArgumentException.class)
-    public void testIfBoardThrowExceptionWhenCreateWithWrongUpperBound(int width, int height) {
+    @Test(dataProvider = "tryCreateImproperBoardDimensions", expectedExceptions = IllegalArgumentException.class)
+    public void testIfBoardThrowExceptionWhenCreateWithWrongDimensions(int width, int height) {
         Board board = new Board(width, height);
         assert board.width == width : String.format("Width should be %d", width);
         assert board.height == height : String.format("Height should be %d", height);
+    }
+
+    @Test(dataProvider = "createBoard")
+    public void testIfBoardHaveMatrixOfGivenHeight(int width, int height) {
+        Board board = new Board(width, height);
+        assert board.matrix.length == height : String.format("Matrix should have length of %d", height);
     }
 }
