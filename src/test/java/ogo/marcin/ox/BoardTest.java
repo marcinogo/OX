@@ -17,7 +17,7 @@ public class BoardTest {
             {9, 7},
             {4, 4},
             {100, 155},
-            {Integer.MAX_VALUE, Integer.MAX_VALUE},
+            {1000, 1000},
         };
     }
 
@@ -47,5 +47,11 @@ public class BoardTest {
         Board board = new Board(width, height);
         assert board.width == width : String.format("Width should be %d", width);
         assert board.height == height : String.format("Height should be %d", height);
+    }
+
+    @Test(dataProvider = "createBoard")
+    public void testIfBoardHaveMatrixOfGivenHeight(int width, int height) {
+        Board board = new Board(width, height);
+        assert board.matrix.length == height : String.format("Matrix should have length of %d", height);
     }
 }
