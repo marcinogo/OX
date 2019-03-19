@@ -25,4 +25,8 @@ public class Field {
     public int hashCode() {
         return Objects.hash(sign);
     }
+
+    public Field changeSign(Sign newSign) {
+        return new Field(newSign);
+    }
 }

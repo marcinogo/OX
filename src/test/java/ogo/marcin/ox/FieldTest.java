@@ -61,4 +61,27 @@ public class FieldTest {
         assert  hashCodeComparisonResult == hashCodeEqualityResult: String.format("Comparison for hashCodes " +
                         "should return %s", hashCodeEqualityResult);
     }
+
+    @DataProvider
+    public static Object[][] testChangeSign(){
+        return new Object[][] {
+                {Sign.DEFAULT, Sign.DEFAULT},
+                {Sign.X, Sign.X},
+                {Sign.O, Sign.O},
+                {Sign.DEFAULT, Sign.O},
+                {Sign.DEFAULT, Sign.X},
+                {Sign.O, Sign.X},
+                {Sign.O, Sign.DEFAULT},
+                {Sign.X, Sign.DEFAULT},
+                {Sign.X, Sign.O},
+        };
+    }
+
+    @Test(dataProvider = "testChangeSign")
+    public void testIfFieldReturnFieldWithNewSign(Sign startingSign, Sign newSign) {
+        Field field = new Field(startingSign);
+        Field fieldWithNewValue = field.changeSign(newSign);
+        assert fieldWithNewValue.equals(new Field(newSign)) : String.format("changeSign should return " +
+                "Field with %s sign", newSign);
+    }
 }
