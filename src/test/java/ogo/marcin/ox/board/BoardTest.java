@@ -6,6 +6,8 @@ import ogo.marcin.ox.board.Sign;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.util.Arrays;
+
 /**
  * @author Marcin Ogorzalek
  */
@@ -130,6 +132,18 @@ public class BoardTest {
     }
 
     @Test(dataProvider = "setAllBoardValue")
+    public void testSetAllBoardFields(int width, int height, Sign sign) {
+        Board board = new Board(width, height);
+        board = board.setBoardMatrixCells(sign);
+        Field[] expectedContent = new Field[width];
+        Arrays.fill(expectedContent, new Field(sign));
+
+        for (Field[] matrixRow: board.matrix) {
+            assert Arrays.equals(expectedContent, matrixRow) : "Rows are not equals";
+        }
+    }
+
+    @Test(dataProvider = "setAllBoardValue")
     public void testIfToStringReturnCorrectString(int width, int height, Sign sign) {
         Board board = new Board(width, height);
         board = board.setBoardMatrixCells(sign);
@@ -137,8 +151,6 @@ public class BoardTest {
         assert board.toString().equals(expected) : String.format("Wrong representation " +
                 "of board, get %s", board.toString());
     }
-
-//    TODO test for method setBoardMatrixCells moved form here and better toString test
 
     private String createBoardExpectedStringRepresentation(int width, int height, Sign sign) {
         StringBuilder expected = new StringBuilder();

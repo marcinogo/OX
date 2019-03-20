@@ -52,8 +52,6 @@ public class Board {
         return stringBuilder.toString();
     }
 
-//    TODO test this method
-
     Board setBoardMatrixCells(Sign sign) {
         Board board = new Board(this);
         for (int i = 0; i < board.matrix.length; i++) {
