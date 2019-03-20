@@ -7,8 +7,10 @@ import ogo.marcin.ox.board.Board;
  */
 class Match {
     Integer winCondition;
+    Board board;
 
     Match(Integer winCondition, Board board) {
         this.winCondition = winCondition;
+        this.board = board;
     }
 }
