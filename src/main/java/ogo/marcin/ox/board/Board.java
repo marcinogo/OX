@@ -1,5 +1,8 @@
 package ogo.marcin.ox.board;
 
+import java.util.Arrays;
+import java.util.Objects;
+
 /**
  * @author Marcin Ogorzalek
  */
@@ -49,6 +52,8 @@ public class Board {
         return stringBuilder.toString();
     }
 
+//    TODO test this method
+
     Board setBoardMatrixCells(Sign sign) {
         Board board = new Board(this);
         for (int i = 0; i < board.matrix.length; i++) {
@@ -58,4 +63,19 @@ public class Board {
         }
         return board;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Board board = (Board) o;
+        if(width != board.width || height != board.height) return false;
+
+        for (int i = 0; i < height; i++) {
+            if(!Arrays.equals(matrix[i], board.matrix[i])) return false;
+        }
+
+        return true;
+    }
+
 }

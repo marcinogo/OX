@@ -152,4 +152,11 @@ public class BoardTest {
         }
         return expected.toString();
     }
+
+    @Test(dataProvider = "createBoard")
+    public void testEquals(int width, int height) {
+        Board board1 = new Board(width, height);
+        Board board2 = new Board(width, height);
+        assert board1.equals(board2) : "Boards should be equals";
+    }
 }
