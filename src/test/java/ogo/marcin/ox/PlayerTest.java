@@ -19,4 +19,10 @@ public class PlayerTest {
         Player player = new Player(null, Sign.X);
         assert player.name.equals("Player 1") : "Player should do not throw NPE";
     }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void testIfCreatePlayerWithEmptyThrowsException() {
+        Player player = new Player("", Sign.X);
+        assert player.name.equals("Player 1") : "Player should not be empty";
+    }
 }

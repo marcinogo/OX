@@ -16,6 +16,6 @@ class Player {
     }
 
     private boolean validateName(String name) {
-        return name != null;
+        return name != null && !name.equals("");
     }
 }
