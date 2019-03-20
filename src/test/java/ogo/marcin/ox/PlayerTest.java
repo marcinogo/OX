@@ -1,6 +1,7 @@
 package ogo.marcin.ox;
 
 import ogo.marcin.ox.board.Sign;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 /**
@@ -64,5 +65,26 @@ public class PlayerTest {
     public void testIfCreatePlayerWithMinusPoints() {
         Player player = new Player("Player 1", Sign.X, -1);
         assert player.points > 0 : "Created player should have at least 0";
+    }
+
+    @DataProvider
+    public static Object[][] setPlayerPoints(){
+        return new Object[][] {
+            {"Player 1", Sign.X, 0, 3},
+            {"Player 1", Sign.O, 0, 3},
+            {"Player 2", Sign.X, 10, 3},
+            {"Player 2", Sign.O, 10, 3},
+            {"Tomek", Sign.X, 0, 100},
+            {"Tomek", Sign.O, 0, 100},
+        };
+    }
+
+    @Test(dataProvider = "setPlayerPoints")
+    public void testIfPlayerPointsCanBeSet(String name, Sign sign,
+                                           Integer startingPoints, Integer newNumberOfPoints) {
+        Player player = new Player(name, sign, startingPoints);
+        player = player.setPlayerPoints(newNumberOfPoints);
+        assert player.points.equals(newNumberOfPoints) : String.format("Player should " +
+                "have %d points", newNumberOfPoints);
     }
 }

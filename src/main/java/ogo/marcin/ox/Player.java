@@ -23,6 +23,10 @@ class Player {
         this.points = points;
     }
 
+    private Player(Player player) {
+        this(player.name, player.playerSign, player.points);
+    }
+
     private void validatePlayerData(String name, Sign sign, Integer points) {
         if(!validateName(name)) throw new IllegalArgumentException("Player must have name");
         if(!validateSign(sign)) throw new IllegalArgumentException("Player must have not default sign");
@@ -54,5 +58,11 @@ class Player {
     @Override
     public int hashCode() {
         return Objects.hash(name, playerSign, points);
+    }
+
+    Player setPlayerPoints(Integer newNumberOfPoints) {
+        Player player = new Player(this);
+        player.points = newNumberOfPoints;
+        return player;
     }
 }
