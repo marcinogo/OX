@@ -4,6 +4,8 @@ package ogo.marcin.ox.board;
  * @author Marcin Ogorzalek
  */
 public class BoardAPIImpl implements BoardAPI {
+
+
     @Override
     public Board createBoard(int width, int height, Sign defaultSign) {
         BoardFactory boardFactory = new BoardFactory();
@@ -19,5 +21,20 @@ public class BoardAPIImpl implements BoardAPI {
     @Override
     public Field[][] getBoardContent(Board board) {
         return board.matrix;
+    }
+
+    @Override
+    public Boolean isFreeSpaceOnBoard(Board board, Sign defaultSign) {
+        for (int i = 0; i < board.height; i++) {
+            for(Field field: board.matrix[i]) {
+                if(field.sign.equals(defaultSign)) return Boolean.TRUE;
+            }
+        }
+        return Boolean.FALSE;
+    }
+
+    @Override
+    public Boolean isFieldSignEqualsPlayerSign(Field field, Sign playerSign) {
+        return field.sign.equals(playerSign);
     }
 }
