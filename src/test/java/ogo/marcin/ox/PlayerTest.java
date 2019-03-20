@@ -37,4 +37,9 @@ public class PlayerTest {
         Player player = new Player("Player 1", Sign.DEFAULT);
         assert !player.playerSign.equals(Sign.DEFAULT) : "Player should have not default sign";
     }
+
+    public void testIfCreatePlayerWith0Points() {
+        Player player = new Player("Player 1", Sign.X);
+        assert player.points.equals(0) : "Created player should have 0 points";
+    }
 }
