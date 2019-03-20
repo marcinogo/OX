@@ -159,4 +159,11 @@ public class BoardTest {
         Board board2 = new Board(width, height);
         assert board1.equals(board2) : "Boards should be equals";
     }
+
+    @Test(dataProvider = "createBoard")
+    public void testHashCoed(int width, int height) {
+        Board board1 = new Board(width, height);
+        Board board2 = new Board(width, height);
+        assert board1.hashCode() == board2.hashCode() : "HashCodes should be equals";
+    }
 }

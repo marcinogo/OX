@@ -78,4 +78,13 @@ public class Board {
         return true;
     }
 
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(width, height);
+        result = 31 * result;
+        for (int i = 0; i < height; i++) {
+            result += Arrays.hashCode(matrix[i]);
+        }
+        return result;
+    }
 }
