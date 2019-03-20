@@ -65,4 +65,10 @@ class Player {
         player.points = newNumberOfPoints;
         return player;
     }
+
+//    In extending class change string parts to localized version from ResourceBundle
+    @Override
+    public String toString() {
+        return String.format("%s with sign %s have: %d points", name, playerSign, points);
+    }
 }

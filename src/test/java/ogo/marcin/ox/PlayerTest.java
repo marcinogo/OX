@@ -87,4 +87,27 @@ public class PlayerTest {
         assert player.points.equals(newNumberOfPoints) : String.format("Player should " +
                 "have %d points", newNumberOfPoints);
     }
+
+    @DataProvider
+    public static Object[][] testToString(){
+        return new Object[][] {
+                {"Player 1", Sign.X, 0},
+                {"Player 1", Sign.O, 0},
+                {"Player 2", Sign.X, 10},
+                {"Player 2", Sign.O, 10},
+                {"Tomek", Sign.X, 0},
+                {"Tomek", Sign.O, 0},
+                {"Tomek", Sign.X, 20},
+                {"Tomek", Sign.O, 20},
+                {"Tomek", Sign.X, 3},
+                {"Tomek", Sign.O, 3},
+        };
+    }
+
+    @Test(dataProvider = "testToString")
+    public void testIfPlayerPointsCanBeSet(String name, Sign sign, Integer points) {
+        Player player = new Player(name, sign, points);
+        String expected = String.format("%s with sign %s have: %d points", name, sign, points);
+        assert player.toString().equals(expected) : "toString give wrong output";
+    }
 }
