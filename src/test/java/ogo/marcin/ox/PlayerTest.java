@@ -13,4 +13,10 @@ public class PlayerTest {
         assert player.name.equals("Player 1") : "Player should have name \"Player 1\"";
         assert player.playerSign == Sign.X : "Player should have sign X";
     }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void testIfCreatePlayerWithoutNameThrowsException() {
+        Player player = new Player(null, Sign.X);
+        assert player.name.equals("Player 1") : "Player should do not throw NPE";
+    }
 }
