@@ -48,4 +48,10 @@ public class PlayerTest {
         Player player2 = new Player("Player 1", Sign.X);
         assert player1.equals(player2);
     }
+
+    public void testPlayersHashCode() {
+        Player player1 = new Player("Player 1", Sign.X);
+        Player player2 = new Player("Player 1", Sign.X);
+        assert player1.hashCode() == player2.hashCode();
+    }
 }

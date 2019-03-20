@@ -38,4 +38,9 @@ class Player {
                 playerSign == player.playerSign &&
                 Objects.equals(points, player.points);
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, playerSign, points);
+    }
 }
