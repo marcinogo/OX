@@ -54,4 +54,15 @@ public class PlayerTest {
         Player player2 = new Player("Player 1", Sign.X);
         assert player1.hashCode() == player2.hashCode();
     }
+
+    public void testIfCanCreatePlayerWithGivenNumberOfPoints() {
+        Player player = new Player("Player 1", Sign.X, 20);
+        assert player.points.equals(20) : "Player should have 20 points";
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void testIfCreatePlayerWithMinusPoints() {
+        Player player = new Player("Player 1", Sign.X, -1);
+        assert player.points > 0 : "Created player should have at least 0";
+    }
 }

@@ -13,12 +13,20 @@ class Player {
     Integer points;
 
     Player(String name, Sign playerSign) {
-        if(!validateName(name)) throw new IllegalArgumentException("Player must have name");
-        if(!validateSign(playerSign)) throw new IllegalArgumentException("Player must have not default sign");
+        this(name, playerSign, 0);
+    }
 
+    Player(String name, Sign playerSign, Integer points) {
+        validatePlayerData(name, playerSign, points);
         this.name = name;
         this.playerSign = playerSign;
-        this.points = 0;
+        this.points = points;
+    }
+
+    private void validatePlayerData(String name, Sign sign, Integer points) {
+        if(!validateName(name)) throw new IllegalArgumentException("Player must have name");
+        if(!validateSign(sign)) throw new IllegalArgumentException("Player must have not default sign");
+        if(!validatePoints(points)) throw new IllegalArgumentException("Player can not have points below 0");
     }
 
     private boolean validateName(String name) {
@@ -27,6 +35,10 @@ class Player {
 
     private boolean validateSign(Sign sign) {
         return sign != null && !sign.equals(Sign.DEFAULT);
+    }
+
+    private boolean validatePoints(Integer points) {
+        return points >= 0;
     }
 
     @Override
