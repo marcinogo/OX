@@ -42,4 +42,10 @@ public class PlayerTest {
         Player player = new Player("Player 1", Sign.X);
         assert player.points.equals(0) : "Created player should have 0 points";
     }
+
+    public void testPlayersEquality() {
+        Player player1 = new Player("Player 1", Sign.X);
+        Player player2 = new Player("Player 1", Sign.X);
+        assert player1.equals(player2);
+    }
 }

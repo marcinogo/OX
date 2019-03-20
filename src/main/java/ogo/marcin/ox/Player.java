@@ -2,6 +2,8 @@ package ogo.marcin.ox;
 
 import ogo.marcin.ox.board.Sign;
 
+import java.util.Objects;
+
 /**
  * @author Marcin Ogorzalek
  */
@@ -25,5 +27,15 @@ class Player {
 
     private boolean validateSign(Sign sign) {
         return sign != null && !sign.equals(Sign.DEFAULT);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Player player = (Player) o;
+        return Objects.equals(name, player.name) &&
+                playerSign == player.playerSign &&
+                Objects.equals(points, player.points);
     }
 }
