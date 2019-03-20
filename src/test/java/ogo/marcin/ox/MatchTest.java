@@ -16,8 +16,7 @@ public class MatchTest {
         Match match = new Match(3, boardAPI.createBoard(3, 3, Sign.DEFAULT));
         assert match.winCondition == 3 : "Winn condition should be equal 3";
     }
-
-
+    
     public void testIfMachHaveBoard() {
         BoardAPI boardAPI = new BoardAPIImpl();
         Board board = boardAPI.createBoard(3, 3, Sign.DEFAULT);
