@@ -24,7 +24,14 @@ public class Board {
     private Board(Board board) {
         this.width = board.width;
         this.height = board.height;
-        this.matrix = board.matrix;
+        this.matrix = new Field[board.height][];
+        copyMatrixContent(this.matrix, board.matrix);
+    }
+
+    private void copyMatrixContent(Field[][] newMatrix, Field[][] oldMatrix) {
+        for(int i = 0; i < oldMatrix.length; i++) {
+            newMatrix[i] = oldMatrix[i].clone();
+        }
     }
 
     private boolean validateDimensions(int width, int height) {
