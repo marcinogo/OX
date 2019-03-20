@@ -18,10 +18,10 @@ public class PlayerFactoryTest {
                 {"Player 2", Sign.O, 10},
                 {"Tomek", Sign.X, 0},
                 {"Tomek", Sign.O, 0},
-                {"Tomek", Sign.X, 20},
-                {"Tomek", Sign.O, 20},
-                {"Tomek", Sign.X, 3},
-                {"Tomek", Sign.O, 3},
+                {"Marcin", Sign.X, 20},
+                {"Marcin", Sign.O, 20},
+                {"Zbyszek", Sign.X, 3},
+                {"Zbyszek", Sign.O, 3},
         };
     }
 
@@ -44,10 +44,10 @@ public class PlayerFactoryTest {
                 {"Player 2", Sign.O},
                 {"Tomek", Sign.X},
                 {"Tomek", Sign.O},
-                {"Tomek", Sign.X},
-                {"Tomek", Sign.O},
-                {"Tomek", Sign.X},
-                {"Tomek", Sign.O},
+                {"Marcin", Sign.X},
+                {"Marcin", Sign.O},
+                {"Zbyszek", Sign.X},
+                {"Zbyszek", Sign.O},
         };
     }
 
