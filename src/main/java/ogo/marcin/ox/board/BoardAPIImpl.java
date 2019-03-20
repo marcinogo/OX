@@ -15,4 +15,9 @@ public class BoardAPIImpl implements BoardAPI {
         Field field = new Field(sign);
         return board.setField(widthToUpdate, heightToUpdate, field);
     }
+
+    @Override
+    public Field[][] getBoardContent(Board board) {
+        return board.matrix;
+    }
 }

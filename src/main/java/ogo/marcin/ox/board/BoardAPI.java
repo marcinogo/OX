@@ -5,6 +5,6 @@ package ogo.marcin.ox.board;
  */
 public interface BoardAPI {
     Board createBoard(int width, int height, Sign defaultSign);
-
     Board setField(Board board, int widthToUpdate, int heightToUpdate, Sign sign);
+    Field[][] getBoardContent(Board board);
 }
