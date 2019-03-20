@@ -1,6 +1,8 @@
-package ogo.marcin.ox;
+package ogo.marcin.ox.player;
 
 import ogo.marcin.ox.board.Sign;
+import ogo.marcin.ox.player.Player;
+import ogo.marcin.ox.player.PlayerFactory;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 

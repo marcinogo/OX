@@ -1,4 +1,4 @@
-package ogo.marcin.ox;
+package ogo.marcin.ox.player;
 
 import ogo.marcin.ox.board.Sign;
 
