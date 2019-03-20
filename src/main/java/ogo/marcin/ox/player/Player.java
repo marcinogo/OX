@@ -7,7 +7,7 @@ import java.util.Objects;
 /**
  * @author Marcin Ogorzalek
  */
-class Player {
+public class Player {
     final String name;
     final Sign playerSign;
     Integer points;
