@@ -22,6 +22,6 @@ class Player {
     }
 
     private boolean validateSign(Sign sign) {
-        return sign != null;
+        return sign != null && !sign.equals(Sign.DEFAULT);
     }
 }

@@ -31,4 +31,10 @@ public class PlayerTest {
         Player player = new Player("Player 1", null);
         assert player.playerSign != null : "Player should have sign";
     }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void testIfCreatePlayerWithDefaultSignThrowsException() {
+        Player player = new Player("Player 1", Sign.DEFAULT);
+        assert !player.playerSign.equals(Sign.DEFAULT) : "Player should have not default sign";
+    }
 }
