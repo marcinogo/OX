@@ -5,7 +5,7 @@ import ogo.marcin.ox.board.Sign;
 /**
  * @author Marcin Ogorzalek
  */
-public class PlayerFactory {
+class PlayerFactory {
     Player createPlayer(String name, Sign sign) {
         return new Player(name, sign);
     }
