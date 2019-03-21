@@ -9,28 +9,26 @@ import ogo.marcin.ox.board.Sign;
  */
 class Judge {
     private BoardAPI boardAPI;
-    private Board board;
     private Sign defaultSign;
 
-    Judge(BoardAPI boardAPI, Board board, Sign defaultSign) {
+    Judge(BoardAPI boardAPI, Sign defaultSign) {
         this.boardAPI = boardAPI;
-        this.board = board;
         this.defaultSign = defaultSign;
     }
 
-    Boolean isFreeSpaceOnBoard() {
+    Boolean isFreeSpaceOnBoard(Board board) {
         return boardAPI.isFreeSpaceOnBoard(board, defaultSign);
     }
 
-    Boolean isPlayerActionWithinBoard(int x, int y) {
+    Boolean isPlayerActionWithinBoard(Board board, int x, int y) {
         return boardAPI.isCoordinatesWithinBoard(board, x, y);
     }
 
-    Boolean isPLayerSignSetOnFreeSpace(int x, int y) {
+    Boolean isPlayerSignSetOnFreeSpace(Board board, int x, int y) {
         return boardAPI.isCoordinatesPointsToDefaultSign(board, defaultSign, x, y);
     }
 
-    Boolean isPlayerWon(Sign playerSign, int x, int y, Integer winCondition) {
+    Boolean isPlayerWon(Board board, Sign playerSign, int x, int y, Integer winCondition) {
         return boardAPI.isSignNumberMeet(board, playerSign, x, y, winCondition);
     }
 }

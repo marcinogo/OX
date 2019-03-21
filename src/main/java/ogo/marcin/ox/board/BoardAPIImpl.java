@@ -39,7 +39,7 @@ public class BoardAPIImpl implements BoardAPI {
 
     @Override
     public Boolean isCoordinatesPointsToDefaultSign(Board board, Sign defaultSign, int x, int y) {
-        return board.matrix[x][y].sign == defaultSign;
+        return board.matrix[x][y].sign.equals(defaultSign);
     }
 
     public Boolean isSignNumberMeet(Board board, Sign playerSign, int x, int y, Integer requiredSignNumber) {
@@ -115,7 +115,7 @@ public class BoardAPIImpl implements BoardAPI {
     private Boolean antidiagonalCheck(Board board, Sign playerSign, int x, int y, Integer requiredSignNumber) {
         Integer count = 1;
 
-        for(int i = y + 1, j = x - 1; i < board.matrix.length && j < board.matrix[i].length; i++, j++) {
+        for(int i = y + 1, j = x - 1; i < board.matrix.length && j >= 0; i++, j--) {
             if(board.matrix[i][j].sign.equals(playerSign)) {
                 count++;
             } else {
@@ -123,7 +123,7 @@ public class BoardAPIImpl implements BoardAPI {
             }
         }
 
-        for(int i = y - 1, j = x + 1; i >= 0 && j >= 0; i--, j--) {
+        for(int i = y - 1, j = x + 1; i >= 0 && j < board.matrix.length; i--, j++) {
             if(board.matrix[i][j].sign.equals(playerSign)) {
                 count++;
             } else {
