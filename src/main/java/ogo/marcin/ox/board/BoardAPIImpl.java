@@ -38,7 +38,7 @@ public class BoardAPIImpl implements BoardAPI {
     }
 
     @Override
-    public Boolean isFieldSignEqualsPlayerSign(Board board, Field field, Sign playerSign) {
-        return field.sign.equals(playerSign);
+    public Boolean isCoordinatesPointsToDefaultSign(Board board, Sign defaultSign, int width, int height) {
+        return board.matrix[height][width].sign == defaultSign;
     }
 }

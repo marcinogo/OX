@@ -25,4 +25,8 @@ class Judge {
     Boolean isPlayerActionWithinBoard(int width, int height) {
         return boardAPI.isCoordinatesWithinBoard(board, width, height);
     }
+
+    Boolean isPLayerSignSetOnFreeSpace(int width, int height) {
+        return boardAPI.isCoordinatesPointsToDefaultSign(board, defaultSign, width, height);
+    }
 }
