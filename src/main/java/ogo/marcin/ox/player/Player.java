@@ -7,7 +7,7 @@ import java.util.Objects;
 /**
  * @author Marcin Ogorzalek
  */
-public class Player {
+public class Player implements Comparable<Player>{
     final String name;
     final Sign playerSign;
     Integer points;
@@ -70,5 +70,10 @@ public class Player {
     @Override
     public String toString() {
         return String.format("%s with sign %s have: %d points", name, playerSign, points);
+    }
+
+    @Override
+    public int compareTo(Player o) {
+        return this.points - o.points;
     }
 }
