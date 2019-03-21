@@ -14,28 +14,26 @@ import java.util.List;
  */
 class Match {
     private BoardAPI boardAPI;
-    private Input input;
-    private List<Player> players;
-    private Sign defaultSign;
-    private Integer winCondition;
     private PlayerAPI playerAPI;
+    private Input input;
+
+    private List<Player> players;
+    private Integer winCondition;
     private Boolean isWinner;
     private Board board;
 
-    public Match(BoardAPI boardAPI, Input input, List<Player> players, Sign defaultSign,
-                 Integer winCondition, PlayerAPI playerAPI, Boolean isWinner, Board board) {
+    Match(BoardAPI boardAPI, PlayerAPI playerAPI, Input input, Settings settings) {
         this.boardAPI = boardAPI;
         this.input = input;
-        this.players = players;
-        this.defaultSign = defaultSign;
-        this.winCondition = winCondition;
+        this.players = settings.getPlayers();
+        this.winCondition = settings.getWinCondition();
         this.playerAPI = playerAPI;
-        this.isWinner = isWinner;
-        this.board = board;
+        this.board = settings.getBoard();
+        this.isWinner = Boolean.FALSE;
     }
 
     void play() {
-        Judge judge = new Judge(boardAPI, defaultSign, winCondition);
+        Judge judge = new Judge(boardAPI, winCondition, board);
 
         Player winner = matchLoop(judge);
 
@@ -49,13 +47,14 @@ class Match {
         } else {
             Integer playerPoints = playerAPI.getPlayerPoints(winner);
             int i = players.indexOf(winner);
-            players.set(i, playerAPI.setPlayerPoints(winner, playerPoints + 3));
+            winner = playerAPI.setPlayerPoints(winner, playerPoints + 3);
+            players.set(i, winner);
             System.out.printf("Winner is %s", winner);
         }
 
     }
 
-    private Coordinates getCoordinates() {
+    private Coordinates getCoordinates(Judge judge) {
         Coordinates coordinates = null;
          do {
              System.out.println("Enter x coordinate");
@@ -63,23 +62,24 @@ class Match {
              System.out.println("Enter y coordinate");
              Integer y = input.getIntegerInput();
 //             TODO check and info if they are correct;
-             coordinates = new Coordinates(x, y);
-         } while (!boardAPI.isCoordinatesWithinBoard(board, coordinates) ||
-                 !boardAPI.isCoordinatesPointsToDefaultSign(board, defaultSign, coordinates));
+             coordinates = boardAPI.createCoordinates(x, y);
+         } while (!judge.isPlayerActionWithinBoard(coordinates) ||
+                 !judge.isPlayerSignSetOnFreeSpace(coordinates));
         return coordinates;
     }
 
     private Boolean playerTurn(Judge judge, Player player) {
         System.out.println(board);
-        if (!judge.isFreeSpaceOnBoard(board)) return Boolean.FALSE;
+        if (!judge.isFreeSpaceOnBoard()) return Boolean.FALSE;
         Boolean endTurn = Boolean.FALSE;
 
         System.out.printf("It is turn of %s - %s%n",
                 playerAPI.getPlayerName(player), playerAPI.getPlayerSign(player));
 
-        Coordinates coordinates = getCoordinates();
+        Coordinates coordinates = getCoordinates(judge);
         board = boardAPI.setField(board, coordinates, playerAPI.getPlayerSign(player));
-        isWinner = judge.isPlayerWon(board, playerAPI.getPlayerSign(player), coordinates);
+        judge.setBoard(board);
+        isWinner = judge.isPlayerWon(playerAPI.getPlayerSign(player), coordinates);
         if(isWinner) endTurn = Boolean.TRUE;
         return endTurn;
     }
@@ -93,7 +93,7 @@ class Match {
                     break;
                 }
             }
-        } while (judge.isFreeSpaceOnBoard(board) && !isWinner);
+        } while (judge.isFreeSpaceOnBoard() && !isWinner);
         return winner;
     }
 }

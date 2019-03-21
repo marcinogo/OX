@@ -5,9 +5,13 @@ package ogo.marcin.ox.board;
  */
 public class BoardAPIImpl implements BoardAPI {
     @Override
-    public Board createBoard(Coordinates coordinates, Sign defaultSign) {
-        BoardFactory boardFactory = new BoardFactory();
-        return boardFactory.createBoard(coordinates, defaultSign);
+    public Board createBoard(Coordinates dimensions) {
+        return new BoardFactory().createBoard(dimensions, Sign.DEFAULT);
+    }
+
+    @Override
+    public Board createBoard(Coordinates dimensions, Sign defaultSign) {
+        return new BoardFactory().createBoard(dimensions, defaultSign);
     }
 
     @Override

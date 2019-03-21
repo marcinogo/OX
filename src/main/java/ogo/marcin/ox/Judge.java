@@ -21,6 +21,10 @@ class Judge {
         this.board = board;
     }
 
+    public Judge(BoardAPI boardAPI, Integer winCondition, Board board) {
+        this(boardAPI, Sign.DEFAULT, winCondition, board);
+    }
+
     public void setBoard(Board board) {
         this.board = board;
     }

@@ -17,18 +17,20 @@ public class Main {
         try(Scanner scanner = new Scanner(System.in)) {
             Input input = new Input(scanner);
             BoardAPI boardAPI = new BoardAPIImpl();
-            Sign defaultSign = Sign.DEFAULT;
             PlayerAPI playerAPI = new PlayerAPIImpl();
+
             List<Player> players = new ArrayList<>();
             players.add(playerAPI.createPlayer("player 1", Sign.X));
             players.add(playerAPI.createPlayer("player 2", Sign.O));
+
             Integer winCondition = 3;
 
-            Coordinates boardDimensions = new Coordinates(3, 3);
-            Board board = boardAPI.createBoard(boardDimensions, defaultSign);
+            Coordinates boardDimensions = boardAPI.createCoordinates(3, 3);
+            Board board = boardAPI.createBoard(boardDimensions);
 
-            Match match = new Match(boardAPI, input, players,
-                    defaultSign, winCondition, playerAPI, Boolean.FALSE, board);
+            Settings settings = new Settings(players, winCondition, board);
+
+            Match match = new Match(boardAPI, playerAPI, input, settings);
             match.play();
         }
     }
