@@ -9,5 +9,7 @@ public interface BoardAPI {
     Board setField(Board board, int widthToUpdate, int heightToUpdate, Sign sign);
 
     Boolean isFreeSpaceOnBoard(Board board, Sign defaultSign);
+    Boolean isCoordinatesWithinBoard(Board board, int width, int height);
+
     Boolean isFieldSignEqualsPlayerSign(Board board, Field field, Sign playerSign);
 }

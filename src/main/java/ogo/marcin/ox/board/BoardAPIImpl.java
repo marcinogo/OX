@@ -31,6 +31,13 @@ public class BoardAPIImpl implements BoardAPI {
     }
 
     @Override
+    public Boolean isCoordinatesWithinBoard(Board board, int width, int height) {
+        if(width < 0 || width >= board.width) return Boolean.FALSE;
+        if(height < 0 || height >= board.height) return Boolean.FALSE;
+        return Boolean.TRUE;
+    }
+
+    @Override
     public Boolean isFieldSignEqualsPlayerSign(Board board, Field field, Sign playerSign) {
         return field.sign.equals(playerSign);
     }

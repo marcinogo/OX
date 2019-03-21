@@ -18,7 +18,11 @@ class Judge {
         this.defaultSign = defaultSign;
     }
 
-    Boolean checkFreeSpaceOnBoard() {
+    Boolean isFreeSpaceOnBoard() {
         return boardAPI.isFreeSpaceOnBoard(board, defaultSign);
+    }
+
+    Boolean isPlayerActionWithinBoard(int width, int height) {
+        return boardAPI.isCoordinatesWithinBoard(board, width, height);
     }
 }
