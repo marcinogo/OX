@@ -88,29 +88,31 @@ public class BoardTest {
     @DataProvider
     public static Object[][] setFieldValue(){
         return new Object[][] {
-                {3, 3, 1, 1 , new Field(Sign.DEFAULT)},
-                {3, 5, 2, 4, new Field(Sign.O)},
-                {5, 5, 4, 4, new Field(Sign.X)},
-                {9, 7, 0, 0, new Field(Sign.X)},
-                {4, 4, 2, 3, new Field(Sign.DEFAULT)},
-                {40, 36, 35, 25, new Field(Sign.X)},
-                {40, 40, 39, 39, new Field(Sign.O)},
-                {39, 3, 17, 1, new Field(Sign.DEFAULT)},
-                {3, 39, 1, 17, new Field(Sign.DEFAULT)},
-                {3, 40, 1, 20, new Field(Sign.X)},
-                {40, 3, 20, 1, new Field(Sign.O)},
-                {20, 20, 12, 12, new Field(Sign.DEFAULT)},
+                {3, 3, 1, 1 , Sign.DEFAULT},
+                {3, 5, 2, 4, Sign.O},
+                {5, 5, 4, 4, Sign.X},
+                {9, 7, 0, 0, Sign.X},
+                {4, 4, 2, 3, Sign.DEFAULT},
+                {40, 36, 35, 25, Sign.X},
+                {40, 40, 39, 39, Sign.O},
+                {39, 3, 17, 1, Sign.DEFAULT},
+                {3, 39, 1, 17, Sign.DEFAULT},
+                {3, 40, 1, 20, Sign.X},
+                {40, 3, 20, 1, Sign.O},
+                {20, 20, 12, 12, Sign.DEFAULT},
         };
     }
 
     @Test(dataProvider = "setFieldValue")
     public void testIfBoardSetFieldValueInMatrix(int width, int height,
                                                  int widthToUpdate, int heightToUpdate,
-                                                 Field field) {
+                                                 Sign sign) {
         Board board = new Board(width, height);
-        Board updateBoard = board.setField(widthToUpdate, heightToUpdate, field);
-        assert updateBoard.matrix[heightToUpdate][widthToUpdate] == field : String.format("Field should " +
-                "have value \"%s\"", field);
+        board = board.setBoardMatrixCells(Sign.DEFAULT);
+        Board updateBoard = board.setField(widthToUpdate, heightToUpdate, sign);
+        Field expected = new Field(sign);
+        assert updateBoard.matrix[heightToUpdate][widthToUpdate].equals(expected): String.format("Field should " +
+                "have value %s", expected);
     }
 
     @DataProvider

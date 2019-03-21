@@ -12,7 +12,6 @@ public class BoardAPIImpl implements BoardAPI {
 
     @Override
     public Board setField(Board board, int widthToUpdate, int heightToUpdate, Sign sign) {
-        Field field = new Field(sign);
-        return board.setField(widthToUpdate, heightToUpdate, field);
+        return board.setField(widthToUpdate, heightToUpdate, sign);
     }
 }
