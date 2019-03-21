@@ -11,4 +11,5 @@ public interface BoardAPI {
     Boolean isCoordinatesPointsToDefaultSign(Board board, Sign defaultSign, Coordinates coordinates);
     Boolean isSignNumberMeetRequirements(Board board, Sign playerSign,
                                          Coordinates coordinates, Integer requiredSignNumber);
+    Coordinates createCoordinates(Integer x, Integer y);
 }

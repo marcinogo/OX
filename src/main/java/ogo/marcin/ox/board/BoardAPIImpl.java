@@ -11,6 +11,11 @@ public class BoardAPIImpl implements BoardAPI {
     }
 
     @Override
+    public Coordinates createCoordinates(Integer x, Integer y) {
+        return new Coordinates(x, y);
+    }
+
+    @Override
     public Board setField(Board board, Coordinates coordinates, Sign sign) {
         return board.setField(coordinates, sign);
     }
