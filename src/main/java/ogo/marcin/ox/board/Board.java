@@ -12,12 +12,12 @@ public class Board {
 
     Field[][] matrix;
 
-    Board(int width, int height) {
-        if(!validateDimensions(width, height)) {
+    Board(Coordinates coordinates) {
+        if(!validateDimensions(coordinates.x, coordinates.y)) {
             throw new IllegalArgumentException("Width and height have to be at least 3");
         }
-        this.width = width;
-        this.height = height;
+        this.width = coordinates.x;
+        this.height = coordinates.y;
         this.matrix = new Field[height][width];
     }
 
@@ -39,10 +39,10 @@ public class Board {
                 && height >=3  && height <= 40;
     }
 
-    Board setField(int widthToUpdate, int heightToUpdate, Sign sign) {
+    Board setField(Coordinates coordinates, Sign sign) {
         Board newBoard = new Board(this);
-        Field fieldToChange = newBoard.matrix[heightToUpdate][widthToUpdate];
-        newBoard.matrix[heightToUpdate][widthToUpdate] = fieldToChange.changeSign(sign);
+        Field fieldToChange = newBoard.matrix[coordinates.y][coordinates.x];
+        newBoard.matrix[coordinates.y][coordinates.x] = fieldToChange.changeSign(sign);
         return newBoard;
     }
 

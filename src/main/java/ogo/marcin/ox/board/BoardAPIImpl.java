@@ -5,19 +5,14 @@ package ogo.marcin.ox.board;
  */
 public class BoardAPIImpl implements BoardAPI {
     @Override
-    public Board createBoard(int width, int height, Sign defaultSign) {
+    public Board createBoard(Coordinates coordinates, Sign defaultSign) {
         BoardFactory boardFactory = new BoardFactory();
-        return boardFactory.createBoard(width, height, defaultSign);
+        return boardFactory.createBoard(coordinates, defaultSign);
     }
 
     @Override
-    public Board setField(Board board, int x, int y, Sign sign) {
-        return board.setField(x, y, sign);
-    }
-
-    @Override
-    public Field[][] getBoardContent(Board board) {
-        return board.matrix;
+    public Board setField(Board board, Coordinates coordinates, Sign sign) {
+        return board.setField(coordinates, sign);
     }
 
     @Override
@@ -31,18 +26,22 @@ public class BoardAPIImpl implements BoardAPI {
     }
 
     @Override
-    public Boolean isCoordinatesWithinBoard(Board board, int x, int y) {
-        if(x < 0 || x >= board.width) return Boolean.FALSE;
-        if(y < 0 || y >= board.height) return Boolean.FALSE;
+    public Boolean isCoordinatesWithinBoard(Board board, Coordinates coordinates) {
+        if(coordinates.x < 0 || coordinates.x >= board.width) return Boolean.FALSE;
+        if(coordinates.y < 0 || coordinates.y >= board.height) return Boolean.FALSE;
         return Boolean.TRUE;
     }
 
     @Override
-    public Boolean isCoordinatesPointsToDefaultSign(Board board, Sign defaultSign, int x, int y) {
-        return board.matrix[x][y].sign.equals(defaultSign);
+    public Boolean isCoordinatesPointsToDefaultSign(Board board, Sign defaultSign, Coordinates coordinates) {
+        return board.matrix[coordinates.y][coordinates.x].sign.equals(defaultSign);
     }
 
-    public Boolean isSignNumberMeet(Board board, Sign playerSign, int x, int y, Integer requiredSignNumber) {
+    public Boolean isSignNumberMeetRequirements(Board board, Sign playerSign,
+                                                Coordinates coordinates, Integer requiredSignNumber) {
+        int x = coordinates.x;
+        int y = coordinates.y;
+
         return horizontalCheck(board, playerSign, x, y, requiredSignNumber) ||
                 verticalCheck(board, playerSign, x, y, requiredSignNumber) ||
                 diagonalCheck(board, playerSign, x, y, requiredSignNumber) ||

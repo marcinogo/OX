@@ -29,15 +29,17 @@ public class BoardFactoryTest {
     @Test(dataProvider = "createBoard")
     public void testCreateBoardDontReturnNull(int width, int height, Sign sign) {
         BoardFactory boardFactory = new BoardFactory();
-        Board board = boardFactory.createBoard(width, height, sign);
+        Coordinates coordinates = new Coordinates(width, height);
+        Board board = boardFactory.createBoard(coordinates, sign);
         assert board != null : "Board should not be null";
     }
 
     @Test(dataProvider = "createBoard")
     public void testCreateBoard(int width, int height, Sign sign) {
         BoardFactory boardFactory = new BoardFactory();
-        Board board = boardFactory.createBoard(width, height, sign);
-        Board expectedBoard = new Board(width, height).setBoardMatrixCells(sign);
+        Coordinates coordinates = new Coordinates(width, height);
+        Board board = boardFactory.createBoard(coordinates, sign);
+        Board expectedBoard = new Board(coordinates).setBoardMatrixCells(sign);
         assert board.equals(expectedBoard) : "Board should be equals";
     }
 }

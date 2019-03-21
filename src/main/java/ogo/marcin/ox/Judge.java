@@ -2,6 +2,7 @@ package ogo.marcin.ox;
 
 import ogo.marcin.ox.board.Board;
 import ogo.marcin.ox.board.BoardAPI;
+import ogo.marcin.ox.board.Coordinates;
 import ogo.marcin.ox.board.Sign;
 
 /**
@@ -10,25 +11,27 @@ import ogo.marcin.ox.board.Sign;
 class Judge {
     private BoardAPI boardAPI;
     private Sign defaultSign;
+    private Integer winCondition;
 
-    Judge(BoardAPI boardAPI, Sign defaultSign) {
+    public Judge(BoardAPI boardAPI, Sign defaultSign, Integer winCondition) {
         this.boardAPI = boardAPI;
         this.defaultSign = defaultSign;
+        this.winCondition = winCondition;
     }
 
     Boolean isFreeSpaceOnBoard(Board board) {
         return boardAPI.isFreeSpaceOnBoard(board, defaultSign);
     }
 
-    Boolean isPlayerActionWithinBoard(Board board, int x, int y) {
-        return boardAPI.isCoordinatesWithinBoard(board, x, y);
+    Boolean isPlayerActionWithinBoard(Board board, Coordinates coordinates) {
+        return boardAPI.isCoordinatesWithinBoard(board, coordinates);
     }
 
-    Boolean isPlayerSignSetOnFreeSpace(Board board, int x, int y) {
-        return boardAPI.isCoordinatesPointsToDefaultSign(board, defaultSign, x, y);
+    Boolean isPlayerSignSetOnFreeSpace(Board board, Coordinates coordinates) {
+        return boardAPI.isCoordinatesPointsToDefaultSign(board, defaultSign, coordinates);
     }
 
-    Boolean isPlayerWon(Board board, Sign playerSign, int x, int y, Integer winCondition) {
-        return boardAPI.isSignNumberMeet(board, playerSign, x, y, winCondition);
+    Boolean isPlayerWon(Board board, Sign playerSign, Coordinates coordinates) {
+        return boardAPI.isSignNumberMeetRequirements(board, playerSign, coordinates, winCondition);
     }
 }
