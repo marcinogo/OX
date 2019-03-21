@@ -9,9 +9,10 @@ import ogo.marcin.ox.board.Sign;
  * @author Marcin Ogorzalek
  */
 class Judge {
-    private BoardAPI boardAPI;
-    private Sign defaultSign;
-    private Integer winCondition;
+    private final BoardAPI boardAPI;
+    private final Sign defaultSign;
+    private final Integer winCondition;
+
     private Board board;
 
     Judge(BoardAPI boardAPI, Sign defaultSign, Integer winCondition, Board board) {

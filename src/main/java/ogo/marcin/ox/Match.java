@@ -13,13 +13,14 @@ import java.util.List;
  * @author Marcin Ogorzalek
  */
 class Match {
-    private BoardAPI boardAPI;
-    private PlayerAPI playerAPI;
-    private Input input;
+    private final BoardAPI boardAPI;
+    private final PlayerAPI playerAPI;
+    private final Input input;
 
-    private List<Player> players;
+    private final List<Player> players;
+    private final Integer winCondition;
+
     private Board board;
-    private Integer winCondition;
 
     private Boolean isWinner = Boolean.FALSE;
 
