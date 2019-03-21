@@ -2,7 +2,6 @@ package ogo.marcin.ox.board;
 
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-
 import java.util.Arrays;
 
 /**
@@ -29,12 +28,17 @@ public class BoardAPIImplTest {
     }
 
     @Test(dataProvider = "createBoard")
+    public void testCreateBoardDontReturnNull(int width, int height, Sign sign) {
+        BoardAPI boardAPI = new BoardAPIImpl();
+        Board board = boardAPI.createBoard(width, height, sign);
+        assert board != null : "Board should not be null";
+    }
+
+    @Test(dataProvider = "createBoard")
     public void testCreateBoard(int width, int height, Sign sign) {
         BoardAPI boardAPI = new BoardAPIImpl();
         Board board = boardAPI.createBoard(width, height, sign);
         Board expectedBoard = new Board(width, height).setBoardMatrixCells(sign);
-
-        assert board != null : "Board should not be null";
         assert board.equals(expectedBoard) : "Board should be equals";
     }
 
@@ -60,7 +64,6 @@ public class BoardAPIImplTest {
         BoardAPI boardAPI = new BoardAPIImpl();
         Board defaultBoard = new Board(width, height).setBoardMatrixCells(defaultSign);
         Board result = boardAPI.setField(defaultBoard, widthToUpdate, heightToUpdate, newSign);
-        assert !defaultBoard.equals(result) : "Boards should not be equals";
         defaultBoard.matrix[heightToUpdate][widthToUpdate] = new Field(newSign);
         assert defaultBoard.equals(result) : "Boards should be equals";
     }

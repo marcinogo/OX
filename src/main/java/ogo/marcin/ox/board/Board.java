@@ -39,9 +39,10 @@ public class Board {
                 && height >=3  && height <= 40;
     }
 
-    Board setField(int widthToUpdate, int heightToUpdate, Field field) {
+    Board setField(int widthToUpdate, int heightToUpdate, Sign sign) {
         Board newBoard = new Board(this);
-        newBoard.matrix[heightToUpdate][widthToUpdate] = field;
+        Field fieldToChange = newBoard.matrix[heightToUpdate][widthToUpdate];
+        newBoard.matrix[heightToUpdate][widthToUpdate] = fieldToChange.changeSign(sign);
         return newBoard;
     }
 

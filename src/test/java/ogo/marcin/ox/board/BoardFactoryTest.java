@@ -27,12 +27,17 @@ public class BoardFactoryTest {
     }
 
     @Test(dataProvider = "createBoard")
+    public void testCreateBoardDontReturnNull(int width, int height, Sign sign) {
+        BoardFactory boardFactory = new BoardFactory();
+        Board board = boardFactory.createBoard(width, height, sign);
+        assert board != null : "Board should not be null";
+    }
+
+    @Test(dataProvider = "createBoard")
     public void testCreateBoard(int width, int height, Sign sign) {
         BoardFactory boardFactory = new BoardFactory();
         Board board = boardFactory.createBoard(width, height, sign);
         Board expectedBoard = new Board(width, height).setBoardMatrixCells(sign);
-
-        assert board != null : "Board should not be null";
         assert board.equals(expectedBoard) : "Board should be equals";
     }
 }

@@ -5,8 +5,8 @@ package ogo.marcin.ox.board;
  */
 public interface BoardAPI {
     Board createBoard(int width, int height, Sign defaultSign);
-    Board setField(Board board, int widthToUpdate, int heightToUpdate, Sign sign);
     Field[][] getBoardContent(Board board);
     Boolean isFreeSpaceOnBoard(Board board, Sign defaultSign);
-    Boolean isFieldSignEqualsPlayerSign(Field field, Sign playerSign);
+    Boolean isFieldSignEqualsPlayerSign(Board board, Field field, Sign playerSign);
+    Board setField(Board board, int widthToUpdate, int heightToUpdate, Sign sign);
 }

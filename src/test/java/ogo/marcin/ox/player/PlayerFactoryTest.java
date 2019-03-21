@@ -54,12 +54,17 @@ public class PlayerFactoryTest {
     }
 
     @Test(dataProvider = "createPlayer")
+    public void testCreatePlayerDontReturnNull(String name, Sign sign) {
+        PlayerFactory playerFactory = new PlayerFactory();
+        Player player = playerFactory.createPlayer(name, sign);
+        assert player != null : "Player should not be null";
+    }
+
+    @Test(dataProvider = "createPlayer")
     public void testCreatePlayer(String name, Sign sign) {
         PlayerFactory playerFactory = new PlayerFactory();
         Player player = playerFactory.createPlayer(name, sign);
         Player expected = new Player(name, sign);
-
-        assert player != null : "Player should not be null";
         assert player.equals(expected) : "Players should be equals";
     }
 }

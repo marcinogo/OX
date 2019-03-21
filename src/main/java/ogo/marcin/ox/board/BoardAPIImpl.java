@@ -4,8 +4,6 @@ package ogo.marcin.ox.board;
  * @author Marcin Ogorzalek
  */
 public class BoardAPIImpl implements BoardAPI {
-
-
     @Override
     public Board createBoard(int width, int height, Sign defaultSign) {
         BoardFactory boardFactory = new BoardFactory();
@@ -14,8 +12,7 @@ public class BoardAPIImpl implements BoardAPI {
 
     @Override
     public Board setField(Board board, int widthToUpdate, int heightToUpdate, Sign sign) {
-        Field field = new Field(sign);
-        return board.setField(widthToUpdate, heightToUpdate, field);
+        return board.setField(widthToUpdate, heightToUpdate, sign);
     }
 
     @Override
@@ -34,7 +31,7 @@ public class BoardAPIImpl implements BoardAPI {
     }
 
     @Override
-    public Boolean isFieldSignEqualsPlayerSign(Field field, Sign playerSign) {
+    public Boolean isFieldSignEqualsPlayerSign(Board board, Field field, Sign playerSign) {
         return field.sign.equals(playerSign);
     }
 }
