@@ -41,8 +41,8 @@ public class Board {
 
     Board setField(Coordinates coordinates, Sign sign) {
         Board newBoard = new Board(this);
-        Field fieldToChange = newBoard.matrix[coordinates.y][coordinates.x];
-        newBoard.matrix[coordinates.y][coordinates.x] = fieldToChange.changeSign(sign);
+        Field fieldToChange = newBoard.matrix[coordinates.x][coordinates.y];
+        newBoard.matrix[coordinates.x][coordinates.y] = fieldToChange.changeSign(sign);
         return newBoard;
     }
 
