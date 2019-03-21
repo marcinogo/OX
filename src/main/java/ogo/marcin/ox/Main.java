@@ -1,8 +1,6 @@
 package ogo.marcin.ox;
 
-import ogo.marcin.ox.board.BoardAPI;
-import ogo.marcin.ox.board.BoardAPIImpl;
-import ogo.marcin.ox.board.Sign;
+import ogo.marcin.ox.board.*;
 import ogo.marcin.ox.player.Player;
 import ogo.marcin.ox.player.PlayerAPI;
 import ogo.marcin.ox.player.PlayerAPIImpl;
@@ -23,10 +21,14 @@ public class Main {
             PlayerAPI playerAPI = new PlayerAPIImpl();
             List<Player> players = new ArrayList<>();
             players.add(playerAPI.createPlayer("player 1", Sign.X));
-            players.add(playerAPI.createPlayer("player 2", Sign.X));
+            players.add(playerAPI.createPlayer("player 2", Sign.O));
             Integer winCondition = 3;
 
-            Match match = new Match(boardAPI, input, players, defaultSign, winCondition, playerAPI);
+            Coordinates boardDimensions = new Coordinates(3, 3);
+            Board board = boardAPI.createBoard(boardDimensions, defaultSign);
+
+            Match match = new Match(boardAPI, input, players,
+                    defaultSign, winCondition, playerAPI, Boolean.FALSE, board);
             match.play();
         }
     }
