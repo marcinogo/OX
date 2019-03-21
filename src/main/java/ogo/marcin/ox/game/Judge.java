@@ -1,4 +1,4 @@
-package ogo.marcin.ox;
+package ogo.marcin.ox.game;
 
 import ogo.marcin.ox.board.Board;
 import ogo.marcin.ox.board.BoardAPI;

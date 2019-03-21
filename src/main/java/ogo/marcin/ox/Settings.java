@@ -10,24 +10,20 @@ import java.util.List;
  * @author Marcin Ogorzalek
  */
 public class Settings {
-    private List<Player> players;
     private Sign defaultSign;
     private Integer winCondition;
     private Board board;
+    private Integer numberOfRounds;
 
-    public Settings(List<Player> players, Sign defaultSign, Integer winCondition, Board board) {
-        this.players = players;
+    public Settings(Sign defaultSign, Integer winCondition, Board board, Integer numberOfRounds) {
         this.defaultSign = defaultSign;
         this.winCondition = winCondition;
         this.board = board;
+        this.numberOfRounds = numberOfRounds;
     }
 
-    public Settings(List<Player> players, Integer winCondition, Board board) {
-        this(players, Sign.DEFAULT, winCondition, board);
-    }
-
-    public List<Player> getPlayers() {
-        return players;
+    public Settings(Integer winCondition, Board board) {
+        this(Sign.DEFAULT, winCondition, board, 3);
     }
 
     public Sign getDefaultSign() {
@@ -40,5 +36,9 @@ public class Settings {
 
     public Board getBoard() {
         return board;
+    }
+
+    public Integer getNumberOfRounds() {
+        return numberOfRounds;
     }
 }

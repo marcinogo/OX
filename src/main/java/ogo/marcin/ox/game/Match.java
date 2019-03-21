@@ -1,5 +1,6 @@
-package ogo.marcin.ox;
+package ogo.marcin.ox.game;
 
+import ogo.marcin.ox.Settings;
 import ogo.marcin.ox.board.Board;
 import ogo.marcin.ox.board.BoardAPI;
 import ogo.marcin.ox.board.Coordinates;
@@ -24,10 +25,10 @@ class Match {
 
     private Boolean isWinner = Boolean.FALSE;
 
-    Match(BoardAPI boardAPI, PlayerAPI playerAPI, Input input, Settings settings) {
+    Match(BoardAPI boardAPI, PlayerAPI playerAPI, Input input, Settings settings, List<Player> players) {
         this.boardAPI = boardAPI;
         this.input = input;
-        this.players = settings.getPlayers();
+        this.players = players;
         this.winCondition = settings.getWinCondition();
         this.playerAPI = playerAPI;
         this.board = settings.getBoard();
@@ -95,7 +96,7 @@ class Match {
             int i = players.indexOf(winner);
             winner = playerAPI.setPlayerPoints(winner, playerPoints + 3);
             players.set(i, winner);
-            System.out.printf("Winner is %s", winner);
+            System.out.printf("Winner of match is %s%n", playerAPI.getPlayerName(winner));
         }
     }
 }

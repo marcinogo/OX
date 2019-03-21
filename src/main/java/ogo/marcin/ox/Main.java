@@ -1,6 +1,7 @@
 package ogo.marcin.ox;
 
 import ogo.marcin.ox.board.*;
+import ogo.marcin.ox.game.Game;
 import ogo.marcin.ox.io.Input;
 import ogo.marcin.ox.player.Player;
 import ogo.marcin.ox.player.PlayerAPI;
@@ -29,10 +30,10 @@ public class Main {
             Coordinates boardDimensions = boardAPI.createCoordinates(3, 3);
             Board board = boardAPI.createBoard(boardDimensions);
 
-            Settings settings = new Settings(players, winCondition, board);
+            Settings settings = new Settings(winCondition, board);
 
-            Match match = new Match(boardAPI, playerAPI, input, settings);
-            match.play();
+            Game game = new Game(settings, boardAPI, playerAPI, input, players);
+            game.play();
         }
     }
 }
