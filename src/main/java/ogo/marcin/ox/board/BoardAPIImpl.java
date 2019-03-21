@@ -22,8 +22,8 @@ public class BoardAPIImpl implements BoardAPI {
 
     @Override
     public Boolean isFreeSpaceOnBoard(Board board, Sign defaultSign) {
-        for (int i = 0; i < board.height; i++) {
-            for(Field field: board.matrix[i]) {
+        for (Field[] row: board.matrix) {
+            for(Field field: row) {
                 if(field.sign.equals(defaultSign)) return Boolean.TRUE;
             }
         }

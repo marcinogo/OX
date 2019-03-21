@@ -23,12 +23,4 @@ public class MatchTest {
         Match match = new Match(3, boardAPI, board);
         assert match.board ==  board: "Match should have board";
     }
-
-    public void testCheckIfDefaultFieldsOnBoard() {
-        BoardAPI boardAPI = new BoardAPIImpl();
-        Board board = boardAPI.createBoard(3, 3, Sign.DEFAULT);
-        Match match = new Match(3, boardAPI, board);
-        Boolean freeSpace = match.checkFreeSpaceOnBoard(Sign.DEFAULT);
-        assert freeSpace == true : "There should be information that there is free space on board";
-    }
 }

@@ -18,7 +18,5 @@ class Match {
         this.board = board;
     }
 
-    Boolean checkFreeSpaceOnBoard(Sign deafualSign) {
-        return boardAPI.isFreeSpaceOnBoard(board, deafualSign);
-    }
+
 }
