@@ -1,4 +1,4 @@
-package ogo.marcin.ox;
+package ogo.marcin.ox.io;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -13,11 +13,11 @@ public class Input {
         this.scanner = scanner;
     }
 
-    String getStringInput() {
+    public String getStringInput() {
         return scanner.nextLine();
     }
 
-    Integer getIntegerInput() {
+    public Integer getIntegerInput() {
         Integer result = null;
         boolean inputIsCorrect = true;
         do {

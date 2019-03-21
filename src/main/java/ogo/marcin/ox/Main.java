@@ -1,6 +1,7 @@
 package ogo.marcin.ox;
 
 import ogo.marcin.ox.board.*;
+import ogo.marcin.ox.io.Input;
 import ogo.marcin.ox.player.Player;
 import ogo.marcin.ox.player.PlayerAPI;
 import ogo.marcin.ox.player.PlayerAPIImpl;
