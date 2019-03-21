@@ -27,12 +27,17 @@ public class PlayerAPIImplTest {
     }
 
     @Test(dataProvider = "createPlayer")
+    public void testCreatePlayerDontReturnNull(String name, Sign sign, Integer points) {
+        PlayerAPI playerAPI = new PlayerAPIImpl();
+        Player player = playerAPI.createPlayer(name, sign, points);
+        assert player != null : "Player should not be null";
+    }
+
+    @Test(dataProvider = "createPlayer")
     public void testCreatePlayerWithGivenPoints(String name, Sign sign, Integer points) {
         PlayerAPI playerAPI = new PlayerAPIImpl();
         Player player = playerAPI.createPlayer(name, sign, points);
         Player expected = new Player(name, sign, points);
-
-        assert player != null : "Player should not be null";
         assert player.equals(expected) : "Players should be equals";
     }
 
