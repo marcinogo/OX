@@ -18,9 +18,10 @@ class Match {
     private Input input;
 
     private List<Player> players;
-    private Integer winCondition;
-    private Boolean isWinner;
     private Board board;
+    private Integer winCondition;
+
+    private Boolean isWinner = Boolean.FALSE;
 
     Match(BoardAPI boardAPI, PlayerAPI playerAPI, Input input, Settings settings) {
         this.boardAPI = boardAPI;
@@ -29,29 +30,12 @@ class Match {
         this.winCondition = settings.getWinCondition();
         this.playerAPI = playerAPI;
         this.board = settings.getBoard();
-        this.isWinner = Boolean.FALSE;
     }
 
     void play() {
         Judge judge = new Judge(boardAPI, winCondition, board);
-
-        Player winner = matchLoop(judge);
-
-        if(winner == null) {
-            System.out.println("Draw");
-            for(int i = 0; i < players.size(); i++) {
-                Player player = players.get(i);
-                Integer playerPoints = playerAPI.getPlayerPoints(player);
-                players.set(i, playerAPI.setPlayerPoints(player, playerPoints + 1));
-            }
-        } else {
-            Integer playerPoints = playerAPI.getPlayerPoints(winner);
-            int i = players.indexOf(winner);
-            winner = playerAPI.setPlayerPoints(winner, playerPoints + 3);
-            players.set(i, winner);
-            System.out.printf("Winner is %s", winner);
-        }
-
+        Player winner = playMatch(judge);
+        giveMatchResult(winner);
     }
 
     private Coordinates getCoordinates(Judge judge) {
@@ -68,7 +52,7 @@ class Match {
         return coordinates;
     }
 
-    private Boolean playerTurn(Judge judge, Player player) {
+    private Boolean playPlayerTurn(Judge judge, Player player) {
         System.out.println(board);
         if (!judge.isFreeSpaceOnBoard()) return Boolean.FALSE;
         Boolean endTurn = Boolean.FALSE;
@@ -84,16 +68,33 @@ class Match {
         return endTurn;
     }
 
-    private Player matchLoop(Judge judge) {
+    private Player playMatch(Judge judge) {
         Player winner = null;
         do {
             for (Player player: players) {
-                if(playerTurn(judge, player)) {
+                if(playPlayerTurn(judge, player)) {
                     winner = player;
                     break;
                 }
             }
         } while (judge.isFreeSpaceOnBoard() && !isWinner);
         return winner;
+    }
+
+    private void giveMatchResult(Player winner) {
+        if(winner == null) {
+            System.out.println("Draw");
+            for(int i = 0; i < players.size(); i++) {
+                Player player = players.get(i);
+                Integer playerPoints = playerAPI.getPlayerPoints(player);
+                players.set(i, playerAPI.setPlayerPoints(player, playerPoints + 1));
+            }
+        } else {
+            Integer playerPoints = playerAPI.getPlayerPoints(winner);
+            int i = players.indexOf(winner);
+            winner = playerAPI.setPlayerPoints(winner, playerPoints + 3);
+            players.set(i, winner);
+            System.out.printf("Winner is %s", winner);
+        }
     }
 }
