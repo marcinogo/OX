@@ -22,11 +22,15 @@ class Judge {
         return boardAPI.isFreeSpaceOnBoard(board, defaultSign);
     }
 
-    Boolean isPlayerActionWithinBoard(int width, int height) {
-        return boardAPI.isCoordinatesWithinBoard(board, width, height);
+    Boolean isPlayerActionWithinBoard(int x, int y) {
+        return boardAPI.isCoordinatesWithinBoard(board, x, y);
     }
 
-    Boolean isPLayerSignSetOnFreeSpace(int width, int height) {
-        return boardAPI.isCoordinatesPointsToDefaultSign(board, defaultSign, width, height);
+    Boolean isPLayerSignSetOnFreeSpace(int x, int y) {
+        return boardAPI.isCoordinatesPointsToDefaultSign(board, defaultSign, x, y);
+    }
+
+    Boolean isPlayerWon(Sign playerSign, int x, int y, Integer winCondition) {
+        return boardAPI.isSignNumberMeet(board, playerSign, x, y, winCondition);
     }
 }
