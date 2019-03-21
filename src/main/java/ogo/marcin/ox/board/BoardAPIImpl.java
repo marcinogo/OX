@@ -55,6 +55,8 @@ public class BoardAPIImpl implements BoardAPI {
         for(int i = x + 1; i < row.length; i++) {
             if(row[i].sign.equals(playerSign)) {
                 count++;
+            } else if(count.equals(requiredSignNumber)){
+                return Boolean.TRUE;
             } else {
                 break;
             }
@@ -63,6 +65,8 @@ public class BoardAPIImpl implements BoardAPI {
         for(int i = x - 1; i >= 0; i--) {
             if(row[i].sign.equals(playerSign)) {
                 count++;
+            } else if(count.equals(requiredSignNumber)){
+                return Boolean.TRUE;
             } else {
                 break;
             }
@@ -76,6 +80,8 @@ public class BoardAPIImpl implements BoardAPI {
         for(int i = y + 1; i < board.matrix.length; i++) {
             if(board.matrix[i][x].sign.equals(playerSign)) {
                 count++;
+            } else if(count.equals(requiredSignNumber)){
+                return Boolean.TRUE;
             } else {
                 break;
             }
@@ -84,6 +90,8 @@ public class BoardAPIImpl implements BoardAPI {
         for(int i = y - 1; i >= 0; i--) {
             if(board.matrix[i][x].sign.equals(playerSign)) {
                 count++;
+            } else if(count.equals(requiredSignNumber)){
+                return Boolean.TRUE;
             } else {
                 break;
             }
@@ -97,6 +105,8 @@ public class BoardAPIImpl implements BoardAPI {
         for(int i = y + 1, j = x + 1; i < board.matrix.length && j < board.matrix[i].length; i++, j++) {
             if(board.matrix[i][j].sign.equals(playerSign)) {
                 count++;
+            } else if(count.equals(requiredSignNumber)){
+                return Boolean.TRUE;
             } else {
                 break;
             }
@@ -105,6 +115,8 @@ public class BoardAPIImpl implements BoardAPI {
         for(int i = y - 1, j = x - 1; i >= 0 && j >= 0; i--, j--) {
             if(board.matrix[i][j].sign.equals(playerSign)) {
                 count++;
+            } else if(count.equals(requiredSignNumber)){
+                return Boolean.TRUE;
             } else {
                 break;
             }
@@ -118,6 +130,8 @@ public class BoardAPIImpl implements BoardAPI {
         for(int i = y + 1, j = x - 1; i < board.matrix.length && j >= 0; i++, j--) {
             if(board.matrix[i][j].sign.equals(playerSign)) {
                 count++;
+            } else if(count.equals(requiredSignNumber)){
+                return Boolean.TRUE;
             } else {
                 break;
             }
@@ -126,6 +140,8 @@ public class BoardAPIImpl implements BoardAPI {
         for(int i = y - 1, j = x + 1; i >= 0 && j < board.matrix.length; i--, j++) {
             if(board.matrix[i][j].sign.equals(playerSign)) {
                 count++;
+            } else if(count.equals(requiredSignNumber)){
+                return Boolean.TRUE;
             } else {
                 break;
             }
