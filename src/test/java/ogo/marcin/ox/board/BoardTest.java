@@ -93,13 +93,16 @@ public class BoardTest {
     public static Object[][] setFieldValue(){
         return new Object[][] {
                 {3, 3, 1, 1 , Sign.DEFAULT},
-                {3, 5, 4, 2, Sign.O},
+                {3, 5, 2, 4, Sign.O},
                 {5, 5, 4, 4, Sign.X},
                 {9, 7, 0, 0, Sign.X},
                 {4, 4, 2, 3, Sign.DEFAULT},
                 {40, 36, 35, 25, Sign.X},
                 {40, 40, 39, 39, Sign.O},
-                {3, 39, 17, 1, Sign.DEFAULT},
+                {39, 3, 17, 1, Sign.DEFAULT},
+                {3, 39, 1, 17, Sign.DEFAULT},
+                {3, 40, 1, 20, Sign.X},
+                {40, 3, 20, 1, Sign.O},
                 {20, 20, 12, 12, Sign.DEFAULT},
         };
     }
@@ -114,7 +117,7 @@ public class BoardTest {
         Coordinates coordinatesToUpdate = new Coordinates(widthToUpdate, heightToUpdate);
         Board updateBoard = board.setField(coordinatesToUpdate, sign);
         Field expected = new Field(sign);
-        assert updateBoard.matrix[widthToUpdate][heightToUpdate].equals(expected): String.format("Field should " +
+        assert updateBoard.matrix[heightToUpdate][widthToUpdate].equals(expected): String.format("Field should " +
                 "have value %s", expected);
     }
 

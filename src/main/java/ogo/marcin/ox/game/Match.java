@@ -44,22 +44,19 @@ class Match {
         Coordinates coordinates = null;
          do {
             coordinates = input.getCoordinates();
-//            TODO information about why thius coords are wrong
          } while (!judge.isPlayerActionWithinBoard(coordinates) ||
                  !judge.isPlayerSignSetOnFreeSpace(coordinates));
         return coordinates;
     }
 
     private Boolean playPlayerTurn(Judge judge, Player player) {
-        System.out.println(board);
-        if (!judge.isFreeSpaceOnBoard()) return Boolean.FALSE;
-
         System.out.printf("It is turn of %s - %s%n",
-                playerAPI.getPlayerName(player), playerAPI.getPlayerSign(player));
+            playerAPI.getPlayerName(player), playerAPI.getPlayerSign(player));
 
         Coordinates coordinates = getCoordinates(judge);
         board = boardAPI.setField(board, coordinates, playerAPI.getPlayerSign(player));
         judge.setBoard(board);
+        // TODO Bug with winner - win at 3 at board but not proper one
         return isWinner = judge.isPlayerWon(playerAPI.getPlayerSign(player), coordinates);
     }
 
@@ -67,12 +64,15 @@ class Match {
         Player winner = null;
         do {
             for (Player player: players) {
+                System.out.println(board);
+                if (!judge.isFreeSpaceOnBoard()) break;
                 if(playPlayerTurn(judge, player)) {
                     winner = player;
                     break;
                 }
             }
         } while (judge.isFreeSpaceOnBoard() && !isWinner);
+        System.out.println(board);
         return winner;
     }
 

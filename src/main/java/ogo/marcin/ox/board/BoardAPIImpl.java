@@ -43,7 +43,7 @@ public class BoardAPIImpl implements BoardAPI {
 
     @Override
     public Boolean isCoordinatesPointsToDefaultSign(Board board, Sign defaultSign, Coordinates coordinates) {
-        return board.matrix[coordinates.x][coordinates.y].sign.equals(defaultSign);
+        return board.matrix[coordinates.y][coordinates.x].sign.equals(defaultSign);
     }
 
     public Boolean isSignNumberMeetWinCondition(Board board, Sign playerSign,
