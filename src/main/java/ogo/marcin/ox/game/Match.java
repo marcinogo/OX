@@ -72,7 +72,6 @@ class Match {
                 }
             }
         } while (judge.isFreeSpaceOnBoard() && !isWinner);
-        System.out.println(board);
         return winner;
     }
 
