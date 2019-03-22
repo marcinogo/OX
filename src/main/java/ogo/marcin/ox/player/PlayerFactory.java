@@ -5,12 +5,12 @@ import ogo.marcin.ox.board.Sign;
 /**
  * @author Marcin Ogorzalek
  */
-class PlayerFactory {
-    Player createPlayer(String name, Sign sign) {
+public class PlayerFactory {
+    public Player createPlayer(String name, Sign sign) {
         return new Player(name, sign);
     }
 
-    Player createPlayer(String name, Sign sign, Integer points) {
+    public Player createPlayer(String name, Sign sign, Integer points) {
         return new Player(name, sign, points);
     }
 }

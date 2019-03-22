@@ -1,6 +1,6 @@
 package ogo.marcin.ox.io;
 
-import ogo.marcin.ox.board.BoardAPIImpl;
+import ogo.marcin.ox.FactoryAPI;
 import ogo.marcin.ox.board.Coordinates;
 
 import java.util.InputMismatchException;
@@ -11,9 +11,11 @@ import java.util.Scanner;
  */
 public class Input {
     private final Scanner scanner;
+    private final FactoryAPI factoryAPI;
 
-    public Input(Scanner scanner) {
+    public Input(Scanner scanner, FactoryAPI factoryAPI) {
         this.scanner = scanner;
+        this.factoryAPI = factoryAPI;
     }
 
     public String getStringInput() {
@@ -41,6 +43,6 @@ public class Input {
         Integer x = getIntegerInput();
         System.out.println("Enter y coordinate");
         Integer y = getIntegerInput();
-        return new BoardAPIImpl().createCoordinates(x, y);
+        return factoryAPI.createCoordinates(x, y);
     }
 }

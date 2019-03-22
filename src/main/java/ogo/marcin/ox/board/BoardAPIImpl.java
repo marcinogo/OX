@@ -4,28 +4,29 @@ package ogo.marcin.ox.board;
  * @author Marcin Ogorzalek
  */
 public class BoardAPIImpl implements BoardAPI {
-    @Override
-    public Board createBoard(Coordinates dimensions) {
-        return new BoardFactory().createBoard(dimensions, Sign.DEFAULT);
+    Board board;
+
+    public BoardAPIImpl(Board board) {
+        this.board = board;
     }
 
     @Override
-    public Board createBoard(Coordinates dimensions, Sign defaultSign) {
-        return new BoardFactory().createBoard(dimensions, defaultSign);
+    public Board getBoard() {
+        return board;
     }
 
     @Override
-    public Coordinates createCoordinates(Integer x, Integer y) {
-        return new Coordinates(x, y);
+    public void setBoard(Board board) {
+        this.board = board;
     }
 
     @Override
-    public Board setField(Board board, Coordinates coordinates, Sign sign) {
-        return board.setField(coordinates, sign);
+    public void setField(Coordinates coordinates, Sign sign) {
+        board = board.setField(coordinates, sign);
     }
 
     @Override
-    public Boolean isFreeSpaceOnBoard(Board board, Sign defaultSign) {
+    public Boolean isFreeSpaceOnBoard(Sign defaultSign) {
         for (Field[] row: board.matrix) {
             for(Field field: row) {
                 if(field.sign.equals(defaultSign)) return Boolean.TRUE;
@@ -35,29 +36,28 @@ public class BoardAPIImpl implements BoardAPI {
     }
 
     @Override
-    public Boolean isCoordinatesWithinBoard(Board board, Coordinates coordinates) {
+    public Boolean isCoordinatesWithinBoard(Coordinates coordinates) {
         if(coordinates.x < 0 || coordinates.x >= board.width) return Boolean.FALSE;
         if(coordinates.y < 0 || coordinates.y >= board.height) return Boolean.FALSE;
         return Boolean.TRUE;
     }
 
     @Override
-    public Boolean isCoordinatesPointsToDefaultSign(Board board, Sign defaultSign, Coordinates coordinates) {
+    public Boolean isCoordinatesPointsToDefaultSign(Sign defaultSign, Coordinates coordinates) {
         return board.matrix[coordinates.y][coordinates.x].sign.equals(defaultSign);
     }
 
-    public Boolean isSignNumberMeetWinCondition(Board board, Sign playerSign,
-                                                Coordinates coordinates, Integer winCondition) {
+    public Boolean isSignNumberMeetWinCondition(Sign playerSign, Coordinates coordinates, Integer winCondition) {
         int x = coordinates.x;
         int y = coordinates.y;
 
-        return horizontalCheck(board, playerSign, x, y, winCondition) ||
-                verticalCheck(board, playerSign, x, y, winCondition) ||
-                diagonalCheck(board, playerSign, x, y, winCondition) ||
-                antidiagonalCheck(board, playerSign, x, y, winCondition);
+        return horizontalCheck(playerSign, x, y, winCondition) ||
+                verticalCheck(playerSign, x, y, winCondition) ||
+                diagonalCheck(playerSign, x, y, winCondition) ||
+                antidiagonalCheck(playerSign, x, y, winCondition);
     }
 
-    private Boolean horizontalCheck(Board board, Sign playerSign, int x, int y, Integer winCondition) {
+    private Boolean horizontalCheck(Sign playerSign, int x, int y, Integer winCondition) {
         Integer count = 1;
         Field[] row = board.matrix[y];
         for(int i = x + 1; i < row.length; i++) {
@@ -82,7 +82,7 @@ public class BoardAPIImpl implements BoardAPI {
         return count.equals(winCondition);
     }
 
-    private Boolean verticalCheck(Board board, Sign playerSign, int x, int y, Integer winCondition) {
+    private Boolean verticalCheck(Sign playerSign, int x, int y, Integer winCondition) {
         Integer count = 1;
 
         for(int i = y + 1; i < board.matrix.length; i++) {
@@ -107,7 +107,7 @@ public class BoardAPIImpl implements BoardAPI {
         return count.equals(winCondition);
     }
 
-    private Boolean diagonalCheck(Board board, Sign playerSign, int x, int y, Integer winCondition) {
+    private Boolean diagonalCheck(Sign playerSign, int x, int y, Integer winCondition) {
         Integer count = 1;
 
         for(int i = y + 1, j = x + 1; i < board.matrix.length && j < board.matrix[i].length; i++, j++) {
@@ -132,7 +132,7 @@ public class BoardAPIImpl implements BoardAPI {
         return count.equals(winCondition);
     }
 
-    private Boolean antidiagonalCheck(Board board, Sign playerSign, int x, int y, Integer winCondition) {
+    private Boolean antidiagonalCheck(Sign playerSign, int x, int y, Integer winCondition) {
         Integer count = 1;
 
         for(int i = y + 1, j = x - 1; i < board.matrix.length && j >= 0; i++, j--) {

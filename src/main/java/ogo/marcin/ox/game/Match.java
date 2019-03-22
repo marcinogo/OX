@@ -21,8 +21,6 @@ class Match {
     private final List<Player> players;
     private final Integer winCondition;
 
-    private Board board;
-
     private Boolean isWinner = Boolean.FALSE;
 
     Match(BoardAPI boardAPI, PlayerAPI playerAPI, Input input, Settings settings, List<Player> players) {
@@ -31,11 +29,10 @@ class Match {
         this.players = players;
         this.winCondition = settings.getWinCondition();
         this.playerAPI = playerAPI;
-        this.board = settings.getBoard();
     }
 
     void play() {
-        Judge judge = new Judge(boardAPI, winCondition, board);
+        Judge judge = new Judge(boardAPI, winCondition);
         Player winner = playMatch(judge);
         giveMatchResult(winner);
     }
@@ -51,8 +48,8 @@ class Match {
 
     private Boolean playPlayerTurn(Judge judge, Player player) {
         Coordinates coordinates = getCoordinates(judge);
-        board = boardAPI.setField(board, coordinates, playerAPI.getPlayerSign(player));
-        judge.setBoard(board);
+//        here can be some problems
+        boardAPI.setField(coordinates, playerAPI.getPlayerSign(player));
         return isWinner = judge.isPlayerWon(playerAPI.getPlayerSign(player), coordinates);
     }
 
@@ -60,7 +57,7 @@ class Match {
         Player winner = null;
         do {
             for (Player player: players) {
-                System.out.println(board);
+                System.out.println(boardAPI.getBoard());
                 if (!judge.isFreeSpaceOnBoard()) break;
                 System.out.printf("It is turn of %s - %s%n",
                         playerAPI.getPlayerName(player), playerAPI.getPlayerSign(player));

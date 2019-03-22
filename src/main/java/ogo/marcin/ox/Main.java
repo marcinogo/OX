@@ -17,20 +17,22 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         try(Scanner scanner = new Scanner(System.in)) {
-            Input input = new Input(scanner);
-            BoardAPI boardAPI = new BoardAPIImpl();
             PlayerAPI playerAPI = new PlayerAPIImpl();
 
+            FactoryAPI factoryAPI = new FactoryAPIImpl();
+
+            Input input = new Input(scanner, factoryAPI);
             List<Player> players = new ArrayList<>();
-            players.add(playerAPI.createPlayer("player 1", Sign.X));
-            players.add(playerAPI.createPlayer("player 2", Sign.O));
+            players.add(factoryAPI.createPlayer("player 1", Sign.X));
+            players.add(factoryAPI.createPlayer("player 2", Sign.O));
 
             Integer winCondition = 3;
 
-            Coordinates boardDimensions = boardAPI.createCoordinates(3, 3);
-            Board board = boardAPI.createBoard(boardDimensions);
+            Coordinates boardDimensions = factoryAPI.createCoordinates(3, 3);
+            Board board = factoryAPI.createBoard(boardDimensions);
+            BoardAPI boardAPI = new BoardAPIImpl(board);
 
-            Settings settings = new Settings(winCondition, board);
+            Settings settings = new Settings(winCondition);
 
             Game game = new Game(settings, boardAPI, playerAPI, input, players);
             game.play();

@@ -7,16 +7,6 @@ import ogo.marcin.ox.board.Sign;
  */
 public class PlayerAPIImpl implements PlayerAPI {
     @Override
-    public Player createPlayer(String name, Sign sign) {
-        return new PlayerFactory().createPlayer(name, sign);
-    }
-
-    @Override
-    public Player createPlayer(String name, Sign sign, Integer points) {
-        return new PlayerFactory().createPlayer(name, sign, points);
-    }
-
-    @Override
     public Player setPlayerPoints(Player player, Integer newNumberOfPoints) {
         return player.setPlayerPoints(newNumberOfPoints);
     }

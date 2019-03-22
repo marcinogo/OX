@@ -13,36 +13,29 @@ class Judge {
     private final Sign defaultSign;
     private final Integer winCondition;
 
-    private Board board;
-
-    Judge(BoardAPI boardAPI, Sign defaultSign, Integer winCondition, Board board) {
+    Judge(BoardAPI boardAPI, Sign defaultSign, Integer winCondition) {
         this.boardAPI = boardAPI;
         this.defaultSign = defaultSign;
         this.winCondition = winCondition;
-        this.board = board;
     }
 
-    Judge(BoardAPI boardAPI, Integer winCondition, Board board) {
-        this(boardAPI, Sign.DEFAULT, winCondition, board);
-    }
-
-    public void setBoard(Board board) {
-        this.board = board;
+    Judge(BoardAPI boardAPI, Integer winCondition) {
+        this(boardAPI, Sign.DEFAULT, winCondition);
     }
 
     Boolean isFreeSpaceOnBoard() {
-        return boardAPI.isFreeSpaceOnBoard(board, defaultSign);
+        return boardAPI.isFreeSpaceOnBoard(defaultSign);
     }
 
     Boolean isPlayerActionWithinBoard(Coordinates coordinates) {
-        return boardAPI.isCoordinatesWithinBoard(board, coordinates);
+        return boardAPI.isCoordinatesWithinBoard(coordinates);
     }
 
     Boolean isPlayerSignSetOnFreeSpace(Coordinates coordinates) {
-        return boardAPI.isCoordinatesPointsToDefaultSign(board, defaultSign, coordinates);
+        return boardAPI.isCoordinatesPointsToDefaultSign(defaultSign, coordinates);
     }
 
     Boolean isPlayerWon(Sign playerSign, Coordinates coordinates) {
-        return boardAPI.isSignNumberMeetWinCondition(board, playerSign, coordinates, winCondition);
+        return boardAPI.isSignNumberMeetWinCondition(playerSign, coordinates, winCondition);
     }
 }
