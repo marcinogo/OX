@@ -50,13 +50,9 @@ class Match {
     }
 
     private Boolean playPlayerTurn(Judge judge, Player player) {
-        System.out.printf("It is turn of %s - %s%n",
-            playerAPI.getPlayerName(player), playerAPI.getPlayerSign(player));
-
         Coordinates coordinates = getCoordinates(judge);
         board = boardAPI.setField(board, coordinates, playerAPI.getPlayerSign(player));
         judge.setBoard(board);
-        // TODO Bug with winner - win at 3 at board but not proper one
         return isWinner = judge.isPlayerWon(playerAPI.getPlayerSign(player), coordinates);
     }
 
@@ -66,6 +62,8 @@ class Match {
             for (Player player: players) {
                 System.out.println(board);
                 if (!judge.isFreeSpaceOnBoard()) break;
+                System.out.printf("It is turn of %s - %s%n",
+                        playerAPI.getPlayerName(player), playerAPI.getPlayerSign(player));
                 if(playPlayerTurn(judge, player)) {
                     winner = player;
                     break;
