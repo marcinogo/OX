@@ -1,5 +1,8 @@
 package ogo.marcin.ox.io;
 
+import ogo.marcin.ox.board.BoardAPIImpl;
+import ogo.marcin.ox.board.Coordinates;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -31,5 +34,13 @@ public class Input {
             }
         } while (!inputIsCorrect);
         return result;
+    }
+
+    public Coordinates getCoordinates() {
+        System.out.println("Enter x coordinate");
+        Integer x = getIntegerInput();
+        System.out.println("Enter y coordinate");
+        Integer y = getIntegerInput();
+        return new BoardAPIImpl().createCoordinates(x, y);
     }
 }

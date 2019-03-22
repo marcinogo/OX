@@ -43,12 +43,8 @@ class Match {
     private Coordinates getCoordinates(Judge judge) {
         Coordinates coordinates = null;
          do {
-             System.out.println("Enter x coordinate");
-             Integer x = input.getIntegerInput();
-             System.out.println("Enter y coordinate");
-             Integer y = input.getIntegerInput();
-//             TODO check and info if they are correct;
-             coordinates = boardAPI.createCoordinates(x, y);
+            coordinates = input.getCoordinates();
+//            TODO information about why thius coords are wrong
          } while (!judge.isPlayerActionWithinBoard(coordinates) ||
                  !judge.isPlayerSignSetOnFreeSpace(coordinates));
         return coordinates;
