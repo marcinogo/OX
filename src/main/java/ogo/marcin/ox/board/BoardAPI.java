@@ -10,7 +10,7 @@ public interface BoardAPI {
     Boolean isFreeSpaceOnBoard(Board board, Sign defaultSign);
     Boolean isCoordinatesWithinBoard(Board board, Coordinates coordinates);
     Boolean isCoordinatesPointsToDefaultSign(Board board, Sign defaultSign, Coordinates coordinates);
-    Boolean isSignNumberMeetRequirements(Board board, Sign playerSign,
-                                         Coordinates coordinates, Integer requiredSignNumber);
+    Boolean isSignNumberMeetWinCondition(Board board, Sign playerSign,
+                                         Coordinates coordinates, Integer winCondition);
     Coordinates createCoordinates(Integer x, Integer y);
 }

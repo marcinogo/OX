@@ -22,7 +22,7 @@ class Judge {
         this.board = board;
     }
 
-    public Judge(BoardAPI boardAPI, Integer winCondition, Board board) {
+    Judge(BoardAPI boardAPI, Integer winCondition, Board board) {
         this(boardAPI, Sign.DEFAULT, winCondition, board);
     }
 
@@ -43,6 +43,6 @@ class Judge {
     }
 
     Boolean isPlayerWon(Sign playerSign, Coordinates coordinates) {
-        return boardAPI.isSignNumberMeetRequirements(board, playerSign, coordinates, winCondition);
+        return boardAPI.isSignNumberMeetWinCondition(board, playerSign, coordinates, winCondition);
     }
 }
