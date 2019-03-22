@@ -57,7 +57,6 @@ class Match {
     private Boolean playPlayerTurn(Judge judge, Player player) {
         System.out.println(board);
         if (!judge.isFreeSpaceOnBoard()) return Boolean.FALSE;
-        Boolean endTurn = Boolean.FALSE;
 
         System.out.printf("It is turn of %s - %s%n",
                 playerAPI.getPlayerName(player), playerAPI.getPlayerSign(player));
@@ -65,9 +64,7 @@ class Match {
         Coordinates coordinates = getCoordinates(judge);
         board = boardAPI.setField(board, coordinates, playerAPI.getPlayerSign(player));
         judge.setBoard(board);
-        isWinner = judge.isPlayerWon(playerAPI.getPlayerSign(player), coordinates);
-        if(isWinner) endTurn = Boolean.TRUE;
-        return endTurn;
+        return isWinner = judge.isPlayerWon(playerAPI.getPlayerSign(player), coordinates);
     }
 
     private Player playMatch(Judge judge) {
