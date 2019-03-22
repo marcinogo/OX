@@ -2,7 +2,6 @@ package ogo.marcin.ox.board;
 
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import java.util.Arrays;
 
 /**
  * @author Marcin Ogorzalek
@@ -49,8 +48,7 @@ public class BoardAPIImplTest {
         return new Object[][] {
                 {3, 3, 1, 1 , Sign.DEFAULT, Sign.O},
                 {3, 3, 1, 1 , Sign.DEFAULT, Sign.X},
-                {3, 5, 2, 4, Sign.O, Sign.X},
-                {3, 5, 2, 4, Sign.O, Sign.DEFAULT},
+                {3, 5, 4, 2, Sign.O, Sign.X},
                 {4, 4, 2, 3, Sign.DEFAULT, Sign.X},
                 {4, 4, 2, 3, Sign.DEFAULT, Sign.O},
                 {40, 36, 35, 25, Sign.X, Sign.O},
@@ -68,7 +66,7 @@ public class BoardAPIImplTest {
         Board defaultBoard = new Board(coordinates).setBoardMatrixCells(defaultSign);
         Coordinates coordinatesToUpdate = new Coordinates(widthToUpdate, heightToUpdate);
         Board result = boardAPI.setField(defaultBoard, coordinatesToUpdate, newSign);
-        defaultBoard.matrix[heightToUpdate][widthToUpdate] = new Field(newSign);
+        defaultBoard.matrix[widthToUpdate][heightToUpdate] = new Field(newSign);
         assert defaultBoard.equals(result) : "Boards should be equals";
     }
 }
