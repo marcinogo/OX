@@ -42,7 +42,7 @@ public class PlayerTest {
 
     public void testIfCreatePlayerWith0Points() {
         Player player = new Player("Player 1", Sign.X);
-        assert player.points.equals(0) : "Created player should have 0 points";
+        assert player.points == 0 : "Created player should have 0 points";
     }
 
     public void testPlayersEquality() {
@@ -59,7 +59,7 @@ public class PlayerTest {
 
     public void testIfCanCreatePlayerWithGivenNumberOfPoints() {
         Player player = new Player("Player 1", Sign.X, 20);
-        assert player.points.equals(20) : "Player should have 20 points";
+        assert player.points == 20 : "Player should have 20 points";
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
@@ -85,7 +85,7 @@ public class PlayerTest {
                                            Integer startingPoints, Integer newNumberOfPoints) {
         Player player = new Player(name, sign, startingPoints);
         player = player.setPlayerPoints(newNumberOfPoints);
-        assert player.points.equals(newNumberOfPoints) : String.format("Player should " +
+        assert player.points == newNumberOfPoints : String.format("Player should " +
                 "have %d points", newNumberOfPoints);
     }
 

@@ -5,10 +5,10 @@ package ogo.marcin.ox.board;
  */
 public interface BoardAPI {
     void setField(Coordinates coordinates, Sign sign);
-    Boolean isFreeSpaceOnBoard(Sign defaultSign);
-    Boolean isCoordinatesWithinBoard(Coordinates coordinates);
-    Boolean isCoordinatesPointsToDefaultSign(Sign defaultSign, Coordinates coordinates);
-    Boolean isSignNumberMeetWinCondition(Sign playerSign, Coordinates coordinates, Integer winCondition);
+    boolean isFreeSpaceOnBoard(Sign defaultSign);
+    boolean isCoordinatesWithinBoard(Coordinates coordinates);
+    boolean isCoordinatesPointsToDefaultSign(Sign defaultSign, Coordinates coordinates);
+    boolean isSignNumberMeetWinCondition(Sign playerSign, Coordinates coordinates, int winCondition);
 
     Board getBoard();
     void setBoard(Board board);

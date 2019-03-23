@@ -4,10 +4,10 @@ package ogo.marcin.ox.board;
  * @author Marcin Ogorzalek
  */
 public class Coordinates {
-    final Integer x;
-    final Integer y;
+    final int x;
+    final int y;
 
-    public Coordinates(Integer x, Integer y) {
+    public Coordinates(int x, int y) {
         this.x = x;
         this.y = y;
     }

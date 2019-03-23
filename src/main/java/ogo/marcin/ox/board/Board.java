@@ -7,8 +7,8 @@ import java.util.Objects;
  * @author Marcin Ogorzalek
  */
 public class Board {
-    final Integer width;
-    final Integer height;
+    final int width;
+    final int height;
 
     Field[][] matrix;
 

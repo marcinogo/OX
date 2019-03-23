@@ -1,7 +1,6 @@
 package ogo.marcin.ox.game;
 
 import ogo.marcin.ox.Settings;
-import ogo.marcin.ox.board.Board;
 import ogo.marcin.ox.board.BoardAPI;
 import ogo.marcin.ox.board.Coordinates;
 import ogo.marcin.ox.io.Input;
@@ -21,7 +20,7 @@ class Match {
     private final List<Player> players;
     private final Integer winCondition;
 
-    private Boolean isWinner = Boolean.FALSE;
+    private boolean isWinner;
 
     Match(BoardAPI boardAPI, PlayerAPI playerAPI, Input input, Settings settings, List<Player> players) {
         this.boardAPI = boardAPI;
@@ -48,7 +47,6 @@ class Match {
 
     private Boolean playPlayerTurn(Judge judge, Player player) {
         Coordinates coordinates = getCoordinates(judge);
-//        here can be some problems
         boardAPI.setField(coordinates, playerAPI.getPlayerSign(player));
         return isWinner = judge.isPlayerWon(playerAPI.getPlayerSign(player), coordinates);
     }

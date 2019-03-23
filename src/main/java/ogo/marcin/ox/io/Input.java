@@ -22,8 +22,8 @@ public class Input {
         return scanner.nextLine();
     }
 
-    public Integer getIntegerInput() {
-        Integer result = null;
+    public int getIntegerInput() {
+        int result = 0;
         boolean inputIsCorrect = true;
         do {
             inputIsCorrect = true;

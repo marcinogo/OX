@@ -91,6 +91,6 @@ public class PlayerAPIImplTest {
     public void testGetPoints(String name, Sign sign, Integer points) {
         PlayerAPI playerAPI = new PlayerAPIImpl();
         Player player = new Player(name, sign, points);
-        assert playerAPI.getPlayerPoints(player).equals(points) : "Player sign be returned";
+        assert playerAPI.getPlayerPoints(player) == points : "Player sign be returned";
     }
 }

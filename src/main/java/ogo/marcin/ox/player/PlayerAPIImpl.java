@@ -7,7 +7,7 @@ import ogo.marcin.ox.board.Sign;
  */
 public class PlayerAPIImpl implements PlayerAPI {
     @Override
-    public Player setPlayerPoints(Player player, Integer newNumberOfPoints) {
+    public Player setPlayerPoints(Player player, int newNumberOfPoints) {
         return player.setPlayerPoints(newNumberOfPoints);
     }
 
@@ -22,7 +22,7 @@ public class PlayerAPIImpl implements PlayerAPI {
     }
 
     @Override
-    public Integer getPlayerPoints(Player player) {
+    public int getPlayerPoints(Player player) {
         return player.points;
     }
 }

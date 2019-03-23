@@ -6,8 +6,8 @@ import ogo.marcin.ox.board.Sign;
  * @author Marcin Ogorzalek
  */
 public interface PlayerAPI {
-    Player setPlayerPoints(Player player, Integer newNumberOfPoints);
+    Player setPlayerPoints(Player player, int newNumberOfPoints);
     String getPlayerName(Player player);
     Sign getPlayerSign(Player player);
-    Integer getPlayerPoints(Player player);
+    int getPlayerPoints(Player player);
 }

@@ -11,16 +11,16 @@ import java.util.List;
  */
 public class Settings {
     private final Sign defaultSign;
-    private final Integer winCondition;
-    private final Integer numberOfRounds;
+    private final int winCondition;
+    private final int numberOfRounds;
 
-    public Settings(Sign defaultSign, Integer winCondition, Integer numberOfRounds) {
+    public Settings(Sign defaultSign, int winCondition, int numberOfRounds) {
         this.defaultSign = defaultSign;
         this.winCondition = winCondition;
         this.numberOfRounds = numberOfRounds;
     }
 
-    public Settings(Integer winCondition) {
+    public Settings(int winCondition) {
         this(Sign.DEFAULT, winCondition, 3);
     }
 
@@ -28,11 +28,11 @@ public class Settings {
         return defaultSign;
     }
 
-    public Integer getWinCondition() {
+    public int getWinCondition() {
         return winCondition;
     }
 
-    public Integer getNumberOfRounds() {
+    public int getNumberOfRounds() {
         return numberOfRounds;
     }
 }
