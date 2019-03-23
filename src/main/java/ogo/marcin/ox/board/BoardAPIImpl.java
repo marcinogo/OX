@@ -4,7 +4,7 @@ package ogo.marcin.ox.board;
  * @author Marcin Ogorzalek
  */
 public class BoardAPIImpl implements BoardAPI {
-    Board board;
+    private Board board;
 
     public BoardAPIImpl(Board board) {
         this.board = board;
@@ -155,5 +155,10 @@ public class BoardAPIImpl implements BoardAPI {
             }
         }
         return count.equals(winCondition);
+    }
+
+    @Override
+    public Board clearBoard(Sign sing) {
+        return board.setBoardMatrixCells(sing);
     }
 }

@@ -12,4 +12,6 @@ public interface BoardAPI {
 
     Board getBoard();
     void setBoard(Board board);
+
+    Board clearBoard(Sign sign);
 }

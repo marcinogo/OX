@@ -42,6 +42,7 @@ public class Game {
             Match match = new Match(boardAPI, playerAPI, input, settings, players);
             matches.add(match);
             match.play();
+            boardAPI.setBoard(boardAPI.clearBoard(settings.getDefaultSign()));
         }
         printResult();
     }
