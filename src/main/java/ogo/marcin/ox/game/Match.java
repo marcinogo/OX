@@ -8,6 +8,7 @@ import ogo.marcin.ox.player.Player;
 import ogo.marcin.ox.player.PlayerAPI;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Marcin Ogorzalek
@@ -32,7 +33,7 @@ class Match {
 
     void play() {
         Judge judge = new Judge(boardAPI, winCondition);
-        Player winner = playMatch(judge);
+        Optional<Player> winner = playMatch(judge);
         giveMatchResult(winner);
     }
 
@@ -51,7 +52,7 @@ class Match {
         return isWinner = judge.isPlayerWon(playerAPI.getPlayerSign(player), coordinates);
     }
 
-    private Player playMatch(Judge judge) {
+    private Optional<Player> playMatch(Judge judge) {
         Player winner = null;
         do {
             for (Player player: players) {
@@ -65,11 +66,11 @@ class Match {
                 }
             }
         } while (judge.isFreeSpaceOnBoard() && !isWinner);
-        return winner;
+        return Optional.ofNullable(winner);
     }
 
-    private void giveMatchResult(Player winner) {
-        if(winner == null) {
+    private void giveMatchResult(Optional<Player> winner) {
+        if(winner.isEmpty()) {
             System.out.println("Draw");
             for(int i = 0; i < players.size(); i++) {
                 Player player = players.get(i);
@@ -77,11 +78,12 @@ class Match {
                 players.set(i, playerAPI.setPlayerPoints(player, playerPoints + 1));
             }
         } else {
-            Integer playerPoints = playerAPI.getPlayerPoints(winner);
-            int i = players.indexOf(winner);
-            winner = playerAPI.setPlayerPoints(winner, playerPoints + 3);
-            players.set(i, winner);
-            System.out.printf("Winner of match is %s%n", playerAPI.getPlayerName(winner));
+            Player victoriusPlayer = winner.get();
+            Integer playerPoints = playerAPI.getPlayerPoints(victoriusPlayer);
+            int i = players.indexOf(victoriusPlayer);
+            victoriusPlayer = playerAPI.setPlayerPoints(victoriusPlayer, playerPoints + 3);
+            players.set(i, victoriusPlayer);
+            System.out.printf("Winner of match is %s%n", playerAPI.getPlayerName(victoriusPlayer));
         }
     }
 }
