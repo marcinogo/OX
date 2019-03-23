@@ -62,10 +62,8 @@ public class Board {
 
     Board setBoardMatrixCells(Sign sign) {
         Board board = new Board(this);
-        for (int i = 0; i < board.matrix.length; i++) {
-            for(int j = 0; j < board.matrix[i].length; j++) {
-                board.matrix[i][j] = new Field(sign);
-            }
+        for (Field[] row: board.matrix) {
+            Arrays.fill(row, new Field(sign));
         }
         return board;
     }
