@@ -22,14 +22,15 @@ public class Main {
             Input input = new Input(scanner, factoryAPI);
             List<Player> players = new PlayerListCreator(factoryAPI, input).createPlayers();
 
-
-            Integer winCondition = 3;
-
             Coordinates boardDimensions = factoryAPI.createCoordinates(3, 3);
             Board board = factoryAPI.createBoard(boardDimensions);
             BoardAPI boardAPI = new BoardAPIImpl(board);
 
-            Settings settings = new Settings(winCondition);
+            Settings settings = new Settings.SettingsBuilder(input)
+                    .withWinCondition()
+                    .withNumberOfRounds()
+                    .withDefaultSign()
+                    .build();
 
             Game game = new Game(settings, boardAPI, playerAPI, input, players);
             game.play();
