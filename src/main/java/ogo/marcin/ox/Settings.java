@@ -66,6 +66,9 @@ public class Settings {
         }
 
         public SettingsBuilder withDefaultSign(boolean nonDefault) {
+            if(!nonDefault) {
+                return withDefaultSign();
+            }
             System.out.println("Give default sign ");
             String signString = null;
             do {
