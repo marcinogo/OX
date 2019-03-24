@@ -7,9 +7,7 @@ import ogo.marcin.ox.player.Player;
 import ogo.marcin.ox.player.PlayerAPI;
 import ogo.marcin.ox.player.PlayerAPIImpl;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * @author Marcin Ogorzalek
@@ -22,9 +20,8 @@ public class Main {
             FactoryAPI factoryAPI = new FactoryAPIImpl();
 
             Input input = new Input(scanner, factoryAPI);
-            List<Player> players = new ArrayList<>();
-            players.add(factoryAPI.createPlayer("player 1", Sign.X));
-            players.add(factoryAPI.createPlayer("player 2", Sign.O));
+            List<Player> players = new PlayerListCreator(factoryAPI, input).createPlayers();
+
 
             Integer winCondition = 3;
 
