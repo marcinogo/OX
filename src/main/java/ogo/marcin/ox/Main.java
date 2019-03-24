@@ -22,8 +22,7 @@ public class Main {
             Input input = new Input(scanner, factoryAPI);
             List<Player> players = new PlayerListCreator(factoryAPI, input).createPlayers();
 
-            Coordinates boardDimensions = factoryAPI.createCoordinates(3, 3);
-            Board board = factoryAPI.createBoard(boardDimensions);
+            Board board = factoryAPI.createBoard(getBoardDimensions(input));
             BoardAPI boardAPI = new BoardAPIImpl(board);
 
             Settings settings = new Settings.SettingsBuilder(input)
@@ -35,5 +34,13 @@ public class Main {
             Game game = new Game(settings, boardAPI, playerAPI, input, players);
             game.play();
         }
+    }
+
+    private static Coordinates getBoardDimensions(Input input) {
+        Coordinates coordinates = null;
+        do {
+            coordinates = input.getCoordinates();
+        }while (coordinates.getX() > 40 && coordinates.getY() > 40 && coordinates.getX() < 3 && coordinates.getY() < 3);
+        return coordinates;
     }
 }
