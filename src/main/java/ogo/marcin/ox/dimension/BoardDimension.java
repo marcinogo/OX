@@ -1,21 +1,24 @@
 package ogo.marcin.ox.dimension;
 
+import ogo.marcin.ox.board.Coordinates;
+
 /**
  * @author Marcin Ogorzalek
  */
 public class BoardDimension extends Dimension{
-    final int height;
-    final int width;
-
     public BoardDimension(int height, int width) {
-        if(!validate(height, width)) throw new IllegalArgumentException("Board dimensions should be " +
-                "between 3 and 40 height and width");
-        this.height = height;
-        this.width = width;
+        super(height, width);
+        setCoordinatesMaxXY();
     }
 
     @Override
-    protected boolean validate(int x, int y) {
-        return y >= MAX_HEIGHT && y <= MAX_HEIGHT && x >= MIN_WIDTH && x <= MAX_WIDTH;
+    protected boolean validate(int width, int height) {
+        return yDimension >= MIN_HEIGHT && yDimension <= MAX_HEIGHT
+                && xDimension >= MIN_WIDTH && xDimension <=MAX_WIDTH;
+    }
+
+    private void setCoordinatesMaxXY() {
+        Coordinates.MAX_WIDTH = this.xDimension;
+        Coordinates.MAX_HEIGHT = this.yDimension;
     }
 }

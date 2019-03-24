@@ -4,6 +4,7 @@ import ogo.marcin.ox.board.Board;
 import ogo.marcin.ox.board.BoardFactory;
 import ogo.marcin.ox.board.Coordinates;
 import ogo.marcin.ox.board.Sign;
+import ogo.marcin.ox.dimension.BoardDimension;
 import ogo.marcin.ox.player.Player;
 import ogo.marcin.ox.player.PlayerFactory;
 
@@ -22,13 +23,13 @@ public class FactoryAPIImpl implements FactoryAPI {
     }
 
     @Override
-    public Board createBoard(Coordinates dimensions) {
-        return new BoardFactory().createBoard(dimensions, Sign.DEFAULT);
+    public Board createBoard(BoardDimension boardDimension) {
+        return new BoardFactory().createBoard(boardDimension, Sign.DEFAULT);
     }
 
     @Override
-    public Board createBoard(Coordinates dimensions, Sign defaultSign) {
-        return new BoardFactory().createBoard(dimensions, defaultSign);
+    public Board createBoard(BoardDimension boardDimension, Sign defaultSign) {
+        return new BoardFactory().createBoard(boardDimension, defaultSign);
     }
 
     @Override

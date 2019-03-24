@@ -37,19 +37,19 @@ public class BoardAPIImpl implements BoardAPI {
 
     @Override
     public boolean isCoordinatesWithinBoard(Coordinates coordinates) {
-        if(coordinates.x < 0 || coordinates.x >= board.width) return false;
-        if(coordinates.y < 0 || coordinates.y >= board.height) return false;
+        if(coordinates.getxDimension() < 0 || coordinates.getxDimension() >= board.width) return false;
+        if(coordinates.getyDimension() < 0 || coordinates.getyDimension() >= board.height) return false;
         return true;
     }
 
     @Override
     public boolean isCoordinatesPointsToDefaultSign(Sign defaultSign, Coordinates coordinates) {
-        return board.matrix[coordinates.y][coordinates.x].sign.equals(defaultSign);
+        return board.matrix[coordinates.getyDimension()][coordinates.getxDimension()].sign.equals(defaultSign);
     }
 
     public boolean isSignNumberMeetWinCondition(Sign playerSign, Coordinates coordinates, int winCondition) {
-        int x = coordinates.x;
-        int y = coordinates.y;
+        int x = coordinates.getxDimension();
+        int y = coordinates.getyDimension();
 
         return horizontalCheck(playerSign, x, y, winCondition) ||
                 verticalCheck(playerSign, x, y, winCondition) ||

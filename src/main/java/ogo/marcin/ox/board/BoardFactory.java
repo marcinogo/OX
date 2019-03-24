@@ -1,11 +1,13 @@
 package ogo.marcin.ox.board;
 
+import ogo.marcin.ox.dimension.BoardDimension;
+
 /**
  * @author Marcin Ogorzalek
  */
 public class BoardFactory{
-    public Board createBoard(Coordinates coordinates, Sign sign) {
-        Board board = new Board(coordinates);
+    public Board createBoard(BoardDimension boardDimension, Sign sign) {
+        Board board = new Board(boardDimension);
         return board.setBoardMatrixCells(sign);
     }
 }
