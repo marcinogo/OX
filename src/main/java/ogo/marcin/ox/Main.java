@@ -18,6 +18,7 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
         try(Scanner scanner = new Scanner(System.in)) {
+//    TODO: Change factories to Builders and create some common interface for this wit T build();
             PlayerAPI playerAPI = new PlayerAPIImpl();
 
             FactoryAPI factoryAPI = new FactoryAPIImpl();
@@ -39,14 +40,21 @@ public class Main {
         }
     }
 
+//    TODO: move this to some class / API
     private static BoardDimension getBoardDimensions(Input input) {
         BoardDimension boardDimension = null;
+        boolean dimensionsCreated;
         do {
-            DimensionBuilder<BoardDimension> boardDimensionDimensionBuilder = new BoardDimensionBuilder(input);
-            boardDimension = boardDimensionDimensionBuilder.withXDimension("Enter width")
-                    .withYDimension("Enter height")
-                    .build();
-        }while (boardDimension.getXDimension() > 40 && boardDimension.getYDimension() > 40 && boardDimension.getXDimension() < 3 && boardDimension.getYDimension() < 3);
+            try {
+                DimensionBuilder<BoardDimension> boardDimensionDimensionBuilder = new BoardDimensionBuilder(input);
+                boardDimension = boardDimensionDimensionBuilder.withXDimension("Enter width")
+                        .withYDimension("Enter height")
+                        .build();
+                dimensionsCreated = true;
+            } catch (IllegalArgumentException e) {
+                dimensionsCreated = false;
+            }
+        }while (!dimensionsCreated);
         return boardDimension;
     }
 }

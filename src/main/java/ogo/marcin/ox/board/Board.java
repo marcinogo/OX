@@ -16,7 +16,7 @@ public class Board {
 
     Board(Dimension boardDimension) {
         if(!validateDimensions(boardDimension.getXDimension(), boardDimension.getYDimension())) {
-            throw new IllegalArgumentException("Width and height have to be at least 3");
+            throw new IllegalArgumentException("Width and height have to be at least 3 and no more than 40");
         }
         this.width = boardDimension.getXDimension();
         this.height = boardDimension.getYDimension();

@@ -11,6 +11,7 @@ public abstract class DimensionBuilder<T extends Dimension> {
 
     private Input input;
 
+
     public DimensionBuilder(Input input) {
         this.input = input;
     }

@@ -14,7 +14,9 @@ public abstract class Dimension {
 
     public Dimension(int xDimension, int yDimension) {
 //        TODO: do something with different x-y in message
-        if(validate(xDimension, yDimension)) throw new IllegalArgumentException();
+        if (!validate(xDimension, yDimension)) {
+            throw new IllegalArgumentException();
+        }
         this.xDimension = xDimension;
         this.yDimension = yDimension;
     }
@@ -32,6 +34,4 @@ public abstract class Dimension {
     }
 
     protected abstract boolean validate(int width, int height);
-
-//    TODO: impelemnt Builder pattern here and do builder interface chage this pseudo factories to builder
 }

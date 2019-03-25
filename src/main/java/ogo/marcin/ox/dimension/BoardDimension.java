@@ -12,18 +12,17 @@ public class BoardDimension extends Dimension{
     }
 
     public BoardDimension(DimensionBuilder dimensionBuilder) {
-
-        super(dimensionBuilder);
+        this(dimensionBuilder.yDimension, dimensionBuilder.xDimension);
     }
 
     @Override
     protected boolean validate(int width, int height) {
-        return yDimension >= Dimension.MIN_HEIGHT && yDimension <= Dimension.MAX_HEIGHT
-                && xDimension >= Dimension.MIN_WIDTH && xDimension <= Dimension.MAX_WIDTH;
+        return height >= Dimension.MIN_HEIGHT && height <= Dimension.MAX_HEIGHT
+                && width >= Dimension.MIN_WIDTH && width <= Dimension.MAX_WIDTH;
     }
 
     private void setCoordinatesMaxXY() {
-        Coordinates.MAX_WIDTH = this.xDimension;
-        Coordinates.MAX_HEIGHT = this.yDimension;
+        Coordinates.MAX_X_INDEX = this.xDimension;
+        Coordinates.MAX_Y_INDEX = this.yDimension;
     }
 }

@@ -39,14 +39,21 @@ class Match {
         giveMatchResult(winner);
     }
 
+//    TODO: move this to some class / API
     private Coordinates getCoordinates(Judge judge) {
         Coordinates coordinates = null;
+        boolean coordinatesWithinBoard;
          do {
-            DimensionBuilder<Coordinates> coordinatesDimensionBuilder = new CoordinatesBuilder(input);
-            coordinates = coordinatesDimensionBuilder.withXDimension("Enter x")
-                    .withYDimension("Enter y")
-                    .build();
-         } while (!judge.isPlayerActionWithinBoard(coordinates) ||
+            try {
+                DimensionBuilder<Coordinates> coordinatesDimensionBuilder = new CoordinatesBuilder(input);
+                coordinates = coordinatesDimensionBuilder.withXDimension("Enter x")
+                        .withYDimension("Enter y")
+                        .build();
+                coordinatesWithinBoard = true;
+            } catch (IllegalArgumentException e) {
+                coordinatesWithinBoard = false;
+            }
+         } while (!coordinatesWithinBoard ||
                  !judge.isPlayerSignSetOnFreeSpace(coordinates));
         return coordinates;
     }
