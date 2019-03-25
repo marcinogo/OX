@@ -11,10 +11,15 @@ public class BoardDimension extends Dimension{
         setCoordinatesMaxXY();
     }
 
+    public BoardDimension(DimensionBuilder dimensionBuilder) {
+
+        super(dimensionBuilder);
+    }
+
     @Override
     protected boolean validate(int width, int height) {
-        return yDimension >= MIN_HEIGHT && yDimension <= MAX_HEIGHT
-                && xDimension >= MIN_WIDTH && xDimension <=MAX_WIDTH;
+        return yDimension >= Dimension.MIN_HEIGHT && yDimension <= Dimension.MAX_HEIGHT
+                && xDimension >= Dimension.MIN_WIDTH && xDimension <= Dimension.MAX_WIDTH;
     }
 
     private void setCoordinatesMaxXY() {

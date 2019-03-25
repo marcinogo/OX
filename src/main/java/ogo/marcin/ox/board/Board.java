@@ -1,6 +1,6 @@
 package ogo.marcin.ox.board;
 
-import ogo.marcin.ox.dimension.BoardDimension;
+import ogo.marcin.ox.dimension.Dimension;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -14,12 +14,12 @@ public class Board {
 
     Field[][] matrix;
 
-    Board(BoardDimension boardDimension) {
-        if(!validateDimensions(boardDimension.getxDimension(), boardDimension.getyDimension())) {
+    Board(Dimension boardDimension) {
+        if(!validateDimensions(boardDimension.getXDimension(), boardDimension.getYDimension())) {
             throw new IllegalArgumentException("Width and height have to be at least 3");
         }
-        this.width = boardDimension.getxDimension();
-        this.height = boardDimension.getyDimension();
+        this.width = boardDimension.getXDimension();
+        this.height = boardDimension.getYDimension();
         this.matrix = new Field[height][width];
     }
 
@@ -43,8 +43,8 @@ public class Board {
 
     Board setField(Coordinates coordinates, Sign sign) {
         Board newBoard = new Board(this);
-        Field fieldToChange = newBoard.matrix[coordinates.getyDimension()][coordinates.getxDimension()];
-        newBoard.matrix[coordinates.getyDimension()][coordinates.getxDimension()] = fieldToChange.changeSign(sign);
+        Field fieldToChange = newBoard.matrix[coordinates.getYDimension()][coordinates.getXDimension()];
+        newBoard.matrix[coordinates.getYDimension()][coordinates.getXDimension()] = fieldToChange.changeSign(sign);
         return newBoard;
     }
 

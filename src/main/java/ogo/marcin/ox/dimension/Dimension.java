@@ -14,19 +14,24 @@ public abstract class Dimension {
 
     public Dimension(int xDimension, int yDimension) {
 //        TODO: do something with different x-y in message
-        if(!validate(xDimension, yDimension)) throw new IllegalArgumentException(String.format("X (width) and Y (height) should be " +
-                "between %d and %d"));
+        if(validate(xDimension, yDimension)) throw new IllegalArgumentException();
         this.xDimension = xDimension;
         this.yDimension = yDimension;
     }
 
-    public int getxDimension() {
+    protected Dimension(DimensionBuilder dimensionBuilder) {
+        this(dimensionBuilder.xDimension, dimensionBuilder.yDimension);
+    }
+
+    public int getXDimension() {
         return xDimension;
     }
 
-    public int getyDimension() {
+    public int getYDimension() {
         return yDimension;
     }
+
+    protected abstract boolean validate(int width, int height);
 
 //    TODO: impelemnt Builder pattern here and do builder interface chage this pseudo factories to builder
 }

@@ -40,12 +40,12 @@ public class Input {
     }
 
 //    change this do more generic
-    public <T extends Dimension> T getCoordinates() {
-        System.out.println("Enter x coordinate");
-        Integer x = getIntegerInput();
-        System.out.println("Enter y coordinate");
-        Integer y = getIntegerInput();
-        Class<T> cls;
-        return cls.newIn;
-    }
+//    public <T extends Dimension> T getCoordinates() {
+//        System.out.println("Enter x coordinate");
+//        Integer x = getIntegerInput();
+//        System.out.println("Enter y coordinate");
+//        Integer y = getIntegerInput();
+//        Class<T> cls;
+//        return cls.newIn;
+//    }
 }

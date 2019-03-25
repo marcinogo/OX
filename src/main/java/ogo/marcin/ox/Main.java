@@ -2,6 +2,8 @@ package ogo.marcin.ox;
 
 import ogo.marcin.ox.board.*;
 import ogo.marcin.ox.dimension.BoardDimension;
+import ogo.marcin.ox.dimension.BoardDimensionBuilder;
+import ogo.marcin.ox.dimension.DimensionBuilder;
 import ogo.marcin.ox.game.Game;
 import ogo.marcin.ox.io.Input;
 import ogo.marcin.ox.player.Player;
@@ -40,8 +42,11 @@ public class Main {
     private static BoardDimension getBoardDimensions(Input input) {
         BoardDimension boardDimension = null;
         do {
-            boardDimension = input.getCoordinates();
-        }while (boardDimension.getxDimension() > 40 && boardDimension.getyDimension() > 40 && boardDimension.getxDimension() < 3 && boardDimension.getyDimension() < 3);
+            DimensionBuilder<BoardDimension> boardDimensionDimensionBuilder = new BoardDimensionBuilder(input);
+            boardDimension = boardDimensionDimensionBuilder.withXDimension("Enter width")
+                    .withYDimension("Enter height")
+                    .build();
+        }while (boardDimension.getXDimension() > 40 && boardDimension.getYDimension() > 40 && boardDimension.getXDimension() < 3 && boardDimension.getYDimension() < 3);
         return boardDimension;
     }
 }

@@ -1,6 +1,7 @@
 package ogo.marcin.ox.board;
 
 import ogo.marcin.ox.dimension.Dimension;
+import ogo.marcin.ox.dimension.DimensionBuilder;
 
 /**
  * @author Marcin Ogorzalek
@@ -13,9 +14,13 @@ public class Coordinates extends Dimension {
         super(x, y);
     }
 
+    public Coordinates(DimensionBuilder dimensionBuilder) {
+        super(dimensionBuilder);
+    }
+
     @Override
     protected boolean validate(int x, int y) {
-        return y >= MIN_HEIGHT && y <= Coordinates.MAX_HEIGHT
-                && x >= MIN_WIDTH && x <= Coordinates.MAX_WIDTH;
+        return y >= Dimension.MIN_HEIGHT && y <= Coordinates.MAX_HEIGHT
+                && x >= Dimension.MIN_WIDTH && x <= Coordinates.MAX_WIDTH;
     }
 }

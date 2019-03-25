@@ -3,6 +3,8 @@ package ogo.marcin.ox.game;
 import ogo.marcin.ox.Settings;
 import ogo.marcin.ox.board.BoardAPI;
 import ogo.marcin.ox.board.Coordinates;
+import ogo.marcin.ox.dimension.CoordinatesBuilder;
+import ogo.marcin.ox.dimension.DimensionBuilder;
 import ogo.marcin.ox.io.Input;
 import ogo.marcin.ox.player.Player;
 import ogo.marcin.ox.player.PlayerAPI;
@@ -40,7 +42,10 @@ class Match {
     private Coordinates getCoordinates(Judge judge) {
         Coordinates coordinates = null;
          do {
-            coordinates = input.getCoordinates();
+            DimensionBuilder<Coordinates> coordinatesDimensionBuilder = new CoordinatesBuilder(input);
+            coordinates = coordinatesDimensionBuilder.withXDimension("Enter x")
+                    .withYDimension("Enter y")
+                    .build();
          } while (!judge.isPlayerActionWithinBoard(coordinates) ||
                  !judge.isPlayerSignSetOnFreeSpace(coordinates));
         return coordinates;
