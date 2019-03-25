@@ -32,7 +32,8 @@ public class BoardTest {
 
     @Test(dataProvider = "createBoard")
     public void testIfBoardHaveDimensions(int width, int height) {
-        Board board = new Board(width, height);
+        Coordinates coordinates = new Coordinates(width, height);
+        Board board = new Board(coordinates);
         assert board.width == width : String.format("Width should be %d", width);
         assert board.height == height : String.format("Height should be %d", height);
     }
@@ -68,20 +69,23 @@ public class BoardTest {
 
     @Test(dataProvider = "tryCreateImproperBoardDimensions", expectedExceptions = IllegalArgumentException.class)
     public void testIfBoardThrowExceptionWhenCreateWithWrongDimensions(int width, int height) {
-        Board board = new Board(width, height);
+        Coordinates coordinates = new Coordinates(width, height);
+        Board board = new Board(coordinates);
         assert board.width == width : String.format("Width should be %d", width);
         assert board.height == height : String.format("Height should be %d", height);
     }
 
     @Test(dataProvider = "createBoard")
     public void testIfBoardHaveMatrixOfGivenHeight(int width, int height) {
-        Board board = new Board(width, height);
+        Coordinates coordinates = new Coordinates(width, height);
+        Board board = new Board(coordinates);
         assert board.matrix.length == height : String.format("Matrix should have height of %d", height);
     }
 
     @Test(dataProvider = "createBoard")
     public void testIfBoardHaveMatrixOfGivenWidth(int width, int height) {
-        Board board = new Board(width, height);
+        Coordinates coordinates = new Coordinates(width, height);
+        Board board = new Board(coordinates);
         assert board.matrix[0].length == width : String.format("Matrix should have Width of %d", width);
     }
 
@@ -107,9 +111,11 @@ public class BoardTest {
     public void testIfBoardSetFieldValueInMatrix(int width, int height,
                                                  int widthToUpdate, int heightToUpdate,
                                                  Sign sign) {
-        Board board = new Board(width, height);
+        Coordinates coordinates = new Coordinates(width, height);
+        Board board = new Board(coordinates);
         board = board.setBoardMatrixCells(Sign.DEFAULT);
-        Board updateBoard = board.setField(widthToUpdate, heightToUpdate, sign);
+        Coordinates coordinatesToUpdate = new Coordinates(widthToUpdate, heightToUpdate);
+        Board updateBoard = board.setField(coordinatesToUpdate, sign);
         Field expected = new Field(sign);
         assert updateBoard.matrix[heightToUpdate][widthToUpdate].equals(expected): String.format("Field should " +
                 "have value %s", expected);
@@ -135,7 +141,8 @@ public class BoardTest {
 
     @Test(dataProvider = "setAllBoardValue")
     public void testSetAllBoardFields(int width, int height, Sign sign) {
-        Board board = new Board(width, height);
+        Coordinates coordinates = new Coordinates(width, height);
+        Board board = new Board(coordinates);
         board = board.setBoardMatrixCells(sign);
         Field[] expectedContent = new Field[width];
         Arrays.fill(expectedContent, new Field(sign));
@@ -147,7 +154,8 @@ public class BoardTest {
 
     @Test(dataProvider = "setAllBoardValue")
     public void testIfToStringReturnCorrectString(int width, int height, Sign sign) {
-        Board board = new Board(width, height);
+        Coordinates coordinates = new Coordinates(width, height);
+        Board board = new Board(coordinates);
         board = board.setBoardMatrixCells(sign);
         String expected = createBoardExpectedStringRepresentation(board.width, board.height, sign);
         assert board.toString().equals(expected) : String.format("Wrong representation " +
@@ -169,15 +177,17 @@ public class BoardTest {
 
     @Test(dataProvider = "createBoard")
     public void testEquals(int width, int height) {
-        Board board1 = new Board(width, height);
-        Board board2 = new Board(width, height);
+        Coordinates coordinates = new Coordinates(width, height);
+        Board board1 = new Board(coordinates);
+        Board board2 = new Board(coordinates);
         assert board1.equals(board2) : "Boards should be equals";
     }
 
     @Test(dataProvider = "createBoard")
     public void testHashCoed(int width, int height) {
-        Board board1 = new Board(width, height);
-        Board board2 = new Board(width, height);
+        Coordinates coordinates = new Coordinates(width, height);
+        Board board1 = new Board(coordinates);
+        Board board2 = new Board(coordinates);
         assert board1.hashCode() == board2.hashCode() : "HashCodes should be equals";
     }
 }

@@ -1,33 +1,60 @@
 package ogo.marcin.ox;
 
-import ogo.marcin.ox.board.Board;
-import ogo.marcin.ox.board.BoardAPI;
-import ogo.marcin.ox.board.BoardAPIImpl;
-import ogo.marcin.ox.board.Sign;
+import ogo.marcin.ox.board.*;
+import ogo.marcin.ox.dimension.BoardDimension;
+import ogo.marcin.ox.dimension.BoardDimensionBuilder;
+import ogo.marcin.ox.dimension.DimensionBuilder;
+import ogo.marcin.ox.game.Game;
+import ogo.marcin.ox.io.Input;
 import ogo.marcin.ox.player.Player;
 import ogo.marcin.ox.player.PlayerAPI;
 import ogo.marcin.ox.player.PlayerAPIImpl;
+
+import java.util.*;
 
 /**
  * @author Marcin Ogorzalek
  */
 public class Main {
     public static void main(String[] args) {
-        BoardAPI boardAPI = new BoardAPIImpl();
-        Board board = boardAPI.createBoard(3, 3, Sign.DEFAULT);
-        System.out.println(board);
-        board = boardAPI.setField(board, 1, 1, Sign.X);
-        System.out.println();
-        System.out.println(board);
+        try(Scanner scanner = new Scanner(System.in)) {
+//    TODO: Change factories to Builders and create some common interface for this wit T build();
+            PlayerAPI playerAPI = new PlayerAPIImpl();
 
-        PlayerAPI playerAPI = new PlayerAPIImpl();
-        Player player1 = playerAPI.createPlayer("Player 1", Sign.X);
-        Player player2 = playerAPI.createPlayer("Player 2", Sign.O, 10);
+            FactoryAPI factoryAPI = new FactoryAPIImpl();
 
-        System.out.println(player1);
-        System.out.println(player2);
+            Input input = new Input(scanner, factoryAPI);
+            List<Player> players = new PlayerListCreator(factoryAPI, input).createPlayers();
 
-        player1 = playerAPI.setPlayerPoints(player1, 3);
-        System.out.println(player1);
+            Board board = factoryAPI.createBoard(getBoardDimensions(input));
+            BoardAPI boardAPI = new BoardAPIImpl(board);
+
+            Settings settings = new Settings.SettingsBuilder(input)
+                    .withWinCondition()
+                    .withNumberOfRounds()
+                    .withDefaultSign()
+                    .build();
+
+            Game game = new Game(settings, boardAPI, playerAPI, input, players);
+            game.play();
+        }
+    }
+
+//    TODO: move this to some class / API
+    private static BoardDimension getBoardDimensions(Input input) {
+        BoardDimension boardDimension = null;
+        boolean dimensionsCreated;
+        do {
+            try {
+                DimensionBuilder<BoardDimension> boardDimensionDimensionBuilder = new BoardDimensionBuilder(input);
+                boardDimension = boardDimensionDimensionBuilder.withXDimension("Enter width")
+                        .withYDimension("Enter height")
+                        .build();
+                dimensionsCreated = true;
+            } catch (IllegalArgumentException e) {
+                dimensionsCreated = false;
+            }
+        }while (!dimensionsCreated);
+        return boardDimension;
     }
 }

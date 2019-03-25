@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * @author Marcin Ogorzalek
  */
-public class Field {
+class Field {
     final Sign sign;
 
     Field(Sign sign) {

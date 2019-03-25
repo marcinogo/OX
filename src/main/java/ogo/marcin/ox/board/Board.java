@@ -1,5 +1,7 @@
 package ogo.marcin.ox.board;
 
+import ogo.marcin.ox.dimension.Dimension;
+
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -7,17 +9,17 @@ import java.util.Objects;
  * @author Marcin Ogorzalek
  */
 public class Board {
-    int width;
-    int height;
+    final int width;
+    final int height;
 
     Field[][] matrix;
 
-    Board(int width, int height) {
-        if(!validateDimensions(width, height)) {
-            throw new IllegalArgumentException("Width and height have to be at least 3");
+    Board(Dimension boardDimension) {
+        if(!validateDimensions(boardDimension.getXDimension(), boardDimension.getYDimension())) {
+            throw new IllegalArgumentException("Width and height have to be at least 3 and no more than 40");
         }
-        this.width = width;
-        this.height = height;
+        this.width = boardDimension.getXDimension();
+        this.height = boardDimension.getYDimension();
         this.matrix = new Field[height][width];
     }
 
@@ -39,10 +41,10 @@ public class Board {
                 && height >=3  && height <= 40;
     }
 
-    Board setField(int widthToUpdate, int heightToUpdate, Sign sign) {
+    Board setField(Coordinates coordinates, Sign sign) {
         Board newBoard = new Board(this);
-        Field fieldToChange = newBoard.matrix[heightToUpdate][widthToUpdate];
-        newBoard.matrix[heightToUpdate][widthToUpdate] = fieldToChange.changeSign(sign);
+        Field fieldToChange = newBoard.matrix[coordinates.getYDimension()][coordinates.getXDimension()];
+        newBoard.matrix[coordinates.getYDimension()][coordinates.getXDimension()] = fieldToChange.changeSign(sign);
         return newBoard;
     }
 
@@ -62,10 +64,8 @@ public class Board {
 
     Board setBoardMatrixCells(Sign sign) {
         Board board = new Board(this);
-        for (int i = 0; i < board.matrix.length; i++) {
-            for(int j = 0; j < board.matrix[i].length; j++) {
-                board.matrix[i][j] = new Field(sign);
-            }
+        for (Field[] row: board.matrix) {
+            Arrays.fill(row, new Field(sign));
         }
         return board;
     }

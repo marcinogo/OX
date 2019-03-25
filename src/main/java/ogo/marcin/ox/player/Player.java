@@ -7,16 +7,16 @@ import java.util.Objects;
 /**
  * @author Marcin Ogorzalek
  */
-public class Player {
+public class Player implements Comparable<Player>{
     final String name;
     final Sign playerSign;
-    Integer points;
+    int points;
 
     Player(String name, Sign playerSign) {
         this(name, playerSign, 0);
     }
 
-    Player(String name, Sign playerSign, Integer points) {
+    Player(String name, Sign playerSign, int points) {
         validatePlayerData(name, playerSign, points);
         this.name = name;
         this.playerSign = playerSign;
@@ -27,7 +27,7 @@ public class Player {
         this(player.name, player.playerSign, player.points);
     }
 
-    private void validatePlayerData(String name, Sign sign, Integer points) {
+    private void validatePlayerData(String name, Sign sign, int points) {
         if(!validateName(name)) throw new IllegalArgumentException("Player must have name");
         if(!validateSign(sign)) throw new IllegalArgumentException("Player must have not default sign");
         if(!validatePoints(points)) throw new IllegalArgumentException("Player can not have points below 0");
@@ -41,7 +41,7 @@ public class Player {
         return sign != null && !sign.equals(Sign.DEFAULT);
     }
 
-    private boolean validatePoints(Integer points) {
+    private boolean validatePoints(int points) {
         return points >= 0;
     }
 
@@ -50,9 +50,9 @@ public class Player {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Player player = (Player) o;
-        return Objects.equals(name, player.name) &&
-                playerSign == player.playerSign &&
-                Objects.equals(points, player.points);
+        return points == player.points &&
+                Objects.equals(name, player.name) &&
+                playerSign == player.playerSign;
     }
 
     @Override
@@ -60,7 +60,7 @@ public class Player {
         return Objects.hash(name, playerSign, points);
     }
 
-    Player setPlayerPoints(Integer newNumberOfPoints) {
+    Player setPlayerPoints(int newNumberOfPoints) {
         Player player = new Player(this);
         player.points = newNumberOfPoints;
         return player;
@@ -70,5 +70,10 @@ public class Player {
     @Override
     public String toString() {
         return String.format("%s with sign %s have: %d points", name, playerSign, points);
+    }
+
+    @Override
+    public int compareTo(Player o) {
+        return this.points - o.points;
     }
 }

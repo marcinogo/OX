@@ -1,5 +1,7 @@
 package ogo.marcin.ox.board;
 
+import ogo.marcin.ox.dimension.BoardDimension;
+import ogo.marcin.ox.dimension.Dimension;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -29,15 +31,17 @@ public class BoardFactoryTest {
     @Test(dataProvider = "createBoard")
     public void testCreateBoardDontReturnNull(int width, int height, Sign sign) {
         BoardFactory boardFactory = new BoardFactory();
-        Board board = boardFactory.createBoard(width, height, sign);
+        Dimension boardDimension = new BoardDimension(width, height);
+        Board board = boardFactory.createBoard(boardDimension, sign);
         assert board != null : "Board should not be null";
     }
 
     @Test(dataProvider = "createBoard")
     public void testCreateBoard(int width, int height, Sign sign) {
         BoardFactory boardFactory = new BoardFactory();
-        Board board = boardFactory.createBoard(width, height, sign);
-        Board expectedBoard = new Board(width, height).setBoardMatrixCells(sign);
+        Dimension boardDimension = new BoardDimension(width, height);
+        Board board = boardFactory.createBoard(boardDimension, sign);
+        Board expectedBoard = new Board(boardDimension).setBoardMatrixCells(sign);
         assert board.equals(expectedBoard) : "Board should be equals";
     }
 }
