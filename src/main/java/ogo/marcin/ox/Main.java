@@ -23,7 +23,7 @@ public class Main {
 
             FactoryAPI factoryAPI = new FactoryAPIImpl();
 
-            Input input = new Input(scanner, factoryAPI);
+            Input input = new Input(scanner);
             List<Player> players = new PlayerListCreator(factoryAPI, input).createPlayers();
 
             Board board = factoryAPI.createBoard(getBoardDimensions(input));

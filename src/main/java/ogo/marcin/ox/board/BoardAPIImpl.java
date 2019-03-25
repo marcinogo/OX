@@ -1,5 +1,8 @@
 package ogo.marcin.ox.board;
 
+import ogo.marcin.ox.dimension.Coordinates;
+import ogo.marcin.ox.dimension.Dimension;
+
 /**
  * @author Marcin Ogorzalek
  */
@@ -21,7 +24,7 @@ public class BoardAPIImpl implements BoardAPI {
     }
 
     @Override
-    public void setField(Coordinates coordinates, Sign sign) {
+    public void setField(Dimension coordinates, Sign sign) {
         board = board.setField(coordinates, sign);
     }
 
@@ -36,18 +39,11 @@ public class BoardAPIImpl implements BoardAPI {
     }
 
     @Override
-    public boolean isCoordinatesWithinBoard(Coordinates coordinates) {
-        if(coordinates.getXDimension() < 0 || coordinates.getXDimension() >= board.width) return false;
-        if(coordinates.getYDimension() < 0 || coordinates.getYDimension() >= board.height) return false;
-        return true;
-    }
-
-    @Override
-    public boolean isCoordinatesPointsToDefaultSign(Sign defaultSign, Coordinates coordinates) {
+    public boolean isCoordinatesPointsToDefaultSign(Sign defaultSign, Dimension coordinates) {
         return board.matrix[coordinates.getYDimension()][coordinates.getXDimension()].sign.equals(defaultSign);
     }
 
-    public boolean isSignNumberMeetWinCondition(Sign playerSign, Coordinates coordinates, int winCondition) {
+    public boolean isSignNumberMeetWinCondition(Sign playerSign, Dimension coordinates, int winCondition) {
         int x = coordinates.getXDimension();
         int y = coordinates.getYDimension();
 

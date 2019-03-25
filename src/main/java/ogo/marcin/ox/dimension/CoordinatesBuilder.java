@@ -1,6 +1,5 @@
 package ogo.marcin.ox.dimension;
 
-import ogo.marcin.ox.board.Coordinates;
 import ogo.marcin.ox.io.Input;
 
 /**

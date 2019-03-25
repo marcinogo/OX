@@ -1,8 +1,6 @@
 package ogo.marcin.ox.io;
 
 import ogo.marcin.ox.FactoryAPI;
-import ogo.marcin.ox.board.Coordinates;
-import ogo.marcin.ox.dimension.Dimension;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -12,11 +10,9 @@ import java.util.Scanner;
  */
 public class Input {
     private final Scanner scanner;
-    private final FactoryAPI factoryAPI;
 
-    public Input(Scanner scanner, FactoryAPI factoryAPI) {
+    public Input(Scanner scanner) {
         this.scanner = scanner;
-        this.factoryAPI = factoryAPI;
     }
 
     public String getStringInput() {
@@ -38,14 +34,4 @@ public class Input {
         } while (!inputIsCorrect);
         return result;
     }
-
-//    change this do more generic
-//    public <T extends Dimension> T getCoordinates() {
-//        System.out.println("Enter x coordinate");
-//        Integer x = getIntegerInput();
-//        System.out.println("Enter y coordinate");
-//        Integer y = getIntegerInput();
-//        Class<T> cls;
-//        return cls.newIn;
-//    }
 }
