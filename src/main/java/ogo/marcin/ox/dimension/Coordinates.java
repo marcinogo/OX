@@ -1,23 +1,20 @@
-package ogo.marcin.ox.board;
-
-import ogo.marcin.ox.dimension.Dimension;
-import ogo.marcin.ox.dimension.DimensionBuilder;
+package ogo.marcin.ox.dimension;
 
 /**
  * @author Marcin Ogorzalek
  */
 public class Coordinates extends Dimension {
-    public static int MIN_Y_INDEX = 0;
-    public static int MAX_Y_INDEX;
-    public static int MIN_X_INDEX = 0;
-    public static int MAX_X_INDEX;
+    private static final int MIN_Y_INDEX = 0;
+    static int MAX_Y_INDEX;
+    private static final int MIN_X_INDEX = 0;
+    static int MAX_X_INDEX;
 
 
-    public Coordinates(int x, int y) {
+    protected Coordinates(int x, int y) {
         super(x, y);
     }
 
-    public Coordinates(DimensionBuilder dimensionBuilder) {
+    Coordinates(DimensionBuilder dimensionBuilder) {
         super(dimensionBuilder);
     }
 

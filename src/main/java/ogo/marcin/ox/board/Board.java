@@ -41,7 +41,7 @@ public class Board {
                 && height >=3  && height <= 40;
     }
 
-    Board setField(Coordinates coordinates, Sign sign) {
+    Board setField(Dimension coordinates, Sign sign) {
         Board newBoard = new Board(this);
         Field fieldToChange = newBoard.matrix[coordinates.getYDimension()][coordinates.getXDimension()];
         newBoard.matrix[coordinates.getYDimension()][coordinates.getXDimension()] = fieldToChange.changeSign(sign);

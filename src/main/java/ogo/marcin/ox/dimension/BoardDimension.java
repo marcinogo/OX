@@ -1,17 +1,15 @@
 package ogo.marcin.ox.dimension;
 
-import ogo.marcin.ox.board.Coordinates;
-
 /**
  * @author Marcin Ogorzalek
  */
 public class BoardDimension extends Dimension{
-    public BoardDimension(int height, int width) {
+    protected BoardDimension(int height, int width) {
         super(height, width);
         setCoordinatesMaxXY();
     }
 
-    public BoardDimension(DimensionBuilder dimensionBuilder) {
+    BoardDimension(DimensionBuilder dimensionBuilder) {
         this(dimensionBuilder.yDimension, dimensionBuilder.xDimension);
     }
 

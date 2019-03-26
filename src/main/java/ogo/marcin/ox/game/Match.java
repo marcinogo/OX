@@ -2,7 +2,7 @@ package ogo.marcin.ox.game;
 
 import ogo.marcin.ox.Settings;
 import ogo.marcin.ox.board.BoardAPI;
-import ogo.marcin.ox.board.Coordinates;
+import ogo.marcin.ox.dimension.Coordinates;
 import ogo.marcin.ox.dimension.CoordinatesBuilder;
 import ogo.marcin.ox.dimension.DimensionBuilder;
 import ogo.marcin.ox.io.Input;

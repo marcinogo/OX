@@ -1,7 +1,6 @@
 package ogo.marcin.ox;
 
 import ogo.marcin.ox.board.Board;
-import ogo.marcin.ox.board.Coordinates;
 import ogo.marcin.ox.board.Sign;
 import ogo.marcin.ox.dimension.BoardDimension;
 

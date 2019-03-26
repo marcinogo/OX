@@ -3,6 +3,7 @@
 //import ogo.marcin.ox.board.Board;
 //import ogo.marcin.ox.board.Field;
 //import ogo.marcin.ox.board.Sign;
+//import ogo.marcin.ox.dimension.Coordinates;
 //import org.testng.annotations.DataProvider;
 //import org.testng.annotations.Test;
 //

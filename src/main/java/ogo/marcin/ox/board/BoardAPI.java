@@ -1,14 +1,15 @@
 package ogo.marcin.ox.board;
 
+import ogo.marcin.ox.dimension.Dimension;
+
 /**
  * @author Marcin Ogorzalek
  */
 public interface BoardAPI {
-    void setField(Coordinates coordinates, Sign sign);
+    void setField(Dimension coordinates, Sign sign);
     boolean isFreeSpaceOnBoard(Sign defaultSign);
-    boolean isCoordinatesWithinBoard(Coordinates coordinates);
-    boolean isCoordinatesPointsToDefaultSign(Sign defaultSign, Coordinates coordinates);
-    boolean isSignNumberMeetWinCondition(Sign playerSign, Coordinates coordinates, int winCondition);
+    boolean isCoordinatesPointsToDefaultSign(Sign defaultSign, Dimension coordinates);
+    boolean isSignNumberMeetWinCondition(Sign playerSign, Dimension coordinates, int winCondition);
 
     Board getBoard();
     void setBoard(Board board);

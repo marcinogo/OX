@@ -1,8 +1,8 @@
 package ogo.marcin.ox.game;
 
 import ogo.marcin.ox.board.BoardAPI;
-import ogo.marcin.ox.board.Coordinates;
 import ogo.marcin.ox.board.Sign;
+import ogo.marcin.ox.dimension.Dimension;
 
 /**
  * @author Marcin Ogorzalek
@@ -26,15 +26,11 @@ class Judge {
         return boardAPI.isFreeSpaceOnBoard(defaultSign);
     }
 
-    boolean isPlayerActionWithinBoard(Coordinates coordinates) {
-        return boardAPI.isCoordinatesWithinBoard(coordinates);
-    }
-
-    boolean isPlayerSignSetOnFreeSpace(Coordinates coordinates) {
+    boolean isPlayerSignSetOnFreeSpace(Dimension coordinates) {
         return boardAPI.isCoordinatesPointsToDefaultSign(defaultSign, coordinates);
     }
 
-    boolean isPlayerWon(Sign playerSign, Coordinates coordinates) {
+    boolean isPlayerWon(Sign playerSign, Dimension coordinates) {
         return boardAPI.isSignNumberMeetWinCondition(playerSign, coordinates, winCondition);
     }
 }
