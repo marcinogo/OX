@@ -1,8 +1,6 @@
-package ogo.marcin.ox;
+package ogo.marcin.ox.player;
 
-import ogo.marcin.ox.board.Sign;
 import ogo.marcin.ox.io.Input;
-import ogo.marcin.ox.player.Player;
 
 import java.util.*;
 
@@ -10,7 +8,7 @@ import java.util.*;
  * @author Marcin Ogorzalek
  */
 public class PlayerListCreator {
-    Input input;
+    private Input input;
 
     public PlayerListCreator(Input input) {
         this.input = input;

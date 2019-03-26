@@ -27,7 +27,7 @@ public class Player implements Comparable<Player>{
         this.points = points;
     }
 
-    Player(PlayerBuilder playerBuilder) {
+    private Player(PlayerBuilder playerBuilder) {
         this(playerBuilder.name, playerBuilder.playerSign, playerBuilder.points);
     }
 

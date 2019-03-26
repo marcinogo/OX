@@ -9,6 +9,7 @@ import ogo.marcin.ox.io.Input;
 import ogo.marcin.ox.player.Player;
 import ogo.marcin.ox.player.PlayerAPI;
 import ogo.marcin.ox.player.PlayerAPIImpl;
+import ogo.marcin.ox.player.PlayerListCreator;
 
 import java.util.*;
 
