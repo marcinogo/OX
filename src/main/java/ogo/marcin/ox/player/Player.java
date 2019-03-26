@@ -1,8 +1,12 @@
 package ogo.marcin.ox.player;
 
 import ogo.marcin.ox.board.Sign;
+import ogo.marcin.ox.io.Input;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
 
 /**
  * @author Marcin Ogorzalek
@@ -21,6 +25,10 @@ public class Player implements Comparable<Player>{
         this.name = name;
         this.playerSign = playerSign;
         this.points = points;
+    }
+
+    Player(PlayerBuilder playerBuilder) {
+        this(playerBuilder.name, playerBuilder.playerSign, playerBuilder.points);
     }
 
     private Player(Player player) {
@@ -75,5 +83,80 @@ public class Player implements Comparable<Player>{
     @Override
     public int compareTo(Player o) {
         return this.points - o.points;
+    }
+
+    public static class PlayerBuilder {
+        public static Set<Sign> usedSigns;
+        private Input input;
+
+        private String name;
+        private Sign playerSign;
+        private int points;
+
+        public PlayerBuilder(Input input) {
+            this.input = input;
+            usedSigns = new HashSet<>();
+            usedSigns.add(Sign.DEFAULT);
+        }
+
+        public Player build() {
+            return new Player(this);
+        }
+
+        public PlayerBuilder withName(int i) {
+            System.out.printf("Give player %d name%n", i);
+            this.name = input.getStringInput();
+            return this;
+        }
+
+        public PlayerBuilder withSign(int i) {
+            String signString;
+            Optional<Sign> playerSign;
+            do {
+                System.out.printf("Give player %d sign - X or O%n", i);
+                signString = input.getStringInput().toUpperCase();
+                playerSign = getPlayerSign(signString, usedSigns);
+            } while (playerSign.isEmpty());
+            this.playerSign = playerSign.get();
+            return this;
+        }
+
+        public PlayerBuilder withPoints() {
+            this.points = 0;
+            return this;
+        }
+
+        public PlayerBuilder withPoints(int i, boolean noDefault) {
+            if(!noDefault) return withPoints();
+            int points = 0;
+            do {
+                System.out.printf("Give player %d starting points (more than 0)%n", i);
+                points = input.getIntegerInput();
+            } while (points <= 0);
+            this.points = points;
+            return this;
+        }
+
+        private Optional<Sign> getPlayerSign(String signString, Set<Sign> usedSigns) {
+            Sign playerSign = null;
+            if(validatePlayerSignString(signString, usedSigns))  {
+                playerSign = Sign.valueOf(signString);
+                usedSigns.add(playerSign);
+            }
+            return Optional.ofNullable(playerSign);
+        }
+
+        private boolean validatePlayerSignString(String signString, Set<Sign> usedSigns) {
+            try {
+                Sign player = Sign.valueOf(signString);
+                return isSignNotUsed(player, usedSigns);
+            } catch (IllegalArgumentException e) {
+                return false;
+            }
+        }
+
+        private boolean isSignNotUsed(Sign playerSign, Set<Sign> usedSigns) {
+            return !usedSigns.contains(playerSign);
+        }
     }
 }
