@@ -86,7 +86,7 @@ public class Player implements Comparable<Player>{
     }
 
     public static class PlayerBuilder {
-        public static Set<Sign> usedSigns;
+        private static Set<Sign> usedSigns;
         private Input input;
 
         private String name;
