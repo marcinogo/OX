@@ -11,6 +11,7 @@ import ogo.marcin.ox.player.PlayerAPI;
 import ogo.marcin.ox.player.PlayerAPIImpl;
 import ogo.marcin.ox.player.PlayerListCreator;
 
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 /**
@@ -18,7 +19,10 @@ import java.util.*;
  */
 public class Main {
     public static void main(String[] args) {
+//        from the worst to the best
         try(Scanner scanner = new Scanner(System.in)) {
+//        try(Scanner scanner = new Scanner(System.in, "utf-8")) {
+//        try(Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8)) {
 //    TODO: Change factories to Builders and create some common interface for this wit T build();
             PlayerAPI playerAPI = new PlayerAPIImpl();
 
