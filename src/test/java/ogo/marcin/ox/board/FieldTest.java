@@ -97,9 +97,9 @@ public class FieldTest {
         };
     }
 
-    @Test(dataProvider = "testToString")
-    public void testIfToStringReturnCorrectString(Sign sign, String toStringResult) {
-        Field field = new Field(sign);
-        assert field.toString().equals(toStringResult) : String.format("Produced string should be %s", toStringResult);
-    }
+//    @Test(dataProvider = "testToString")
+//    public void testIfToStringReturnCorrectString(Sign sign, String toStringResult) {
+//        Field field = new Field(sign);
+//        assert field.toString().equals(toStringResult) : String.format("Produced string should be %s", toStringResult);
+//    }
 }
