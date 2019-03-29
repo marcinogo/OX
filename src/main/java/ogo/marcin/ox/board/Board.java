@@ -37,8 +37,8 @@ public class Board {
     }
 
     private boolean validateDimensions(int width, int height) {
-        return width >=3 && width <= 40
-                && height >=3  && height <= 40;
+        return width >=3 && width <= 100
+                && height >=3  && height <= 100;
     }
 
     Board setField(Dimension coordinates, Sign sign) {
