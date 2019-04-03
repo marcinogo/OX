@@ -86,7 +86,7 @@ public class Player implements Comparable<Player>{
     }
 
     public static class PlayerBuilder {
-        private static Set<Sign> usedSigns;
+        private static final Set<Sign> usedSigns = new HashSet<>();
         private final Input input;
 
         private String name;
@@ -95,7 +95,6 @@ public class Player implements Comparable<Player>{
 
         PlayerBuilder(Input input) {
             this.input = input;
-            usedSigns = new HashSet<>();
             usedSigns.add(Sign.DEFAULT);
         }
 

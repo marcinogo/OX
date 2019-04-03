@@ -23,7 +23,7 @@ class Match {
 
     private final Judge judge;
 
-    Match(BoardAPI boardAPI, PlayerAPI playerAPI, Input input, Settings settings, List<Player> players, Judge judge) {
+    Match(BoardAPI boardAPI, PlayerAPI playerAPI, Input input, List<Player> players, Judge judge) {
         this.boardAPI = boardAPI;
         this.input = input;
         this.players = players;
