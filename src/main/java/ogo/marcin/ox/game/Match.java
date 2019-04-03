@@ -2,8 +2,6 @@ package ogo.marcin.ox.game;
 
 import ogo.marcin.ox.board.BoardAPI;
 import ogo.marcin.ox.dimension.Coordinates;
-import ogo.marcin.ox.dimension.CoordinatesBuilder;
-import ogo.marcin.ox.dimension.DimensionBuilder;
 import ogo.marcin.ox.io.Input;
 import ogo.marcin.ox.player.Player;
 import ogo.marcin.ox.player.PlayerAPI;
@@ -35,42 +33,7 @@ class Match {
     void play() {
         Judge judge = new Judge(boardAPI, winCondition);
         Optional<Player> winner = playMatch(judge);
-        giveMatchResult(winner);
-    }
-
-//    TODO: move this to some class / API
-    private Coordinates getCoordinates(Judge judge) {
-        Coordinates coordinates = null;
-        boolean coordinatesWithinBoard;
-         do {
-            try {
-                DimensionBuilder<Coordinates> coordinatesDimensionBuilder = new CoordinatesBuilder();
-                System.out.println("Enter coordinate");
-                int dimension = input.getIntegerInput();
-                coordinates = coordinatesDimensionBuilder.withXDimension(recalculateUserInputToX(dimension))
-                        .withYDimension(recalculateUserInputToY(dimension))
-                        .build();
-                coordinatesWithinBoard = true;
-            } catch (IllegalArgumentException e) {
-                coordinatesWithinBoard = false;
-            }
-         } while (!coordinatesWithinBoard ||
-                 !judge.isPlayerSignSetOnFreeSpace(coordinates));
-        return coordinates;
-    }
-
-    private int recalculateUserInputToX(int dimension) {
-        return (dimension - 1) % boardAPI.getBoardDimension();
-    }
-
-    private int recalculateUserInputToY(int dimension) {
-        return (dimension - 1) / boardAPI.getBoardDimension();
-    }
-
-    private Boolean playPlayerTurn(Judge judge, Player player) {
-        Coordinates coordinates = getCoordinates(judge);
-        boardAPI.setField(coordinates, playerAPI.getPlayerSign(player));
-        return isWinner = judge.isPlayerWon(playerAPI.getPlayerSign(player), coordinates);
+        winner.ifPresentOrElse(this::announceWinner, this::announceDraw);
     }
 
     private Optional<Player> playMatch(Judge judge) {
@@ -90,15 +53,31 @@ class Match {
         return Optional.ofNullable(winner);
     }
 
-    private void giveMatchResult(Optional<Player> winner) {
-        if(winner.isEmpty()) {
-            System.out.println("Draw");
-            givePointsForDraw();
-        } else {
-            Player victoriousPlayer = winner.get();
-            givePointsForWinn(victoriousPlayer);
-            System.out.printf("Winner of match is %s%n", playerAPI.getPlayerName(victoriousPlayer));
-        }
+    private Boolean playPlayerTurn(Judge judge, Player player) {
+        Coordinates coordinates = getLegalCoordinates(judge);
+        boardAPI.setField(coordinates, playerAPI.getPlayerSign(player));
+        return isWinner = judge.isPlayerWon(playerAPI.getPlayerSign(player), coordinates);
+    }
+
+    private Coordinates getLegalCoordinates(Judge judge) {
+        Coordinates coordinates = null;
+        boolean coordinatesWithinBoard;
+         do {
+            try {
+                System.out.println("Enter coordinate");
+                coordinates = input.getCoordinates(boardAPI.getBoardDimension());
+                coordinatesWithinBoard = true;
+            } catch (IllegalArgumentException e) {
+                coordinatesWithinBoard = false;
+            }
+         } while (!coordinatesWithinBoard ||
+                 !judge.isPlayerSignSetOnFreeSpace(coordinates));
+        return coordinates;
+    }
+
+    private void announceDraw() {
+        System.out.println("Draw");
+        givePointsForDraw();
     }
 
     private void givePointsForDraw() {
@@ -107,6 +86,11 @@ class Match {
             int playerPoints = playerAPI.getPlayerPoints(player);
             players.set(i, playerAPI.setPlayerPoints(player, playerPoints + 1));
         }
+    }
+
+    private void announceWinner(Player victoriousPlayer) {
+        givePointsForWinn(victoriousPlayer);
+        System.out.printf("Winner of match is %s%n", playerAPI.getPlayerName(victoriousPlayer));
     }
 
     private void givePointsForWinn(Player victoriousPlayer) {
