@@ -18,11 +18,6 @@ public class BoardAPIImpl implements BoardAPI {
     }
 
     @Override
-    public void setBoard(Board board) {
-        this.board = board;
-    }
-
-    @Override
     public void setField(Dimension coordinates, Sign sign) {
         board = board.setField(coordinates, sign);
     }
@@ -153,8 +148,7 @@ public class BoardAPIImpl implements BoardAPI {
     }
 
     @Override
-    public Board clearBoard(Sign sing) {
+    public void clearBoard(Sign sing) {
         this.board = board.setBoardMatrixCells(sing);
-        return board;
     }
 }

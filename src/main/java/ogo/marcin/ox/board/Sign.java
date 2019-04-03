@@ -8,7 +8,7 @@ public enum Sign {
     X("X"),
     O("O");
 
-    private String representation;
+    private final String representation;
 
     Sign(String representation) {
         this.representation = representation;

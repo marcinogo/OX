@@ -8,7 +8,7 @@ import java.util.*;
  * @author Marcin Ogorzalek
  */
 public class PlayerListCreator {
-    private Input input;
+    private final Input input;
 
     public PlayerListCreator(Input input) {
         this.input = input;

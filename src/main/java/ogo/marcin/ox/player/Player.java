@@ -87,7 +87,7 @@ public class Player implements Comparable<Player>{
 
     public static class PlayerBuilder {
         private static Set<Sign> usedSigns;
-        private Input input;
+        private final Input input;
 
         private String name;
         private Sign playerSign;
@@ -123,17 +123,6 @@ public class Player implements Comparable<Player>{
 
         public PlayerBuilder withPoints() {
             this.points = 0;
-            return this;
-        }
-
-        public PlayerBuilder withPoints(int i, boolean noDefault) {
-            if(!noDefault) return withPoints();
-            int points = 0;
-            do {
-                System.out.printf("Give player %d starting points (more than 0)%n", i);
-                points = input.getIntegerInput();
-            } while (points <= 0);
-            this.points = points;
             return this;
         }
 

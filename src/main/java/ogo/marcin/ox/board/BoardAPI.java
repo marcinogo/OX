@@ -12,7 +12,5 @@ public interface BoardAPI {
     boolean isSignNumberMeetWinCondition(Sign playerSign, Dimension coordinates, int winCondition);
 
     Board getBoard();
-    void setBoard(Board board);
-
-    Board clearBoard(Sign sign);
+    void clearBoard(Sign sign);
 }

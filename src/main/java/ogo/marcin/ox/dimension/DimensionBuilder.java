@@ -4,8 +4,8 @@ package ogo.marcin.ox.dimension;
  * @author Marcin Ogorzalek
  */
 public abstract class DimensionBuilder<T extends Dimension> {
-    protected int xDimension;
-    protected int yDimension;
+    int xDimension;
+    int yDimension;
 
     public abstract T build();
 

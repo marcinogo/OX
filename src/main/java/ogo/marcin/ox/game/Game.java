@@ -13,14 +13,14 @@ import java.util.List;
  * @author Marcin Ogorzalek
  */
 public class Game {
-    private Settings settings;
-    private BoardAPI boardAPI;
-    private PlayerAPI playerAPI;
-    private Input input;
-    private List<Match> matches;
-    private List<Player> players;
+    private final Settings settings;
+    private final BoardAPI boardAPI;
+    private final PlayerAPI playerAPI;
+    private final Input input;
+    private final List<Match> matches;
+    private final List<Player> players;
 
-    public Game(Settings settings, BoardAPI boardAPI, PlayerAPI playerAPI, Input input, List<Match> matches, List<Player> players) {
+    private Game(Settings settings, BoardAPI boardAPI, PlayerAPI playerAPI, Input input, List<Match> matches, List<Player> players) {
         this.settings = settings;
         this.boardAPI = boardAPI;
         this.playerAPI = playerAPI;

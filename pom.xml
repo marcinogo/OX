@@ -9,7 +9,7 @@
     <version>0.1</version>
     <name>OX</name>
     <description>Tic Tac Toe for learning purpose</description>
-    <url></url>
+    <url>#URL</url>
   
     <properties>
              <!-- https://maven.apache.org/general.html#encoding-warning -->

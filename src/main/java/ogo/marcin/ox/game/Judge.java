@@ -12,7 +12,7 @@ class Judge {
     private final Sign defaultSign;
     private final int winCondition;
 
-    Judge(BoardAPI boardAPI, Sign defaultSign, int winCondition) {
+    private Judge(BoardAPI boardAPI, Sign defaultSign, int winCondition) {
         this.boardAPI = boardAPI;
         this.defaultSign = defaultSign;
         this.winCondition = winCondition;

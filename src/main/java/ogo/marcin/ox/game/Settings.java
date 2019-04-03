@@ -17,28 +17,24 @@ public class Settings {
         this.numberOfRounds = numberOfRounds;
     }
 
-    private Settings(int winCondition) {
-        this(Sign.DEFAULT, winCondition, 3);
-    }
-
     private Settings(SettingsBuilder settingsBuilder) {
         this(settingsBuilder.defaultSign, settingsBuilder.winCondition, settingsBuilder.numberOfRounds);
     }
 
-    public Sign getDefaultSign() {
+    Sign getDefaultSign() {
         return defaultSign;
     }
 
-    public int getWinCondition() {
+    int getWinCondition() {
         return winCondition;
     }
 
-    public int getNumberOfRounds() {
+    int getNumberOfRounds() {
         return numberOfRounds;
     }
 
     public static class SettingsBuilder {
-        private Input input;
+        private final Input input;
 
         private Sign defaultSign;
         private int winCondition;
@@ -64,40 +60,9 @@ public class Settings {
             return this;
         }
 
-        public SettingsBuilder withNumberOfRounds(boolean nonDefault) {
-            if(!nonDefault) {
-                return withNumberOfRounds();
-            }
-            System.out.println("Give number of rounds");
-            this.numberOfRounds = input.getIntegerInput();
-            return this;
-        }
-
-        public SettingsBuilder withDefaultSign(boolean nonDefault) {
-            if(!nonDefault) {
-                return withDefaultSign();
-            }
-            System.out.println("Give default sign ");
-            String signString = null;
-            do {
-                signString = input.getStringInput();
-            } while (validateSign(signString));
-            this.defaultSign = Sign.valueOf(signString);
-            return this;
-        }
-
         public SettingsBuilder withDefaultSign() {
             this.defaultSign = Sign.DEFAULT;
             return this;
-        }
-
-        private boolean validateSign(String signString) {
-            try {
-                Sign.valueOf(signString);
-            } catch (IllegalArgumentException e) {
-                return false;
-            }
-            return true;
         }
     }
 }

@@ -4,15 +4,15 @@ package ogo.marcin.ox.dimension;
  * @author Marcin Ogorzalek
  */
 public abstract class Dimension {
-    protected static final int MIN_HEIGHT = 3;
-    protected static final int MAX_HEIGHT = 30;
-    protected static final int MIN_WIDTH = 3;
-    protected static final int MAX_WIDTH = 30;
+    static final int MIN_HEIGHT = 3;
+    static final int MAX_HEIGHT = 30;
+    static final int MIN_WIDTH = 3;
+    static final int MAX_WIDTH = 30;
 
-    protected final int xDimension;
-    protected final int yDimension;
+    private final int xDimension;
+    private final int yDimension;
 
-    public Dimension(int xDimension, int yDimension) {
+    Dimension(int xDimension, int yDimension) {
 //        TODO: do something with different x-y in message
         if (!validate(xDimension, yDimension)) {
             throw new IllegalArgumentException();
@@ -21,7 +21,7 @@ public abstract class Dimension {
         this.yDimension = yDimension;
     }
 
-    protected Dimension(DimensionBuilder dimensionBuilder) {
+    Dimension(DimensionBuilder dimensionBuilder) {
         this(dimensionBuilder.xDimension, dimensionBuilder.yDimension);
     }
 

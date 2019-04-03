@@ -15,7 +15,7 @@ import java.util.*;
 /**
  * @author Marcin Ogorzalek
  */
-public class Main {
+class Main {
     public static void main(String[] args) {
         try(Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8)) {
 //    TODO: Change factories to Builders and create some common interface for this wit T build();

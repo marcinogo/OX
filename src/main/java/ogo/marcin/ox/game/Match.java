@@ -87,12 +87,12 @@ class Match {
             System.out.println("Draw");
             for(int i = 0; i < players.size(); i++) {
                 Player player = players.get(i);
-                Integer playerPoints = playerAPI.getPlayerPoints(player);
+                int playerPoints = playerAPI.getPlayerPoints(player);
                 players.set(i, playerAPI.setPlayerPoints(player, playerPoints + 1));
             }
         } else {
             Player victoriusPlayer = winner.get();
-            Integer playerPoints = playerAPI.getPlayerPoints(victoriusPlayer);
+            int playerPoints = playerAPI.getPlayerPoints(victoriusPlayer);
             int i = players.indexOf(victoriusPlayer);
             victoriusPlayer = playerAPI.setPlayerPoints(victoriusPlayer, playerPoints + 3);
             players.set(i, victoriusPlayer);

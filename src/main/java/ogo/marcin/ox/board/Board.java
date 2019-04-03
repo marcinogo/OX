@@ -9,10 +9,10 @@ import java.util.Objects;
  * @author Marcin Ogorzalek
  */
 public class Board {
-    int width;
-    int height;
+    private final int width;
+    private final int height;
 
-    Field[][] matrix;
+    final Field[][] matrix;
 
     private Board(Dimension boardDimension) {
         this.width = boardDimension.getXDimension();
@@ -72,8 +72,7 @@ public class Board {
         if (o == null || getClass() != o.getClass()) return false;
         Board board = (Board) o;
         if(width != board.width || height != board.height) return false;
-        if(!Arrays.deepEquals(matrix, board.matrix)) return false;
-        return true;
+        return !Arrays.deepEquals(matrix, board.matrix);
     }
 
     @Override
@@ -104,12 +103,6 @@ public class Board {
 
         public BoardBuilder withDefaultSign() {
             sign = Sign.DEFAULT;
-            return this;
-        }
-
-        public BoardBuilder withDefaultSign(Sign sign, boolean noDefault) {
-            if(!noDefault) return withDefaultSign();
-            this.sign = sign;
             return this;
         }
     }

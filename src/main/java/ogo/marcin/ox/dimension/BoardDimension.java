@@ -4,7 +4,7 @@ package ogo.marcin.ox.dimension;
  * @author Marcin Ogorzalek
  */
 public class BoardDimension extends Dimension{
-    protected BoardDimension(int height, int width) {
+    private BoardDimension(int height, int width) {
         super(height, width);
         Coordinates.setCoordinatesMaxXY(width, height);
     }

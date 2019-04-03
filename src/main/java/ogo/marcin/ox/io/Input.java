@@ -19,7 +19,7 @@ public class Input {
 
     public int getIntegerInput() {
         int result = 0;
-        boolean inputIsCorrect = true;
+        boolean inputIsCorrect;
         do {
             inputIsCorrect = true;
             try {
