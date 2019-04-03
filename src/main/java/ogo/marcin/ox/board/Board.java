@@ -9,15 +9,12 @@ import java.util.Objects;
  * @author Marcin Ogorzalek
  */
 public class Board {
-    final int width;
-    final int height;
+    int width;
+    int height;
 
     Field[][] matrix;
 
-    Board(Dimension boardDimension) {
-        if(!validateDimensions(boardDimension.getXDimension(), boardDimension.getYDimension())) {
-            throw new IllegalArgumentException("Width and height have to be at least 3 and no more than 40");
-        }
+    private Board(Dimension boardDimension) {
         this.width = boardDimension.getXDimension();
         this.height = boardDimension.getYDimension();
         this.matrix = new Field[height][width];
@@ -34,11 +31,6 @@ public class Board {
         for(int i = 0; i < oldMatrix.length; i++) {
             newMatrix[i] = oldMatrix[i].clone();
         }
-    }
-
-    private boolean validateDimensions(int width, int height) {
-        return width >=3 && width <= 40
-                && height >=3  && height <= 40;
     }
 
     Board setField(Dimension coordinates, Sign sign) {
@@ -64,8 +56,12 @@ public class Board {
 
     Board setBoardMatrixCells(Sign sign) {
         Board board = new Board(this);
-        for (Field[] row: board.matrix) {
-            Arrays.fill(row, new Field(sign));
+        int count = 0;
+        for(int i = 0; i < board.matrix.length; i++) {
+            for (int j = 0; j < board.matrix[i].length; j++) {
+                count++;
+                board.matrix[i][j] = new Field(sign, count);
+            }
         }
         return board;
     }
@@ -76,11 +72,7 @@ public class Board {
         if (o == null || getClass() != o.getClass()) return false;
         Board board = (Board) o;
         if(width != board.width || height != board.height) return false;
-
-        for (int i = 0; i < height; i++) {
-            if(!Arrays.equals(matrix[i], board.matrix[i])) return false;
-        }
-
+        if(!Arrays.deepEquals(matrix, board.matrix)) return false;
         return true;
     }
 
@@ -88,9 +80,37 @@ public class Board {
     public int hashCode() {
         int result = Objects.hash(width, height);
         result = 31 * result;
-        for (int i = 0; i < height; i++) {
-            result += Arrays.hashCode(matrix[i]);
-        }
+        result += Arrays.deepHashCode(matrix);
         return result;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public static class BoardBuilder {
+        private Dimension dimension;
+        private Sign sign;
+
+        public Board build() {
+            Board board = new Board(dimension);
+            return board.setBoardMatrixCells(sign);
+        }
+
+        public BoardBuilder withDimension(Dimension dimension) {
+            this.dimension = dimension;
+            return this;
+        }
+
+        public BoardBuilder withDefaultSign() {
+            sign = Sign.DEFAULT;
+            return this;
+        }
+
+        public BoardBuilder withDefaultSign(Sign sign, boolean noDefault) {
+            if(!noDefault) return withDefaultSign();
+            this.sign = sign;
+            return this;
+        }
     }
 }
