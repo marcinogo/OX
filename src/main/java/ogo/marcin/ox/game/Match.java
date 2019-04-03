@@ -65,7 +65,7 @@ class Match {
          do {
             try {
                 System.out.println("Enter coordinate");
-                coordinates = input.getCoordinates(boardAPI.getBoardDimension());
+                coordinates = input.createCoordinates(boardAPI.getBoardDimension());
                 coordinatesWithinBoard = true;
             } catch (IllegalArgumentException e) {
                 coordinatesWithinBoard = false;

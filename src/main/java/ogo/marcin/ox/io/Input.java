@@ -1,8 +1,6 @@
 package ogo.marcin.ox.io;
 
-import ogo.marcin.ox.dimension.Coordinates;
-import ogo.marcin.ox.dimension.CoordinatesBuilder;
-import ogo.marcin.ox.dimension.DimensionBuilder;
+import ogo.marcin.ox.dimension.*;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -31,13 +29,13 @@ public class Input {
             } catch (InputMismatchException e) {
                 inputIsCorrect = false;
                 scanner.next();
-//                TODO message that it accepts only Integers
+                System.out.println("Please enter only number");
             }
         } while (!inputIsCorrect);
         return result;
     }
 
-    public Coordinates getCoordinates(int boardDimension) {
+    public Coordinates createCoordinates(int boardDimension) {
         DimensionBuilder<Coordinates> coordinatesDimensionBuilder = new CoordinatesBuilder();
         int dimension = getIntegerInput();
         return coordinatesDimensionBuilder.withXDimension(recalculateUserInputToX(boardDimension, dimension))
@@ -51,5 +49,29 @@ public class Input {
 
     private int recalculateUserInputToY(int boardDimension, int dimension) {
         return (dimension - 1) / boardDimension;
+    }
+
+    public BoardDimension getBoardDimensions() {
+        BoardDimension boardDimension = null;
+        boolean dimensionsCreated;
+        do {
+            try {
+                System.out.println("Enter width and height");
+                boardDimension = createBoard();
+                dimensionsCreated = true;
+            } catch (IllegalArgumentException e) {
+                dimensionsCreated = false;
+                System.out.println("Board dimensions must be between 3 and 30");
+            }
+        } while (!dimensionsCreated);
+        return boardDimension;
+    }
+
+    private BoardDimension createBoard() {
+        DimensionBuilder<BoardDimension> boardDimensionDimensionBuilder = new BoardDimensionBuilder();
+        int dimension = getIntegerInput();
+        return boardDimensionDimensionBuilder
+                .withDimension(dimension)
+                .build();
     }
 }
