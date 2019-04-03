@@ -21,16 +21,13 @@ class Main {
 //    TODO: Change factories to Builders and create some common interface for this wit T build();
             PlayerAPI playerAPI = new PlayerAPIImpl();
 
-
             Input input = new Input(scanner);
-            List<Player> players = new PlayerListCreator(input).createPlayers();
+            List<Player> players = playerAPI.createPlayers(input);
 
             Board board = new Board.BoardBuilder()
                     .withDimension(getBoardDimensions(input))
                     .withDefaultSign()
                     .build();
-//            Board board = factoryAPI.createBoard(getBoardDimensions(input));
-//            System.out.println(board);
             BoardAPI boardAPI = new BoardAPIImpl(board);
 
             Settings settings = new Settings.SettingsBuilder(input)
