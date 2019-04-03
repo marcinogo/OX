@@ -5,9 +5,9 @@ package ogo.marcin.ox.dimension;
  */
 public abstract class Dimension {
     protected static final int MIN_HEIGHT = 3;
-    protected static final int MAX_HEIGHT = 40;
+    protected static final int MAX_HEIGHT = 30;
     protected static final int MIN_WIDTH = 3;
-    protected static final int MAX_WIDTH = 40;
+    protected static final int MAX_WIDTH = 30;
 
     protected final int xDimension;
     protected final int yDimension;

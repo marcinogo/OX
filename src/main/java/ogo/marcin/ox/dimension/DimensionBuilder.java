@@ -1,7 +1,5 @@
 package ogo.marcin.ox.dimension;
 
-import ogo.marcin.ox.io.Input;
-
 /**
  * @author Marcin Ogorzalek
  */
@@ -9,24 +7,21 @@ public abstract class DimensionBuilder<T extends Dimension> {
     protected int xDimension;
     protected int yDimension;
 
-    private Input input;
-
-
-    public DimensionBuilder(Input input) {
-        this.input = input;
-    }
-
     public abstract T build();
 
-    public DimensionBuilder<T> withXDimension(String message) {
-        System.out.println(message);
-        this.xDimension = input.getIntegerInput();
+    public DimensionBuilder<T> withXDimension(int dimension) {
+        this.xDimension = dimension;
         return this;
     }
 
-    public DimensionBuilder<T> withYDimension(String message) {
-        System.out.println(message);
-        this.yDimension = input.getIntegerInput();
+    public DimensionBuilder<T> withYDimension(int dimension) {
+        this.yDimension = dimension;
+        return this;
+    }
+
+    public DimensionBuilder<T> withDimension(int dimension) {
+        this.yDimension = dimension;
+        this.xDimension = dimension;
         return this;
     }
 }
