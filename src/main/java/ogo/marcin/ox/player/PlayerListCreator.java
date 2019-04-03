@@ -7,14 +7,14 @@ import java.util.*;
 /**
  * @author Marcin Ogorzalek
  */
-public class PlayerListCreator {
+class PlayerListCreator {
     private final Input input;
 
-    public PlayerListCreator(Input input) {
+    PlayerListCreator(Input input) {
         this.input = input;
     }
 
-    public List<Player> createPlayers() {
+    List<Player> createPlayers() {
         List<Player> players = new ArrayList<>();
         for(int i = 1; i <= 2; i++) {
             players.add(new Player.PlayerBuilder(input).withName(i)

@@ -93,7 +93,7 @@ public class Player implements Comparable<Player>{
         private Sign playerSign;
         private int points;
 
-        public PlayerBuilder(Input input) {
+        PlayerBuilder(Input input) {
             this.input = input;
             usedSigns = new HashSet<>();
             usedSigns.add(Sign.DEFAULT);
@@ -103,13 +103,13 @@ public class Player implements Comparable<Player>{
             return new Player(this);
         }
 
-        public PlayerBuilder withName(int i) {
+        PlayerBuilder withName(int i) {
             System.out.printf("Give player %d name%n", i);
             this.name = input.getStringInput();
             return this;
         }
 
-        public PlayerBuilder withSign(int i) {
+        PlayerBuilder withSign(int i) {
             String signString;
             Optional<Sign> playerSign;
             do {
@@ -121,7 +121,7 @@ public class Player implements Comparable<Player>{
             return this;
         }
 
-        public PlayerBuilder withPoints() {
+        PlayerBuilder withPoints() {
             this.points = 0;
             return this;
         }
