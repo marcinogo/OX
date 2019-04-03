@@ -49,9 +49,9 @@ public class Settings {
         }
 
 //        TODO: win condition <= height && xin condition <= width
-        public SettingsBuilder withWinCondition() {
+        public SettingsBuilder withWinCondition(int boardDimension) {
             System.out.println("Give win condition for game");
-            this.winCondition = input.getIntegerInput();
+            this.winCondition = input.getWinCondition(boardDimension);
             return this;
         }
 

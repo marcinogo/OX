@@ -27,7 +27,7 @@ class Main {
             BoardAPI boardAPI = new BoardAPIImpl(board);
 
             Settings settings = new Settings.SettingsBuilder(input)
-                    .withWinCondition()
+                    .withWinCondition(boardAPI.getBoardDimension())
                     .withNumberOfRounds()
                     .withDefaultSign()
                     .build();

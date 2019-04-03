@@ -74,4 +74,12 @@ public class Input {
                 .withDimension(dimension)
                 .build();
     }
+
+    public int getWinCondition(int boardDimension) {
+        int winCondition;
+        do {
+            winCondition = getIntegerInput();
+        } while (winCondition < 3 || winCondition > boardDimension);
+        return winCondition;
+    }
 }
