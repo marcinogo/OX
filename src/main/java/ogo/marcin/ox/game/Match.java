@@ -45,10 +45,10 @@ class Match {
          do {
             try {
                 DimensionBuilder<Coordinates> coordinatesDimensionBuilder = new CoordinatesBuilder();
-                System.out.println("Enter coordiate");
-                int dimension = input.getIntegerInput() - 1;
-                coordinates = coordinatesDimensionBuilder.withXDimension(dimension % boardAPI.getBoard().getWidth())
-                        .withYDimension(dimension / boardAPI.getBoard().getWidth())
+                System.out.println("Enter coordinate");
+                int dimension = input.getIntegerInput();
+                coordinates = coordinatesDimensionBuilder.withXDimension(recalculateUserInputToX(dimension))
+                        .withYDimension(recalculateUserInputToY(dimension))
                         .build();
                 coordinatesWithinBoard = true;
             } catch (IllegalArgumentException e) {
@@ -57,6 +57,14 @@ class Match {
          } while (!coordinatesWithinBoard ||
                  !judge.isPlayerSignSetOnFreeSpace(coordinates));
         return coordinates;
+    }
+
+    private int recalculateUserInputToX(int dimension) {
+        return (dimension - 1) % boardAPI.getBoardDimension();
+    }
+
+    private int recalculateUserInputToY(int dimension) {
+        return (dimension - 1) / boardAPI.getBoardDimension();
     }
 
     private Boolean playPlayerTurn(Judge judge, Player player) {
@@ -85,18 +93,26 @@ class Match {
     private void giveMatchResult(Optional<Player> winner) {
         if(winner.isEmpty()) {
             System.out.println("Draw");
-            for(int i = 0; i < players.size(); i++) {
-                Player player = players.get(i);
-                int playerPoints = playerAPI.getPlayerPoints(player);
-                players.set(i, playerAPI.setPlayerPoints(player, playerPoints + 1));
-            }
+            givePointsForDraw();
         } else {
-            Player victoriusPlayer = winner.get();
-            int playerPoints = playerAPI.getPlayerPoints(victoriusPlayer);
-            int i = players.indexOf(victoriusPlayer);
-            victoriusPlayer = playerAPI.setPlayerPoints(victoriusPlayer, playerPoints + 3);
-            players.set(i, victoriusPlayer);
-            System.out.printf("Winner of match is %s%n", playerAPI.getPlayerName(victoriusPlayer));
+            Player victoriousPlayer = winner.get();
+            givePointsForWinn(victoriousPlayer);
+            System.out.printf("Winner of match is %s%n", playerAPI.getPlayerName(victoriousPlayer));
         }
+    }
+
+    private void givePointsForDraw() {
+        for(int i = 0; i < players.size(); i++) {
+            Player player = players.get(i);
+            int playerPoints = playerAPI.getPlayerPoints(player);
+            players.set(i, playerAPI.setPlayerPoints(player, playerPoints + 1));
+        }
+    }
+
+    private void givePointsForWinn(Player victoriousPlayer) {
+        int playerPoints = playerAPI.getPlayerPoints(victoriousPlayer);
+        int i = players.indexOf(victoriousPlayer);
+        victoriousPlayer = playerAPI.setPlayerPoints(victoriousPlayer, playerPoints + 3);
+        players.set(i, victoriousPlayer);
     }
 }
