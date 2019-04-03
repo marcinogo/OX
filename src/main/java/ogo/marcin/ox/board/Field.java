@@ -7,9 +7,15 @@ import java.util.Objects;
  */
 class Field {
     final Sign sign;
+    private int fieldNumber;
 
     Field(Sign sign) {
         this.sign = sign;
+    }
+
+    Field(Sign sign, int fieldNumber) {
+        this.sign = sign;
+        this.fieldNumber = fieldNumber;
     }
 
     @Override
@@ -31,6 +37,7 @@ class Field {
 
     @Override
     public String toString() {
-        return String.format("[%s]", sign);
+        if(!sign.equals(Sign.DEFAULT))return String.format("[%s]", sign);
+        return String.format("[%d]", fieldNumber);
     }
 }
