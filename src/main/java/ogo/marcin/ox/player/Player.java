@@ -115,7 +115,7 @@ public class Player implements Comparable<Player>{
             do {
                 System.out.printf("Give player %d sign - X or O%n", i);
                 signString = input.getStringInput().toUpperCase();
-                playerSign = getPlayerSign(signString, usedSigns);
+                playerSign = getPlayerSign(signString);
             } while (playerSign.isEmpty());
             this.playerSign = playerSign.get();
             return this;
@@ -137,25 +137,25 @@ public class Player implements Comparable<Player>{
             return this;
         }
 
-        private Optional<Sign> getPlayerSign(String signString, Set<Sign> usedSigns) {
+        private Optional<Sign> getPlayerSign(String signString) {
             Sign playerSign = null;
-            if(validatePlayerSignString(signString, usedSigns))  {
+            if(validatePlayerSignString(signString))  {
                 playerSign = Sign.valueOf(signString);
                 usedSigns.add(playerSign);
             }
             return Optional.ofNullable(playerSign);
         }
 
-        private boolean validatePlayerSignString(String signString, Set<Sign> usedSigns) {
+        private boolean validatePlayerSignString(String signString) {
             try {
                 Sign player = Sign.valueOf(signString);
-                return isSignNotUsed(player, usedSigns);
+                return isSignNotUsed(player);
             } catch (IllegalArgumentException e) {
                 return false;
             }
         }
 
-        private boolean isSignNotUsed(Sign playerSign, Set<Sign> usedSigns) {
+        private boolean isSignNotUsed(Sign playerSign) {
             return !usedSigns.contains(playerSign);
         }
     }

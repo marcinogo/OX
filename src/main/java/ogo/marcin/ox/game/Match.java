@@ -1,6 +1,5 @@
 package ogo.marcin.ox.game;
 
-import ogo.marcin.ox.Settings;
 import ogo.marcin.ox.board.BoardAPI;
 import ogo.marcin.ox.dimension.Coordinates;
 import ogo.marcin.ox.dimension.CoordinatesBuilder;
@@ -45,9 +44,11 @@ class Match {
         boolean coordinatesWithinBoard;
          do {
             try {
-                DimensionBuilder<Coordinates> coordinatesDimensionBuilder = new CoordinatesBuilder(input);
-                coordinates = coordinatesDimensionBuilder.withXDimension("Enter x")
-                        .withYDimension("Enter y")
+                DimensionBuilder<Coordinates> coordinatesDimensionBuilder = new CoordinatesBuilder();
+                System.out.println("Enter coordiate");
+                int dimension = input.getIntegerInput() - 1;
+                coordinates = coordinatesDimensionBuilder.withXDimension(dimension % boardAPI.getBoard().getWidth())
+                        .withYDimension(dimension / boardAPI.getBoard().getWidth())
                         .build();
                 coordinatesWithinBoard = true;
             } catch (IllegalArgumentException e) {

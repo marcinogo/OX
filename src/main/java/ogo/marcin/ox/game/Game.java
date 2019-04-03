@@ -1,6 +1,5 @@
 package ogo.marcin.ox.game;
 
-import ogo.marcin.ox.Settings;
 import ogo.marcin.ox.board.BoardAPI;
 import ogo.marcin.ox.io.Input;
 import ogo.marcin.ox.player.Player;
@@ -36,13 +35,11 @@ public class Game {
 
     public void play() {
         for (int i = 0; i < settings.getNumberOfRounds(); i++) {
-            if (i % 2 != 0) {
-                Collections.reverse(players);
-            }
             Match match = new Match(boardAPI, playerAPI, input, settings, players);
             matches.add(match);
             match.play();
             boardAPI.clearBoard(settings.getDefaultSign());
+            Collections.reverse(players);
         }
         printResult();
     }

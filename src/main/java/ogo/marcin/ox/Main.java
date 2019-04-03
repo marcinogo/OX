@@ -1,15 +1,13 @@
 package ogo.marcin.ox;
 
 import ogo.marcin.ox.board.*;
+import ogo.marcin.ox.player.*;
 import ogo.marcin.ox.dimension.BoardDimension;
 import ogo.marcin.ox.dimension.BoardDimensionBuilder;
 import ogo.marcin.ox.dimension.DimensionBuilder;
 import ogo.marcin.ox.game.Game;
+import ogo.marcin.ox.game.Settings;
 import ogo.marcin.ox.io.Input;
-import ogo.marcin.ox.player.Player;
-import ogo.marcin.ox.player.PlayerAPI;
-import ogo.marcin.ox.player.PlayerAPIImpl;
-import ogo.marcin.ox.player.PlayerListCreator;
 
 import java.nio.charset.StandardCharsets;
 import java.util.*;
@@ -19,19 +17,20 @@ import java.util.*;
  */
 public class Main {
     public static void main(String[] args) {
-//        from the worst to the best
-        try(Scanner scanner = new Scanner(System.in)) {
-//        try(Scanner scanner = new Scanner(System.in, "utf-8")) {
-//        try(Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8)) {
+        try(Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8)) {
 //    TODO: Change factories to Builders and create some common interface for this wit T build();
             PlayerAPI playerAPI = new PlayerAPIImpl();
 
-            FactoryAPI factoryAPI = new FactoryAPIImpl();
 
             Input input = new Input(scanner);
             List<Player> players = new PlayerListCreator(input).createPlayers();
 
-            Board board = factoryAPI.createBoard(getBoardDimensions(input));
+            Board board = new Board.BoardBuilder()
+                    .withDimension(getBoardDimensions(input))
+                    .withDefaultSign()
+                    .build();
+//            Board board = factoryAPI.createBoard(getBoardDimensions(input));
+//            System.out.println(board);
             BoardAPI boardAPI = new BoardAPIImpl(board);
 
             Settings settings = new Settings.SettingsBuilder(input)
@@ -51,15 +50,17 @@ public class Main {
         boolean dimensionsCreated;
         do {
             try {
-                DimensionBuilder<BoardDimension> boardDimensionDimensionBuilder = new BoardDimensionBuilder(input);
-                boardDimension = boardDimensionDimensionBuilder.withXDimension("Enter width")
-                        .withYDimension("Enter height")
+                DimensionBuilder<BoardDimension> boardDimensionDimensionBuilder = new BoardDimensionBuilder();
+                System.out.println("Enter width and height");
+                int dimension = input.getIntegerInput();
+                boardDimension = boardDimensionDimensionBuilder
+                        .withDimension(dimension)
                         .build();
                 dimensionsCreated = true;
             } catch (IllegalArgumentException e) {
                 dimensionsCreated = false;
             }
-        }while (!dimensionsCreated);
+        } while (!dimensionsCreated);
         return boardDimension;
     }
 }
