@@ -83,7 +83,7 @@ public class Board {
         return result;
     }
 
-    public int getWidth() {
+    int getBoardDimension() {
         return width;
     }
 

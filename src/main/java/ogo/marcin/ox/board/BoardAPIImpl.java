@@ -33,6 +33,11 @@ public class BoardAPIImpl implements BoardAPI {
     }
 
     @Override
+    public int getBoardDimension() {
+        return this.board.getBoardDimension();
+    }
+
+    @Override
     public boolean isCoordinatesPointsToDefaultSign(Sign defaultSign, Dimension coordinates) {
         return board.matrix[coordinates.getYDimension()][coordinates.getXDimension()].sign.equals(defaultSign);
     }

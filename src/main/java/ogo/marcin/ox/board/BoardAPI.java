@@ -13,4 +13,5 @@ public interface BoardAPI {
 
     Board getBoard();
     void clearBoard(Sign sign);
+    int getBoardDimension();
 }
