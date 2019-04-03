@@ -36,7 +36,7 @@ public class Game {
 
     public void play() {
         for (int i = 0; i < settings.getNumberOfRounds(); i++) {
-            Judge judge = new Judge(boardAPI, settings.getWinCondition());
+            Judge judge = new Judge(boardAPI, settings);
             Match match = new Match(boardAPI, playerAPI, input, players, judge);
             matches.add(match);
             match.play();

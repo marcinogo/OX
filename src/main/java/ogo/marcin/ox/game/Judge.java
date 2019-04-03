@@ -9,28 +9,22 @@ import ogo.marcin.ox.dimension.Dimension;
  */
 class Judge {
     private final BoardAPI boardAPI;
-    private final Sign defaultSign;
-    private final int winCondition;
+    private final Settings settings;
 
-    private Judge(BoardAPI boardAPI, Sign defaultSign, int winCondition) {
+    Judge(BoardAPI boardAPI, Settings settings) {
         this.boardAPI = boardAPI;
-        this.defaultSign = defaultSign;
-        this.winCondition = winCondition;
-    }
-
-    Judge(BoardAPI boardAPI, int winCondition) {
-        this(boardAPI, Sign.DEFAULT, winCondition);
+        this.settings = settings;
     }
 
     boolean isFreeSpaceOnBoard() {
-        return boardAPI.isFreeSpaceOnBoard(defaultSign);
+        return boardAPI.isFreeSpaceOnBoard(settings.getDefaultSign());
     }
 
     boolean isPlayerSignSetOnFreeSpace(Dimension coordinates) {
-        return boardAPI.isCoordinatesPointsToDefaultSign(defaultSign, coordinates);
+        return boardAPI.isCoordinatesPointsToDefaultSign(settings.getDefaultSign(), coordinates);
     }
 
     boolean isPlayerWon(Sign playerSign, Dimension coordinates) {
-        return boardAPI.isSignNumberMeetWinCondition(playerSign, coordinates, winCondition);
+        return boardAPI.isSignNumberMeetWinCondition(playerSign, coordinates, settings.getWinCondition());
     }
 }
