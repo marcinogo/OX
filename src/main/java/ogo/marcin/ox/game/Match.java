@@ -18,17 +18,15 @@ class Match {
     private final Input input;
 
     private final List<Player> players;
-    private final Integer winCondition;
 
     private boolean isWinner;
 
-    private Judge judge;
+    private final Judge judge;
 
     Match(BoardAPI boardAPI, PlayerAPI playerAPI, Input input, Settings settings, List<Player> players, Judge judge) {
         this.boardAPI = boardAPI;
         this.input = input;
         this.players = players;
-        this.winCondition = settings.getWinCondition();
         this.playerAPI = playerAPI;
         this.judge = judge;
     }

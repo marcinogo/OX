@@ -19,7 +19,7 @@ public class Input {
         return scanner.nextLine();
     }
 
-    public int getIntegerInput() {
+    private int getIntegerInput() {
         int result = 0;
         boolean inputIsCorrect;
         do {
