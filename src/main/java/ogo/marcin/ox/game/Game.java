@@ -20,7 +20,8 @@ public class Game {
     private final List<Match> matches;
     private final List<Player> players;
 
-    private Game(Settings settings, BoardAPI boardAPI, PlayerAPI playerAPI, Input input, List<Match> matches, List<Player> players) {
+    private Game(Settings settings, BoardAPI boardAPI, PlayerAPI playerAPI, Input input,
+                 List<Match> matches, List<Player> players) {
         this.settings = settings;
         this.boardAPI = boardAPI;
         this.playerAPI = playerAPI;
@@ -35,7 +36,8 @@ public class Game {
 
     public void play() {
         for (int i = 0; i < settings.getNumberOfRounds(); i++) {
-            Match match = new Match(boardAPI, playerAPI, input, settings, players);
+            Judge judge = new Judge(boardAPI, settings.getWinCondition());
+            Match match = new Match(boardAPI, playerAPI, input, settings, players, judge);
             matches.add(match);
             match.play();
             boardAPI.clearBoard(settings.getDefaultSign());

@@ -22,16 +22,18 @@ class Match {
 
     private boolean isWinner;
 
-    Match(BoardAPI boardAPI, PlayerAPI playerAPI, Input input, Settings settings, List<Player> players) {
+    private Judge judge;
+
+    Match(BoardAPI boardAPI, PlayerAPI playerAPI, Input input, Settings settings, List<Player> players, Judge judge) {
         this.boardAPI = boardAPI;
         this.input = input;
         this.players = players;
         this.winCondition = settings.getWinCondition();
         this.playerAPI = playerAPI;
+        this.judge = judge;
     }
 
     void play() {
-        Judge judge = new Judge(boardAPI, winCondition);
         Optional<Player> winner = playMatch(judge);
         winner.ifPresentOrElse(this::announceWinner, this::announceDraw);
     }
