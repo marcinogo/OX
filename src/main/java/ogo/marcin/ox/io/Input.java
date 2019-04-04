@@ -11,26 +11,28 @@ import java.util.Scanner;
  */
 public class Input {
     private final Scanner scanner;
+    private final Output output;
 
-    public Input(Scanner scanner) {
+    public Input(Scanner scanner, Output output) {
         this.scanner = scanner;
+        this.output = output;
     }
 
     public String getStringInput() {
         return scanner.nextLine();
     }
 
-    private int getIntegerInput() {
+    private int getIntegerInput(Localization.Key localizationKey) {
         int result = 0;
         boolean inputIsCorrect;
         do {
+            output.print(localizationKey);
             inputIsCorrect = true;
             try {
                 result = scanner.nextInt();
             } catch (InputMismatchException e) {
                 inputIsCorrect = false;
                 scanner.next();
-                System.out.println("Please enter only number");
             }
         } while (!inputIsCorrect);
         return result;
@@ -41,7 +43,6 @@ public class Input {
         boolean coordinatesWithinBoard;
         do {
             try {
-                System.out.println("Enter coordinate");
                 coordinates = createCoordinates(boardDimension);
                 coordinatesWithinBoard = true;
             } catch (IllegalArgumentException e) {
@@ -54,7 +55,7 @@ public class Input {
 
     private Coordinates createCoordinates(int boardDimension) {
         DimensionBuilder<Coordinates> coordinatesDimensionBuilder = new CoordinatesBuilder();
-        int dimension = getIntegerInput();
+        int dimension = getIntegerInput(Localization.Key.ENTER_COORDINATE);
         return coordinatesDimensionBuilder.withXDimension(recalculateUserInputToX(boardDimension, dimension))
                 .withYDimension(recalculateUserInputToY(boardDimension, dimension))
                 .build();
@@ -73,12 +74,10 @@ public class Input {
         boolean dimensionsCreated;
         do {
             try {
-                System.out.println("Enter width and height");
                 boardDimension = createBoard();
                 dimensionsCreated = true;
             } catch (IllegalArgumentException e) {
                 dimensionsCreated = false;
-                System.out.println("Board dimensions must be between 3 and 30");
             }
         } while (!dimensionsCreated);
         return boardDimension;
@@ -86,7 +85,7 @@ public class Input {
 
     private BoardDimension createBoard() {
         DimensionBuilder<BoardDimension> boardDimensionDimensionBuilder = new BoardDimensionBuilder();
-        int dimension = getIntegerInput();
+        int dimension = getIntegerInput(Localization.Key.BOARD_SIZE);
         return boardDimensionDimensionBuilder
                 .withDimension(dimension)
                 .build();
@@ -94,14 +93,11 @@ public class Input {
 
     public int getWinCondition(int boardDimension) {
         int winCondition;
-        boolean correctWinCondition;
+        boolean incorrectWinCondition;
         do {
-            winCondition = getIntegerInput();
-            correctWinCondition = validateWinCondition(winCondition, boardDimension);
-            if(!correctWinCondition) {
-                System.out.println("Invalid win condition");
-            }
-        } while (correctWinCondition);
+            winCondition = getIntegerInput(Localization.Key.WIN_CONDITION);
+            incorrectWinCondition = validateWinCondition(winCondition, boardDimension); //. mordo weź ogarnij spójne nazwy
+        } while (incorrectWinCondition);
         return winCondition;
     }
 
