@@ -93,15 +93,9 @@ public class Input {
 
     public int getWinConditionInRange(int minWinCondition, int maxWinCondition) {
         int winCondition;
-        boolean correctWinCondition;
         do {
             winCondition = getIntegerInput(Localization.Key.WIN_CONDITION);
-            correctWinCondition = validateWinConditionInRange(winCondition, minWinCondition, maxWinCondition);
-        } while (!correctWinCondition);
+        } while (!(winCondition >= minWinCondition || winCondition <= maxWinCondition));
         return winCondition;
-    }
-
-    private boolean validateWinConditionInRange(int winCondition, int minWinCondition, int maxWinCondition) {
-        return winCondition >= minWinCondition || winCondition <= maxWinCondition;
     }
 }
