@@ -19,7 +19,6 @@ class PlayerListCreator {
         for(int i = 1; i <= 2; i++) {
             players.add(new Player.PlayerBuilder(input).withName(i)
                     .withSign(i)
-                    .withPoints()
                     .build());
         }
         return players;

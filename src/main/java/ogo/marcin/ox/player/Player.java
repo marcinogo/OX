@@ -28,7 +28,7 @@ public class Player implements Comparable<Player>{
     }
 
     private Player(PlayerBuilder playerBuilder) {
-        this(playerBuilder.name, playerBuilder.playerSign, playerBuilder.points);
+        this(playerBuilder.name, playerBuilder.playerSign, 0);
     }
 
     private Player(Player player) {
@@ -91,7 +91,6 @@ public class Player implements Comparable<Player>{
 
         private String name;
         private Sign playerSign;
-        private int points;
 
         PlayerBuilder(Input input) {
             this.input = input;
@@ -117,11 +116,6 @@ public class Player implements Comparable<Player>{
                 playerSign = getPlayerSign(signString);
             } while (playerSign.isEmpty());
             this.playerSign = playerSign.get();
-            return this;
-        }
-
-        PlayerBuilder withPoints() {
-            this.points = 0;
             return this;
         }
 
