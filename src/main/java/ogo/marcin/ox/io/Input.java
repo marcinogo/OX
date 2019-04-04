@@ -94,9 +94,18 @@ public class Input {
 
     public int getWinCondition(int boardDimension) {
         int winCondition;
+        boolean correctWinCondition;
         do {
             winCondition = getIntegerInput();
-        } while (winCondition < 3 || winCondition > boardDimension);
+            correctWinCondition = validateWinCondition(winCondition, boardDimension);
+            if(!correctWinCondition) {
+                System.out.println("Invalid win condition");
+            }
+        } while (correctWinCondition);
         return winCondition;
+    }
+
+    private boolean validateWinCondition(int winCondition, int boardDimension) {
+        return winCondition < 3 || winCondition > boardDimension;
     }
 }
