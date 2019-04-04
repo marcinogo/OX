@@ -91,17 +91,17 @@ public class Input {
                 .build();
     }
 
-    public int getWinCondition(int boardDimension) {
+    public int getWinConditionInRange(int minWinCondition, int maxWinCondition) {
         int winCondition;
-        boolean incorrectWinCondition;
+        boolean correctWinCondition;
         do {
             winCondition = getIntegerInput(Localization.Key.WIN_CONDITION);
-            incorrectWinCondition = validateWinCondition(winCondition, boardDimension); //. mordo weź ogarnij spójne nazwy
-        } while (incorrectWinCondition);
+            correctWinCondition = validateWinConditionInRange(winCondition, minWinCondition, maxWinCondition);
+        } while (!correctWinCondition);
         return winCondition;
     }
 
-    private boolean validateWinCondition(int winCondition, int boardDimension) {
-        return winCondition < 3 || winCondition > boardDimension;
+    private boolean validateWinConditionInRange(int winCondition, int minWinCondition, int maxWinCondition) {
+        return winCondition >= minWinCondition || winCondition <= maxWinCondition;
     }
 }
