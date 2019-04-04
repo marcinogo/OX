@@ -47,7 +47,7 @@ public class Board {
             for (int j = 0; j < matrix[i].length; j++) {
                 stringBuilder.append(matrix[i][j]);
             }
-            if(i < matrix.length - 1) {
+            if (i < matrix.length - 1) {
                 stringBuilder.append(System.lineSeparator());
             }
         }
@@ -89,20 +89,14 @@ public class Board {
 
     public static class BoardBuilder {
         private Dimension dimension;
-        private Sign sign;
 
         public Board build() {
             Board board = new Board(dimension);
-            return board.setBoardMatrixCells(sign);
+            return board.setBoardMatrixCells(Sign.DEFAULT);
         }
 
         public BoardBuilder withDimension(Dimension dimension) {
             this.dimension = dimension;
-            return this;
-        }
-
-        public BoardBuilder withDefaultSign() {
-            sign = Sign.DEFAULT;
             return this;
         }
     }
