@@ -34,34 +34,23 @@ public class Settings {
     }
 
     public static class SettingsBuilder {
-        private final Input input;
-
         private Sign defaultSign;
         private int winCondition;
         private int numberOfRounds;
 
-        public SettingsBuilder(Input input) {
-            this.input = input;
-        }
-
         public Settings build() {
+            defaultSetup();
             return new Settings(this);
         }
 
-        public SettingsBuilder withWinCondition(int boardDimension) {
-            System.out.println("Give win condition for game");
-            this.winCondition = input.getWinCondition(boardDimension);
+        public SettingsBuilder withWinConditionInRange(int winCondition) {
+            this.winCondition = winCondition;
             return this;
         }
 
-        public SettingsBuilder withNumberOfRounds() {
-            this.numberOfRounds = 3;
-            return this;
-        }
-
-        public SettingsBuilder withDefaultSign() {
+        private void defaultSetup() {
             this.defaultSign = Sign.DEFAULT;
-            return this;
+            this.numberOfRounds = 3;
         }
     }
 }
