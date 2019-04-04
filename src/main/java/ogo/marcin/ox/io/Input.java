@@ -1,6 +1,7 @@
 package ogo.marcin.ox.io;
 
 import ogo.marcin.ox.dimension.*;
+import ogo.marcin.ox.game.Judge;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -35,7 +36,23 @@ public class Input {
         return result;
     }
 
-    public Coordinates createCoordinates(int boardDimension) {
+    public Coordinates getCoordinates(Judge judge, int boardDimension) {
+        Coordinates coordinates = null;
+        boolean coordinatesWithinBoard;
+        do {
+            try {
+                System.out.println("Enter coordinate");
+                coordinates = createCoordinates(boardDimension);
+                coordinatesWithinBoard = true;
+            } catch (IllegalArgumentException e) {
+                coordinatesWithinBoard = false;
+            }
+        } while (!coordinatesWithinBoard ||
+                !judge.isPlayerSignSetOnFreeSpace(coordinates));
+        return coordinates;
+    }
+
+    private Coordinates createCoordinates(int boardDimension) {
         DimensionBuilder<Coordinates> coordinatesDimensionBuilder = new CoordinatesBuilder();
         int dimension = getIntegerInput();
         return coordinatesDimensionBuilder.withXDimension(recalculateUserInputToX(boardDimension, dimension))

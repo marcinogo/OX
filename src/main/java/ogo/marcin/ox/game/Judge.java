@@ -7,7 +7,7 @@ import ogo.marcin.ox.dimension.Dimension;
 /**
  * @author Marcin Ogorzalek
  */
-class Judge {
+public class Judge {
     private final BoardAPI boardAPI;
     private final Settings settings;
 
@@ -20,7 +20,7 @@ class Judge {
         return boardAPI.isFreeSpaceOnBoard(settings.getDefaultSign());
     }
 
-    boolean isPlayerSignSetOnFreeSpace(Dimension coordinates) {
+    public boolean isPlayerSignSetOnFreeSpace(Dimension coordinates) {
         return boardAPI.isCoordinatesPointsToDefaultSign(settings.getDefaultSign(), coordinates);
     }
 

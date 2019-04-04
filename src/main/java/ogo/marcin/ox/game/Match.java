@@ -44,7 +44,7 @@ class Match {
                 if (!judge.isFreeSpaceOnBoard()) break;
                 System.out.printf("It is turn of %s - %s%n",
                         playerAPI.getPlayerName(player), playerAPI.getPlayerSign(player));
-                if(playPlayerTurn(judge, player)) {
+                if(playPlayerTurn(player)) {
                     winner = player;
                     break;
                 }
@@ -53,26 +53,10 @@ class Match {
         return Optional.ofNullable(winner);
     }
 
-    private Boolean playPlayerTurn(Judge judge, Player player) {
-        Coordinates coordinates = getLegalCoordinates(judge);
+    private Boolean playPlayerTurn(Player player) {
+        Coordinates coordinates = input.getCoordinates(judge, boardAPI.getBoardDimension());
         boardAPI.setField(coordinates, playerAPI.getPlayerSign(player));
         return isWinner = judge.isPlayerWon(playerAPI.getPlayerSign(player), coordinates);
-    }
-
-    private Coordinates getLegalCoordinates(Judge judge) {
-        Coordinates coordinates = null;
-        boolean coordinatesWithinBoard;
-         do {
-            try {
-                System.out.println("Enter coordinate");
-                coordinates = input.createCoordinates(boardAPI.getBoardDimension());
-                coordinatesWithinBoard = true;
-            } catch (IllegalArgumentException e) {
-                coordinatesWithinBoard = false;
-            }
-         } while (!coordinatesWithinBoard ||
-                 !judge.isPlayerSignSetOnFreeSpace(coordinates));
-        return coordinates;
     }
 
     private void announceDraw() {
