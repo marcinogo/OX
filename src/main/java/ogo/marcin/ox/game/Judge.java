@@ -17,7 +17,7 @@ public class Judge {
     }
 
     boolean isFreeSpaceOnBoard() {
-        return boardAPI.isFreeSpaceOnBoard(settings.getDefaultSign());
+        return boardAPI.isFreeSpaceOnBoard();
     }
 
     public boolean isPlayerSignSetOnFreeSpace(Dimension coordinates) {
@@ -25,6 +25,6 @@ public class Judge {
     }
 
     boolean isPlayerWon(Sign playerSign, Dimension coordinates) {
-        return boardAPI.isSignNumberMeetWinCondition(playerSign, coordinates, settings.getWinCondition());
+        return boardAPI.whetherWinningConditionHasBeenMet(playerSign, coordinates, settings.getWinCondition());
     }
 }
