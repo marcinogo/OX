@@ -7,9 +7,11 @@ import ogo.marcin.ox.dimension.Dimension;
  */
 public class BoardAPIImpl implements BoardAPI {
     private Board board;
+    private int occupiedFields;
 
     public BoardAPIImpl(Board board) {
         this.board = board;
+        this.occupiedFields = 0;
     }
 
     @Override
@@ -20,16 +22,12 @@ public class BoardAPIImpl implements BoardAPI {
     @Override
     public void setField(Dimension coordinates, Sign sign) {
         board = board.setField(coordinates, sign);
+        occupiedFields++;
     }
 
     @Override
-    public boolean isFreeSpaceOnBoard(Sign defaultSign) {
-        for (Field[] row: board.matrix) {
-            for(Field field: row) {
-                if(field.sign.equals(defaultSign)) return true;
-            }
-        }
-        return false;
+    public boolean isFreeSpaceOnBoard() {
+        return occupiedFields != board.getBoardDimension() * board.getBoardDimension();
     }
 
     @Override
@@ -42,118 +40,161 @@ public class BoardAPIImpl implements BoardAPI {
         return board.matrix[coordinates.getYDimension()][coordinates.getXDimension()].sign.equals(defaultSign);
     }
 
-    public boolean isSignNumberMeetWinCondition(Sign playerSign, Dimension coordinates, int winCondition) {
-        int x = coordinates.getXDimension();
-        int y = coordinates.getYDimension();
-
-        return horizontalCheck(playerSign, x, y, winCondition) ||
-                verticalCheck(playerSign, x, y, winCondition) ||
-                diagonalCheck(playerSign, x, y, winCondition) ||
-                antidiagonalCheck(playerSign, x, y, winCondition);
+    public boolean whetherWinningConditionHasBeenMet(Sign playerSign, Dimension coordinates, int winCondition) {
+        return horizontalCheck(playerSign, coordinates, winCondition) ||
+                verticalCheck(playerSign, coordinates, winCondition) ||
+                diagonalCheck(playerSign, coordinates, winCondition) ||
+                antidiagonalCheck(playerSign, coordinates, winCondition);
     }
 
-    private boolean horizontalCheck(Sign playerSign, int x, int y, int winCondition) {
-        int count = 1;
+    private boolean horizontalCheck(Sign playerSign, Dimension coordinates, int winCondition) {
+        int count = 1 + numberOfPlayerFieldsRight(playerSign, coordinates)
+                + numberOfPlayerFieldsLeft(playerSign, coordinates);
+        return count== winCondition;
+    }
+
+
+    private int numberOfPlayerFieldsRight(Sign playerSign, Dimension coordinates) {
+        int x = coordinates.getXDimension();
+        int y = coordinates.getYDimension();
+        int count = 0;
         Field[] row = board.matrix[y];
         for(int i = x + 1; i < row.length; i++) {
             if(row[i].sign.equals(playerSign)) {
                 count++;
-            } else if(count == winCondition){
-                return true;
             } else {
                 break;
             }
         }
+        return count;
+    }
 
+    private int numberOfPlayerFieldsLeft(Sign playerSign, Dimension coordinates) {
+        int x = coordinates.getXDimension();
+        int y = coordinates.getYDimension();
+        int count = 0;
+        Field[] row = board.matrix[y];
         for(int i = x - 1; i >= 0; i--) {
-            if(row[i].sign.equals(playerSign)) {
+            if (row[i].sign.equals(playerSign)) {
                 count++;
-            } else if(count == winCondition){
-                return true;
             } else {
                 break;
             }
         }
-        return count== winCondition;
+        return count;
     }
 
-    private boolean verticalCheck(Sign playerSign, int x, int y, int winCondition) {
-        int count = 1;
-
-        for(int i = y + 1; i < board.matrix.length; i++) {
-            if(board.matrix[i][x].sign.equals(playerSign)) {
-                count++;
-            } else if(count == winCondition){
-                return true;
-            } else {
-                break;
-            }
-        }
-
-        for(int i = y - 1; i >= 0; i--) {
-            if(board.matrix[i][x].sign.equals(playerSign)) {
-                count++;
-            } else if(count == winCondition){
-                return true;
-            } else {
-                break;
-            }
-        }
+    private boolean verticalCheck(Sign playerSign, Dimension coordinates, int winCondition) {
+        int count = 1 + numberOfPlayerFieldsDown(playerSign, coordinates)
+                + numberOfPlayerFieldsUp(playerSign, coordinates);
         return count == winCondition;
     }
 
-    private boolean diagonalCheck(Sign playerSign, int x, int y, int winCondition) {
-        int count = 1;
+        private int numberOfPlayerFieldsDown(Sign playerSign, Dimension coordinates) {
+            int x = coordinates.getXDimension();
+            int y = coordinates.getYDimension();
+            int count = 0;
 
-        for(int i = y + 1, j = x + 1; i < board.matrix.length && j < board.matrix[i].length; i++, j++) {
-            if(board.matrix[i][j].sign.equals(playerSign)) {
+            for (int i = y + 1; i < getBoardDimension(); i++) {
+                if (board.matrix[i][x].sign.equals(playerSign)) {
+                    count++;
+                } else {
+                    break;
+                }
+            }
+            return count;
+        }
+
+    private int numberOfPlayerFieldsUp(Sign playerSign, Dimension coordinates) {
+        int x = coordinates.getXDimension();
+        int y = coordinates.getYDimension();
+        int count = 0;
+
+        for (int i = y - 1; i >= 0; i--) {
+            if (board.matrix[i][x].sign.equals(playerSign)) {
                 count++;
-            } else if(count == winCondition){
-                return true;
             } else {
                 break;
             }
         }
+        return count;
+    }
 
-        for(int i = y - 1, j = x - 1; i >= 0 && j >= 0; i--, j--) {
-            if(board.matrix[i][j].sign.equals(playerSign)) {
-                count++;
-            } else if(count == winCondition){
-                return true;
-            } else {
-                break;
-            }
-        }
+    private boolean diagonalCheck(Sign playerSign, Dimension coordinates, int winCondition) {
+        int count = 1 + numberOfPlayerFieldsDownRight(playerSign, coordinates)
+                + numberOfPlayerFieldsUpLeft(playerSign, coordinates);
         return count == winCondition;
     }
 
-    private boolean antidiagonalCheck(Sign playerSign, int x, int y, int winCondition) {
-        int count = 1;
+        private int numberOfPlayerFieldsDownRight(Sign playerSign, Dimension coordinates){
+            int x = coordinates.getXDimension();
+            int y = coordinates.getYDimension();
+            int count = 0;
 
-        for(int i = y + 1, j = x - 1; i < board.matrix.length && j >= 0; i++, j--) {
-            if(board.matrix[i][j].sign.equals(playerSign)) {
+            for (int i = y + 1, j = x + 1; i < getBoardDimension() && j < board.matrix[i].length; i++, j++) {
+                if (board.matrix[i][j].sign.equals(playerSign)) {
+                    count++;
+                } else {
+                    break;
+                }
+            }
+            return count;
+        }
+
+    private int numberOfPlayerFieldsUpLeft(Sign playerSign, Dimension coordinates) {
+        int x = coordinates.getXDimension();
+        int y = coordinates.getYDimension();
+        int count = 0;
+
+        for (int i = y - 1, j = x - 1; i >= 0 && j >= 0; i--, j--) {
+            if (board.matrix[i][j].sign.equals(playerSign)) {
                 count++;
-            } else if(count == winCondition){
-                return true;
             } else {
                 break;
             }
         }
+        return count;
+    }
 
-        for(int i = y - 1, j = x + 1; i >= 0 && j < board.matrix.length; i--, j++) {
-            if(board.matrix[i][j].sign.equals(playerSign)) {
-                count++;
-            } else if(count == winCondition){
-                return true;
-            } else {
-                break;
-            }
-        }
+    private boolean antidiagonalCheck(Sign playerSign, Dimension coordinates, int winCondition) {
+        int count = 1 + numberOfPlayerFieldsDownLeft(playerSign, coordinates)
+                + numberOfPlayerFieldsUpRight(playerSign, coordinates);
         return count == winCondition;
+    }
+
+        private int numberOfPlayerFieldsDownLeft(Sign playerSign, Dimension coordinates){
+            int x = coordinates.getXDimension();
+            int y = coordinates.getYDimension();
+            int count = 0;
+
+            for (int i = y + 1, j = x - 1; i < getBoardDimension() && j >= 0; i++, j--) {
+                if (board.matrix[i][j].sign.equals(playerSign)) {
+                    count++;
+                } else {
+                    break;
+                }
+            }
+            return count;
+        }
+
+    private int numberOfPlayerFieldsUpRight(Sign playerSign, Dimension coordinates) {
+        int x = coordinates.getXDimension();
+        int y = coordinates.getYDimension();
+        int count = 0;
+
+        for (int i = y - 1, j = x + 1; i >= 0 && j < getBoardDimension(); i--, j++) {
+            if (board.matrix[i][j].sign.equals(playerSign)) {
+                count++;
+            } else {
+                break;
+            }
+        }
+        return count;
     }
 
     @Override
     public void clearBoard(Sign sing) {
         this.board = board.setBoardMatrixCells(sing);
+        this.occupiedFields = 0;
     }
 }

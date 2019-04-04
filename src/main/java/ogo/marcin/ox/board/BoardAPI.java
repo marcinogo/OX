@@ -7,9 +7,9 @@ import ogo.marcin.ox.dimension.Dimension;
  */
 public interface BoardAPI {
     void setField(Dimension coordinates, Sign sign);
-    boolean isFreeSpaceOnBoard(Sign defaultSign);
+    boolean isFreeSpaceOnBoard();
     boolean isCoordinatesPointsToDefaultSign(Sign defaultSign, Dimension coordinates);
-    boolean isSignNumberMeetWinCondition(Sign playerSign, Dimension coordinates, int winCondition);
+    boolean whetherWinningConditionHasBeenMet(Sign playerSign, Dimension coordinates, int winCondition);
 
     Board getBoard();
     void clearBoard(Sign sign);
