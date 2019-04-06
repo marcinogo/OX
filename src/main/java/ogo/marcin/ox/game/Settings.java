@@ -1,7 +1,6 @@
 package ogo.marcin.ox.game;
 
 import ogo.marcin.ox.board.Sign;
-import ogo.marcin.ox.io.Input;
 
 /**
  * @author Marcin Ogorzalek

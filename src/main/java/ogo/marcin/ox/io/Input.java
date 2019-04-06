@@ -48,6 +48,7 @@ public class Input {
                 coordinatesWithinBoard = true;
             } catch (IllegalArgumentException e) {
 //                TODO change to output one
+//                TODO different serr for coordinate on non default field
                 System.err.println(e.getMessage());
                 coordinatesWithinBoard = false;
             }

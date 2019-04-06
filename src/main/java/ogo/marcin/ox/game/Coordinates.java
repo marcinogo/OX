@@ -47,7 +47,7 @@ public class Coordinates {
 
         private void setXOfMove(int move) throws IllegalArgumentException {
             int xOfMove = recalculateUserInputToX(move);
-            if(!isComponentOfMoveCorrect(xOfMove)) {
+            if(isComponentOfMoveNotCorrect(xOfMove)) {
                 throw new IllegalArgumentException("Move is not inside board");
             }
             this.xOfMove = xOfMove;
@@ -57,13 +57,13 @@ public class Coordinates {
             return (move - 1) % MAX_COMPONENT_OF_MOVE_INDEX;
         }
 
-        private boolean isComponentOfMoveCorrect(int componentOfMove) {
-            return componentOfMove >= MIN_COMPONENT_OF_MOVE_INDEX && componentOfMove < MAX_COMPONENT_OF_MOVE_INDEX;
+        private boolean isComponentOfMoveNotCorrect(int componentOfMove) {
+            return MIN_COMPONENT_OF_MOVE_INDEX > componentOfMove || componentOfMove >= MAX_COMPONENT_OF_MOVE_INDEX ;
         }
 
         private void setYOfMove(int move) throws IllegalArgumentException {
             int yOfMove = recalculateUserInputToY(move);
-            if(!isComponentOfMoveCorrect(yOfMove)) {
+            if(isComponentOfMoveNotCorrect(yOfMove)) {
                 throw new IllegalArgumentException("Move is not inside board");
             }
             this.yOfMove = yOfMove;
