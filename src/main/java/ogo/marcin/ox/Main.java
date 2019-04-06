@@ -23,7 +23,7 @@ class Main {
             Output output = new Output(System.out, Localization.setLanguage("english"));
             Input input = new Input(scanner, output);
 
-            List<Player> players = playerAPI.createPlayers(input);
+            List<Player> players = playerAPI.createPlayers(input, output);
 
             Board board = new Board.BoardBuilder()
                     .withDimension(input.getBoardDimensions())

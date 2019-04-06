@@ -2,6 +2,8 @@ package ogo.marcin.ox.game;
 
 import ogo.marcin.ox.board.BoardAPI;
 import ogo.marcin.ox.io.Input;
+import ogo.marcin.ox.io.Localization;
+import ogo.marcin.ox.io.Output;
 import ogo.marcin.ox.player.Player;
 import ogo.marcin.ox.player.PlayerAPI;
 
@@ -12,21 +14,21 @@ import java.util.Optional;
  * @author Marcin Ogorzalek
  */
 class Match {
+    private final Input input;
+    private final Output output;
     private final BoardAPI boardAPI;
     private final PlayerAPI playerAPI;
-    private final Input input;
-
     private final List<Player> players;
+    private final Judge judge;
 
     private boolean isWinner;
 
-    private final Judge judge;
-
-    Match(BoardAPI boardAPI, PlayerAPI playerAPI, Input input, List<Player> players, Judge judge) {
-        this.boardAPI = boardAPI;
+    Match(Input input, Output output, BoardAPI boardAPI, PlayerAPI playerAPI, List<Player> players, Judge judge) {
         this.input = input;
-        this.players = players;
+        this.output = output;
+        this.boardAPI = boardAPI;
         this.playerAPI = playerAPI;
+        this.players = players;
         this.judge = judge;
     }
 
@@ -41,7 +43,7 @@ class Match {
             for (Player player: players) {
                 System.out.println(boardAPI.getBoard());
                 if (!judge.isFreeSpaceOnBoard()) break;
-                System.out.printf("It is turn of %s - %s%n",
+                output.printf(Localization.Key.PLAYER_WITH_MOVE,
                         playerAPI.getPlayerName(player), playerAPI.getPlayerSign(player));
                 if(playPlayerTurn(player)) {
                     winner = player;
@@ -59,7 +61,7 @@ class Match {
     }
 
     private void announceDraw() {
-        System.out.println("Draw");
+        output.print(Localization.Key.DRAW_IN_MATCH);
         givePointsForDraw();
     }
 
@@ -73,7 +75,7 @@ class Match {
 
     private void announceWinner(Player victoriousPlayer) {
         givePointsForWinn(victoriousPlayer);
-        System.out.printf("Winner of match is %s%n", playerAPI.getPlayerName(victoriousPlayer));
+        output.printf(Localization.Key.WINNER_OF_MATCH, playerAPI.getPlayerName(victoriousPlayer));
     }
 
     private void givePointsForWinn(Player victoriousPlayer) {

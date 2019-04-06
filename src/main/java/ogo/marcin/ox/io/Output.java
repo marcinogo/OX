@@ -22,4 +22,12 @@ public class Output {
     public void print(Localization.Key key) {
         printStream.println(resourceBundle.getString(key.name()));
     }
+
+    public void print(PrintStream newPrintStream, String message) {
+        newPrintStream.println(message);
+    }
+
+    public void printf(Localization.Key key, Object... args) {
+        printStream.printf(resourceBundle.getString(key.name()), args);
+    }
 }

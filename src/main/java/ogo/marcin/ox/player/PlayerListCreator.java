@@ -1,6 +1,8 @@
 package ogo.marcin.ox.player;
 
 import ogo.marcin.ox.io.Input;
+import ogo.marcin.ox.io.Localization;
+import ogo.marcin.ox.io.Output;
 
 import java.util.*;
 
@@ -9,9 +11,11 @@ import java.util.*;
  */
 class PlayerListCreator {
     private final Input input;
+    private final Output output;
 
-    PlayerListCreator(Input input) {
+    PlayerListCreator(Input input, Output output) {
         this.input = input;
+        this.output = output;
     }
 
     List<Player> createPlayers() {
@@ -33,7 +37,8 @@ class PlayerListCreator {
                         .build();
                 playerCreated = true;
             } catch (IllegalArgumentException e) {
-                System.err.println(e.getMessage());
+//                TODO localize error messages
+                output.print(System.err, e.getMessage());
                 playerCreated = false;
             }
         } while(!playerCreated);
@@ -41,17 +46,17 @@ class PlayerListCreator {
     }
 
     private String getPlayerName(int playerNumber) {
-        System.out.printf("Give player %d name%n", playerNumber);
+        output.printf(Localization.Key.GET_PLAYER_NAME, playerNumber);
         return input.getStringInput();
     }
 
     private String getPlayerSignString(int playerNumber) {
         if(Player.PlayerBuilder.unusedSigns.size() == 1) {
             String playerSignString = Player.PlayerBuilder.unusedSigns.get(0).name();
-            System.out.printf("Player %d get sign %s%n", playerNumber, playerSignString);
+            output.printf(Localization.Key.GET_SECOND_PLAYER_SIGN, playerNumber, playerSignString);
             return playerSignString;
         }
-        System.out.printf("Give player %d sign - X or O%n", playerNumber);
+        output.printf(Localization.Key.GET_PLAYER_SIGN, playerNumber);
         return input.getStringInput().toUpperCase();
     }
 }
