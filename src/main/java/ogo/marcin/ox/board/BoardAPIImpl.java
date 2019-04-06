@@ -52,8 +52,7 @@ public class BoardAPIImpl implements BoardAPI {
                 + numberOfPlayerFieldsLeft(playerSign, coordinates);
         return count== winCondition;
     }
-
-
+    
     private int numberOfPlayerFieldsRight(Sign playerSign, Coordinates coordinates) {
         int x = coordinates.getxOfMove();
         int y = coordinates.getyOfMove();
