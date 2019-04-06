@@ -12,10 +12,6 @@ public class Player implements Comparable<Player>{
     final Sign playerSign;
     int points;
 
-    Player(String name, Sign playerSign) {
-        this(name, playerSign, 0);
-    }
-
     Player(String name, Sign playerSign, int points) {
         this.name = name;
         this.playerSign = playerSign;
@@ -67,9 +63,10 @@ public class Player implements Comparable<Player>{
 
         private String name;
         private Sign playerSign;
-        private final int points = 0;
+        private final int points;
 
         PlayerBuilder() {
+            this.points = 0;
             unusedSigns.remove(Sign.DEFAULT);
         }
 
