@@ -121,7 +121,7 @@
         </plugins>
     </build>
 
-    <!--to generate spotbugs HTML report-->
+    <!--site report-->
     <reporting>
         <plugins>
             <!--Warning for not specified version of this-->
