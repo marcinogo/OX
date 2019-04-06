@@ -20,7 +20,7 @@ public class BoardDimension{
         this(boardDimensionBuilder.boardEdge);
     }
 
-    public int getBoardEdge() {
+    int getBoardEdge() {
         return boardEdge;
     }
 

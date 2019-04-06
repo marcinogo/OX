@@ -78,7 +78,7 @@ public class Player implements Comparable<Player>{
         }
 
         PlayerBuilder withName(String name) throws IllegalArgumentException{
-            if(!PlayerValidation.validateName(name)) {
+            if(!PlayerDataValidation.validateName(name)) {
                 throw new IllegalArgumentException("You have to enter player name");
             }
             this.name = name;
@@ -86,7 +86,7 @@ public class Player implements Comparable<Player>{
         }
 
         PlayerBuilder withSign(String signString) throws IllegalArgumentException {
-            if(!PlayerValidation.validatePlayerSignString(signString)) {
+            if(!PlayerDataValidation.validateSignString(signString)) {
                 throw new IllegalArgumentException("This is not proper sign, choose X or O");
             }
             this.playerSign = Sign.valueOf(signString);
@@ -95,12 +95,12 @@ public class Player implements Comparable<Player>{
         }
     }
 
-    private static class PlayerValidation {
+    private static class PlayerDataValidation {
         private static boolean validateName(String name) {
             return name != null && !name.isBlank() && !name.isEmpty();
         }
 
-        private static boolean validatePlayerSignString(String signString) {
+        private static boolean validateSignString(String signString) {
             try {
                 Sign.valueOf(signString);
             } catch (IllegalArgumentException e) {
