@@ -1,7 +1,6 @@
 package ogo.marcin.ox.game;
 
 import ogo.marcin.ox.board.BoardAPI;
-import ogo.marcin.ox.dimension.Coordinates;
 import ogo.marcin.ox.io.Input;
 import ogo.marcin.ox.player.Player;
 import ogo.marcin.ox.player.PlayerAPI;

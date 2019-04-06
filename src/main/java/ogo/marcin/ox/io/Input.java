@@ -1,6 +1,7 @@
 package ogo.marcin.ox.io;
 
-import ogo.marcin.ox.dimension.*;
+import ogo.marcin.ox.board.BoardDimension;
+import ogo.marcin.ox.game.Coordinates;
 import ogo.marcin.ox.game.Judge;
 
 import java.util.InputMismatchException;
@@ -46,6 +47,8 @@ public class Input {
                 coordinates = createCoordinates(boardDimension);
                 coordinatesWithinBoard = true;
             } catch (IllegalArgumentException e) {
+//                TODO change to output one
+                System.err.println(e.getMessage());
                 coordinatesWithinBoard = false;
             }
         } while (!coordinatesWithinBoard ||
@@ -54,20 +57,12 @@ public class Input {
     }
 
     private Coordinates createCoordinates(int boardDimension) {
-        DimensionBuilder<Coordinates> coordinatesDimensionBuilder = new CoordinatesBuilder();
-        int dimension = getIntegerInput(Localization.Key.ENTER_COORDINATE);
-        return coordinatesDimensionBuilder.withXDimension(recalculateUserInputToX(boardDimension, dimension))
-                .withYDimension(recalculateUserInputToY(boardDimension, dimension))
+        int move = getIntegerInput(Localization.Key.ENTER_COORDINATE);
+        return new Coordinates.CoordinatesBuilder()
+                .withMovePosition(move)
                 .build();
     }
 
-    private int recalculateUserInputToX(int boardDimension, int dimension) {
-        return (dimension - 1) % boardDimension;
-    }
-
-    private int recalculateUserInputToY(int boardDimension, int dimension) {
-        return (dimension - 1) / boardDimension;
-    }
 
     public BoardDimension getBoardDimensions() {
         BoardDimension boardDimension = null;
@@ -77,6 +72,8 @@ public class Input {
                 boardDimension = createBoard();
                 dimensionsCreated = true;
             } catch (IllegalArgumentException e) {
+//                TODO change to output one
+                System.err.println(e.getMessage());
                 dimensionsCreated = false;
             }
         } while (!dimensionsCreated);
@@ -84,10 +81,9 @@ public class Input {
     }
 
     private BoardDimension createBoard() {
-        DimensionBuilder<BoardDimension> boardDimensionDimensionBuilder = new BoardDimensionBuilder();
         int dimension = getIntegerInput(Localization.Key.BOARD_SIZE);
-        return boardDimensionDimensionBuilder
-                .withDimension(dimension)
+        return new BoardDimension.BoardDimensionBuilder()
+                .withBoardEdgeSize(dimension)
                 .build();
     }
 
@@ -95,7 +91,7 @@ public class Input {
         int winCondition;
         do {
             winCondition = getIntegerInput(Localization.Key.WIN_CONDITION);
-        } while (!(winCondition >= minWinCondition || winCondition <= maxWinCondition));
+        } while (!(winCondition >= minWinCondition && winCondition <= maxWinCondition));
         return winCondition;
     }
 }

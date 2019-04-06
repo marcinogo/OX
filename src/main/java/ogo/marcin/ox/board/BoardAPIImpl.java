@@ -1,6 +1,6 @@
 package ogo.marcin.ox.board;
 
-import ogo.marcin.ox.dimension.Dimension;
+import ogo.marcin.ox.game.Coordinates;
 
 /**
  * @author Marcin Ogorzalek
@@ -20,7 +20,7 @@ public class BoardAPIImpl implements BoardAPI {
     }
 
     @Override
-    public void setField(Dimension coordinates, Sign sign) {
+    public void setField(Coordinates coordinates, Sign sign) {
         board = board.setField(coordinates, sign);
         occupiedFields++;
     }
@@ -36,27 +36,27 @@ public class BoardAPIImpl implements BoardAPI {
     }
 
     @Override
-    public boolean isCoordinatesPointsToDefaultSign(Sign defaultSign, Dimension coordinates) {
-        return board.matrix[coordinates.getYDimension()][coordinates.getXDimension()].sign.equals(defaultSign);
+    public boolean isCoordinatesPointsToDefaultSign(Sign defaultSign, Coordinates coordinates) {
+        return board.matrix[coordinates.getyOfMove()][coordinates.getxOfMove()].sign.equals(defaultSign);
     }
 
-    public boolean whetherWinningConditionHasBeenMet(Sign playerSign, Dimension coordinates, int winCondition) {
+    public boolean whetherWinningConditionHasBeenMet(Sign playerSign, Coordinates coordinates, int winCondition) {
         return horizontalCheck(playerSign, coordinates, winCondition) ||
                 verticalCheck(playerSign, coordinates, winCondition) ||
                 diagonalCheck(playerSign, coordinates, winCondition) ||
                 antidiagonalCheck(playerSign, coordinates, winCondition);
     }
 
-    private boolean horizontalCheck(Sign playerSign, Dimension coordinates, int winCondition) {
+    private boolean horizontalCheck(Sign playerSign, Coordinates coordinates, int winCondition) {
         int count = 1 + numberOfPlayerFieldsRight(playerSign, coordinates)
                 + numberOfPlayerFieldsLeft(playerSign, coordinates);
         return count== winCondition;
     }
 
 
-    private int numberOfPlayerFieldsRight(Sign playerSign, Dimension coordinates) {
-        int x = coordinates.getXDimension();
-        int y = coordinates.getYDimension();
+    private int numberOfPlayerFieldsRight(Sign playerSign, Coordinates coordinates) {
+        int x = coordinates.getxOfMove();
+        int y = coordinates.getyOfMove();
         int count = 0;
         Field[] row = board.matrix[y];
         for(int i = x + 1; i < row.length; i++) {
@@ -69,9 +69,9 @@ public class BoardAPIImpl implements BoardAPI {
         return count;
     }
 
-    private int numberOfPlayerFieldsLeft(Sign playerSign, Dimension coordinates) {
-        int x = coordinates.getXDimension();
-        int y = coordinates.getYDimension();
+    private int numberOfPlayerFieldsLeft(Sign playerSign, Coordinates coordinates) {
+        int x = coordinates.getxOfMove();
+        int y = coordinates.getyOfMove();
         int count = 0;
         Field[] row = board.matrix[y];
         for(int i = x - 1; i >= 0; i--) {
@@ -84,15 +84,15 @@ public class BoardAPIImpl implements BoardAPI {
         return count;
     }
 
-    private boolean verticalCheck(Sign playerSign, Dimension coordinates, int winCondition) {
+    private boolean verticalCheck(Sign playerSign, Coordinates coordinates, int winCondition) {
         int count = 1 + numberOfPlayerFieldsDown(playerSign, coordinates)
                 + numberOfPlayerFieldsUp(playerSign, coordinates);
         return count == winCondition;
     }
 
-        private int numberOfPlayerFieldsDown(Sign playerSign, Dimension coordinates) {
-            int x = coordinates.getXDimension();
-            int y = coordinates.getYDimension();
+        private int numberOfPlayerFieldsDown(Sign playerSign, Coordinates coordinates) {
+            int x = coordinates.getxOfMove();
+            int y = coordinates.getyOfMove();
             int count = 0;
 
             for (int i = y + 1; i < getBoardDimension(); i++) {
@@ -105,9 +105,9 @@ public class BoardAPIImpl implements BoardAPI {
             return count;
         }
 
-    private int numberOfPlayerFieldsUp(Sign playerSign, Dimension coordinates) {
-        int x = coordinates.getXDimension();
-        int y = coordinates.getYDimension();
+    private int numberOfPlayerFieldsUp(Sign playerSign, Coordinates coordinates) {
+        int x = coordinates.getxOfMove();
+        int y = coordinates.getyOfMove();
         int count = 0;
 
         for (int i = y - 1; i >= 0; i--) {
@@ -120,15 +120,15 @@ public class BoardAPIImpl implements BoardAPI {
         return count;
     }
 
-    private boolean diagonalCheck(Sign playerSign, Dimension coordinates, int winCondition) {
+    private boolean diagonalCheck(Sign playerSign, Coordinates coordinates, int winCondition) {
         int count = 1 + numberOfPlayerFieldsDownRight(playerSign, coordinates)
                 + numberOfPlayerFieldsUpLeft(playerSign, coordinates);
         return count == winCondition;
     }
 
-        private int numberOfPlayerFieldsDownRight(Sign playerSign, Dimension coordinates){
-            int x = coordinates.getXDimension();
-            int y = coordinates.getYDimension();
+        private int numberOfPlayerFieldsDownRight(Sign playerSign, Coordinates coordinates){
+            int x = coordinates.getxOfMove();
+            int y = coordinates.getyOfMove();
             int count = 0;
 
             for (int i = y + 1, j = x + 1; i < getBoardDimension() && j < board.matrix[i].length; i++, j++) {
@@ -141,9 +141,9 @@ public class BoardAPIImpl implements BoardAPI {
             return count;
         }
 
-    private int numberOfPlayerFieldsUpLeft(Sign playerSign, Dimension coordinates) {
-        int x = coordinates.getXDimension();
-        int y = coordinates.getYDimension();
+    private int numberOfPlayerFieldsUpLeft(Sign playerSign, Coordinates coordinates) {
+        int x = coordinates.getxOfMove();
+        int y = coordinates.getyOfMove();
         int count = 0;
 
         for (int i = y - 1, j = x - 1; i >= 0 && j >= 0; i--, j--) {
@@ -156,15 +156,15 @@ public class BoardAPIImpl implements BoardAPI {
         return count;
     }
 
-    private boolean antidiagonalCheck(Sign playerSign, Dimension coordinates, int winCondition) {
+    private boolean antidiagonalCheck(Sign playerSign, Coordinates coordinates, int winCondition) {
         int count = 1 + numberOfPlayerFieldsDownLeft(playerSign, coordinates)
                 + numberOfPlayerFieldsUpRight(playerSign, coordinates);
         return count == winCondition;
     }
 
-        private int numberOfPlayerFieldsDownLeft(Sign playerSign, Dimension coordinates){
-            int x = coordinates.getXDimension();
-            int y = coordinates.getYDimension();
+        private int numberOfPlayerFieldsDownLeft(Sign playerSign, Coordinates coordinates){
+            int x = coordinates.getxOfMove();
+            int y = coordinates.getyOfMove();
             int count = 0;
 
             for (int i = y + 1, j = x - 1; i < getBoardDimension() && j >= 0; i++, j--) {
@@ -177,9 +177,9 @@ public class BoardAPIImpl implements BoardAPI {
             return count;
         }
 
-    private int numberOfPlayerFieldsUpRight(Sign playerSign, Dimension coordinates) {
-        int x = coordinates.getXDimension();
-        int y = coordinates.getYDimension();
+    private int numberOfPlayerFieldsUpRight(Sign playerSign, Coordinates coordinates) {
+        int x = coordinates.getxOfMove();
+        int y = coordinates.getyOfMove();
         int count = 0;
 
         for (int i = y - 1, j = x + 1; i >= 0 && j < getBoardDimension(); i--, j++) {

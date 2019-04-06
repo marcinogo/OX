@@ -1,6 +1,6 @@
 package ogo.marcin.ox.board;
 
-import ogo.marcin.ox.dimension.Dimension;
+import ogo.marcin.ox.game.Coordinates;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -14,9 +14,9 @@ public class Board {
 
     final Field[][] matrix;
 
-    private Board(Dimension boardDimension) {
-        this.width = boardDimension.getXDimension();
-        this.height = boardDimension.getYDimension();
+    private Board(BoardDimension boardDimension) {
+        this.width = boardDimension.getBoardEdge();
+        this.height = boardDimension.getBoardEdge();
         this.matrix = new Field[height][width];
     }
 
@@ -33,10 +33,10 @@ public class Board {
         }
     }
 
-    Board setField(Dimension coordinates, Sign sign) {
+    Board setField(Coordinates coordinates, Sign sign) {
         Board newBoard = new Board(this);
-        Field fieldToChange = newBoard.matrix[coordinates.getYDimension()][coordinates.getXDimension()];
-        newBoard.matrix[coordinates.getYDimension()][coordinates.getXDimension()] = fieldToChange.changeSign(sign);
+        Field fieldToChange = newBoard.matrix[coordinates.getyOfMove()][coordinates.getxOfMove()];
+        newBoard.matrix[coordinates.getyOfMove()][coordinates.getxOfMove()] = fieldToChange.changeSign(sign);
         return newBoard;
     }
 
@@ -88,14 +88,14 @@ public class Board {
     }
 
     public static class BoardBuilder {
-        private Dimension dimension;
+        private BoardDimension dimension;
 
         public Board build() {
             Board board = new Board(dimension);
             return board.setBoardMatrixCells(Sign.DEFAULT);
         }
 
-        public BoardBuilder withDimension(Dimension dimension) {
+        public BoardBuilder withDimension(BoardDimension dimension) {
             this.dimension = dimension;
             return this;
         }

@@ -1,6 +1,6 @@
 //package ogo.marcin.ox.board;
 //
-//import ogo.marcin.ox.dimension.BoardDimension;
+//import ogo.marcin.ox.board.BoardDimension;
 //import ogo.marcin.ox.dimension.Dimension;
 //import org.testng.annotations.DataProvider;
 //import org.testng.annotations.Test;
