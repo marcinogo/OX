@@ -27,12 +27,12 @@ public class BoardAPIImpl implements BoardAPI {
 
     @Override
     public boolean isFreeSpaceOnBoard() {
-        return occupiedFields != board.getBoardDimension() * board.getBoardDimension();
+        return occupiedFields != board.getBoardEdge() * board.getBoardEdge();
     }
 
     @Override
     public int getBoardDimension() {
-        return this.board.getBoardDimension();
+        return this.board.getBoardEdge();
     }
 
     @Override

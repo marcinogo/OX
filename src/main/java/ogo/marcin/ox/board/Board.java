@@ -9,21 +9,18 @@ import java.util.Objects;
  * @author Marcin Ogorzalek
  */
 public class Board {
-    private final int width;
-    private final int height;
+    private final int edge;
 
     final Field[][] matrix;
 
     private Board(BoardDimension boardDimension) {
-        this.width = boardDimension.getBoardEdge();
-        this.height = boardDimension.getBoardEdge();
-        this.matrix = new Field[height][width];
+        this.edge = boardDimension.getBoardEdge();
+        this.matrix = new Field[edge][edge];
     }
 
     private Board(Board board) {
-        this.width = board.width;
-        this.height = board.height;
-        this.matrix = new Field[board.height][];
+        this.edge = board.edge;
+        this.matrix = new Field[board.edge][];
         copyMatrixContent(this.matrix, board.matrix);
     }
 
@@ -71,20 +68,20 @@ public class Board {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Board board = (Board) o;
-        if(width != board.width || height != board.height) return false;
+        if(edge != board.edge) return false;
         return !Arrays.deepEquals(matrix, board.matrix);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(width, height);
+        int result = Objects.hash(edge);
         result = 31 * result;
         result += Arrays.deepHashCode(matrix);
         return result;
     }
 
-    int getBoardDimension() {
-        return width;
+    int getBoardEdge() {
+        return edge;
     }
 
     public static class BoardBuilder {
