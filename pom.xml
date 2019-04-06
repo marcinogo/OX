@@ -108,12 +108,6 @@
                     </dependency>
                 </dependencies>
             </plugin>
-            <!--Warning for not specified version of this-->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>3.0.0</version>
-            </plugin>
             <!--to create site-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -130,10 +124,24 @@
     <!--to generate spotbugs HTML report-->
     <reporting>
         <plugins>
+            <!--Warning for not specified version of this-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>3.0.0</version>
+            </plugin>
             <plugin>
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
                 <version>3.1.11</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>3.11.0</version>
+                <configuration>
+                    <linkXRef>false</linkXRef>
+                </configuration>
             </plugin>
         </plugins>
     </reporting>
