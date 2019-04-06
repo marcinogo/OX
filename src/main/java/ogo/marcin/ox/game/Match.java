@@ -53,7 +53,7 @@ class Match {
     }
 
     private Boolean playPlayerTurn(Player player) {
-        Coordinates coordinates = input.getCoordinates(judge, boardAPI.getBoardDimension());
+        Coordinates coordinates = input.getCoordinates(judge);
         boardAPI.setField(coordinates, playerAPI.getPlayerSign(player));
         return isWinner = judge.isPlayerWon(playerAPI.getPlayerSign(player), coordinates);
     }

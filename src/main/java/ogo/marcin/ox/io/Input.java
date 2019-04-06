@@ -39,12 +39,12 @@ public class Input {
         return result;
     }
 
-    public Coordinates getCoordinates(Judge judge, int boardDimension) {
+    public Coordinates getCoordinates(Judge judge) {
         Coordinates coordinates = null;
         boolean coordinatesWithinBoard;
         do {
             try {
-                coordinates = createCoordinates(boardDimension);
+                coordinates = createCoordinates();
                 coordinatesWithinBoard = true;
             } catch (IllegalArgumentException e) {
 //                TODO change to output one
@@ -56,7 +56,7 @@ public class Input {
         return coordinates;
     }
 
-    private Coordinates createCoordinates(int boardDimension) {
+    private Coordinates createCoordinates() {
         int move = getIntegerInput(Localization.Key.ENTER_COORDINATE);
         return new Coordinates.CoordinatesBuilder()
                 .withMovePosition(move)
@@ -91,6 +91,7 @@ public class Input {
         int winCondition;
         do {
             winCondition = getIntegerInput(Localization.Key.WIN_CONDITION);
+//            TODO move validation to method add print of wrong length of this
         } while (!(winCondition >= minWinCondition && winCondition <= maxWinCondition));
         return winCondition;
     }
