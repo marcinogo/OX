@@ -41,16 +41,16 @@ public class Coordinates {
             return new Coordinates(this);
         }
 
-        public CoordinatesBuilder withMovePosition(int move) throws IllegalArgumentException {
+        public CoordinatesBuilder withMovePosition(int move) throws PlayerMoveOutOfBoardException {
             setXOfMove(move);
             setYOfMove(move);
             return this;
         }
 
-        private void setXOfMove(int move) throws IllegalArgumentException {
+        private void setXOfMove(int move) throws PlayerMoveOutOfBoardException {
             int xOfMove = recalculateUserInputToX(move);
             if(isComponentOfMoveNotCorrect(xOfMove)) {
-                throw new IllegalArgumentException(
+                throw new PlayerMoveOutOfBoardException(
                         Localization.getLocalizedText(Localization.LanguageKey.PLAYER_MOVE_EXCEPTION
                         ));
             }
@@ -65,10 +65,10 @@ public class Coordinates {
             return MIN_COMPONENT_OF_MOVE_INDEX > componentOfMove || componentOfMove >= MAX_COMPONENT_OF_MOVE_INDEX ;
         }
 
-        private void setYOfMove(int move) throws IllegalArgumentException {
+        private void setYOfMove(int move) throws PlayerMoveOutOfBoardException {
             int yOfMove = recalculateUserInputToY(move);
             if(isComponentOfMoveNotCorrect(yOfMove)) {
-                throw new IllegalArgumentException(
+                throw new PlayerMoveOutOfBoardException(
                         Localization.getLocalizedText(Localization.LanguageKey.PLAYER_MOVE_EXCEPTION
                         ));
             }

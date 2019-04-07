@@ -2,9 +2,7 @@ package ogo.marcin.ox.io;
 
 import ogo.marcin.ox.board.BoardDimension;
 import ogo.marcin.ox.board.BoardSizeException;
-import ogo.marcin.ox.game.Coordinates;
-import ogo.marcin.ox.game.Judge;
-import ogo.marcin.ox.game.WinConditionException;
+import ogo.marcin.ox.game.*;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -31,8 +29,13 @@ public class Input {
         do {
             try {
                 coordinates = createCoordinates();
-                coordinatesWithinBoardAndOnFreeSpace = isCoordinateOnFreeSpace(judge, coordinates);
-            } catch (IllegalArgumentException e) {
+                if(!judge.isPlayerSignSetOnFreeSpace(coordinates)) {
+                    throw new CoordinateNotFreeException(Localization.getLocalizedText(
+                            Localization.LanguageKey.COORDINATE_NOT_FREE_EXCEPTION
+                    ));
+                }
+                coordinatesWithinBoardAndOnFreeSpace = true;
+            } catch (PlayerMoveOutOfBoardException | CoordinateNotFreeException e) {
                 output.print(System.err, e.getMessage());
                 coordinatesWithinBoardAndOnFreeSpace = false;
             }
@@ -64,16 +67,6 @@ public class Input {
             }
         } while (!inputIsCorrect);
         return result;
-    }
-
-    private boolean isCoordinateOnFreeSpace(Judge judge, Coordinates coordinates) {
-        if(!judge.isPlayerSignSetOnFreeSpace(coordinates)) {
-            output.print(System.err, Localization.getLocalizedText(
-                    Localization.LanguageKey.COORDINATE_NOT_FREE_EXCEPTION
-            ));
-            return false;
-        }
-        return true;
     }
 
     public BoardDimension getBoardDimensions() {
