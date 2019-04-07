@@ -4,6 +4,7 @@ import ogo.marcin.ox.board.BoardDimension;
 import ogo.marcin.ox.board.BoardSizeException;
 import ogo.marcin.ox.game.Coordinates;
 import ogo.marcin.ox.game.Judge;
+import ogo.marcin.ox.game.WinConditionException;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -109,7 +110,7 @@ public class Input {
             try {
                 winCondition = scanner.nextInt();
                 if(!isIntegerBetween(winCondition, minWinCondition, maxWinCondition)) {
-                    throw new IllegalArgumentException(Localization.getLocalizedText(
+                    throw new WinConditionException(Localization.getLocalizedText(
                             Localization.LanguageKey.WIN_CONDITION_EXCEPTION
                     ));
                 }
@@ -120,7 +121,7 @@ public class Input {
                 ));
                 inputIsCorrect = false;
                 scanner.next();
-            } catch (IllegalArgumentException e) {
+            } catch (WinConditionException e) {
                 output.print(System.err, e.getMessage());
                 inputIsCorrect = false;
             }
