@@ -32,9 +32,9 @@ public class BoardDimension{
             return new BoardDimension(this);
         }
 
-        public BoardDimensionBuilder withBoardEdgeSize(int boardEdge) throws IllegalArgumentException {
+        public BoardDimensionBuilder withBoardEdgeSize(int boardEdge) throws BoardSizeException {
             if (!isEdgeCorrect(boardEdge)) {
-                throw new IllegalArgumentException(String.format(
+                throw new BoardSizeException(String.format(
                         Localization.getLocalizedText(Localization.LanguageKey.BOARD_SIZE_EXCEPTION),
                         MIN_EDGE_SIZE, MAX_EDGE_SIZE
                 ));

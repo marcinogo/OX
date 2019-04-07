@@ -1,6 +1,7 @@
 package ogo.marcin.ox.io;
 
 import ogo.marcin.ox.board.BoardDimension;
+import ogo.marcin.ox.board.BoardSizeException;
 import ogo.marcin.ox.game.Coordinates;
 import ogo.marcin.ox.game.Judge;
 
@@ -81,7 +82,7 @@ public class Input {
             try {
                 boardDimension = createBoard();
                 dimensionsCreated = true;
-            } catch (IllegalArgumentException e) {
+            } catch (BoardSizeException e) {
                 output.print(System.err, e.getMessage());
                 dimensionsCreated = false;
             }
