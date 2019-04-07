@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * @author Marcin Ogorzalek
  */
-public class WinConditionGenerator {
+class WinConditionGenerator {
     private final int boardEdge;
     private final int winCondition;
     final HashMap<String, List<Integer>> winPatterns;
@@ -84,5 +84,4 @@ public class WinConditionGenerator {
             }
         }
     }
-
 }
