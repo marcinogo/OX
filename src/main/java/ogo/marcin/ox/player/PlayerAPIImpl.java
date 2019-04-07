@@ -1,8 +1,6 @@
 package ogo.marcin.ox.player;
 
 import ogo.marcin.ox.board.Sign;
-import ogo.marcin.ox.io.Input;
-import ogo.marcin.ox.io.Output;
 
 import java.util.List;
 
@@ -10,9 +8,10 @@ import java.util.List;
  * @author Marcin Ogorzalek
  */
 public class PlayerAPIImpl implements PlayerAPI {
-    @Override
-    public List<Player> createPlayers(Input input, Output output) {
-        return new PlayerListCreator(input, output).createPlayers();
+    private final List<Player> players;
+
+    public PlayerAPIImpl(List<Player> players) {
+        this.players = players;
     }
 
     @Override
@@ -33,5 +32,15 @@ public class PlayerAPIImpl implements PlayerAPI {
     @Override
     public int getPlayerPoints(Player player) {
         return player.points;
+    }
+
+    @Override
+    public List<Player> getPlayers() {
+        return players;
+    }
+
+    @Override
+    public Player getPlayerOnIndex(int index) {
+        return players.get(index);
     }
 }

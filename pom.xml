@@ -72,7 +72,7 @@
                         <index>true</index>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>main.java.ogo.marcin.ox.Main</mainClass>
+                            <mainClass>main.java.ogo.marcin.ox.main.Main</mainClass>
                         </manifest>
                         <manifestEntries>
                             <mode>development</mode>

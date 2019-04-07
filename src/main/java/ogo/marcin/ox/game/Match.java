@@ -1,5 +1,6 @@
 package ogo.marcin.ox.game;
 
+import ogo.marcin.ox.automation.AutoMatchSettings;
 import ogo.marcin.ox.board.BoardAPI;
 import ogo.marcin.ox.io.Input;
 import ogo.marcin.ox.io.Localization;
@@ -18,18 +19,21 @@ class Match {
     private final Output output;
     private final BoardAPI boardAPI;
     private final PlayerAPI playerAPI;
-    private final List<Player> players;
     private final Judge judge;
+
+    private final AutoMatchSettings autoMatchSettings;
 
     private boolean isWinner;
 
-    Match(Input input, Output output, BoardAPI boardAPI, PlayerAPI playerAPI, List<Player> players, Judge judge) {
+    Match(Input input, Output output,
+          BoardAPI boardAPI, PlayerAPI playerAPI,
+          Judge judge, AutoMatchSettings autoMatchSettings) {
         this.input = input;
         this.output = output;
         this.boardAPI = boardAPI;
         this.playerAPI = playerAPI;
-        this.players = players;
         this.judge = judge;
+        this.autoMatchSettings = autoMatchSettings;
     }
 
     void play() {
@@ -39,12 +43,12 @@ class Match {
 
     private Optional<Player> playMatch(Judge judge) {
         Player winner = null;
-        output.print(Localization.LanguageKey.START_OF_MATCH);
+        if(!autoMatchSettings.isAutomated()) output.print(Localization.LanguageKey.START_OF_MATCH);
         do {
-            for (Player player: players) {
-                output.print(boardAPI.getBoard().toString());
+            for (Player player: playerAPI.getPlayers()) {
+                if(!autoMatchSettings.isAutomated()) output.print(boardAPI.getBoard().toString());
                 if (!judge.isFreeSpaceOnBoard()) break;
-                output.printf(Localization.LanguageKey.PLAYER_WITH_MOVE,
+                if(!autoMatchSettings.isAutomated()) output.printf(Localization.LanguageKey.PLAYER_WITH_MOVE,
                         playerAPI.getPlayerName(player), playerAPI.getPlayerSign(player));
                 if(playPlayerTurn(player)) {
                     winner = player;
@@ -52,15 +56,36 @@ class Match {
                 }
             }
         } while (judge.isFreeSpaceOnBoard() && !isWinner);
-        output.print(Localization.LanguageKey.END_OF_MATCH);
+        if(!autoMatchSettings.isAutomated()) output.print(Localization.LanguageKey.END_OF_MATCH);
         output.print(boardAPI.getBoard().toString());
         return Optional.ofNullable(winner);
     }
 
     private Boolean playPlayerTurn(Player player) {
-        Coordinates coordinates = input.getCoordinates(judge);
+        Coordinates coordinates;
+        if(!autoMatchSettings.isAutomated()) {
+            coordinates = input.getCoordinates(judge);
+        } else {
+            coordinates = playAiPlayer(player);
+        }
         boardAPI.setField(coordinates, playerAPI.getPlayerSign(player));
         return isWinner = judge.isPlayerWon(playerAPI.getPlayerSign(player), coordinates);
+    }
+
+    private Coordinates playAiPlayer(Player player) {
+        Coordinates coordinates;
+        if(playerAPI.getPlayerName(player).equals("O-AI")) {
+            coordinates = moveAiPlayer(autoMatchSettings.getListOfMovesOAi());
+        } else {
+            coordinates = moveAiPlayer(autoMatchSettings.getListOfMovesXAi());
+        }
+        return coordinates;
+    }
+
+    private Coordinates moveAiPlayer(List<Integer> listOfMoves) {
+        return new Coordinates.CoordinatesBuilder()
+                .withMovePosition(listOfMoves.remove(0))
+                .build();
     }
 
     private void announceDraw() {
@@ -69,10 +94,10 @@ class Match {
     }
 
     private void givePointsForDraw() {
-        for(int i = 0; i < players.size(); i++) {
-            Player player = players.get(i);
+        for(int i = 0; i < playerAPI.getPlayers().size(); i++) {
+            Player player = playerAPI.getPlayerOnIndex(i);
             int playerPoints = playerAPI.getPlayerPoints(player);
-            players.set(i, playerAPI.setPlayerPoints(player, playerPoints + 1));
+            playerAPI.getPlayers().set(i, playerAPI.setPlayerPoints(player, playerPoints + 1));
         }
     }
 
@@ -83,8 +108,8 @@ class Match {
 
     private void givePointsForWinn(Player victoriousPlayer) {
         int playerPoints = playerAPI.getPlayerPoints(victoriousPlayer);
-        int i = players.indexOf(victoriousPlayer);
+        int i = playerAPI.getPlayers().indexOf(victoriousPlayer);
         victoriousPlayer = playerAPI.setPlayerPoints(victoriousPlayer, playerPoints + 3);
-        players.set(i, victoriousPlayer);
+        playerAPI.getPlayers().set(i, victoriousPlayer);
     }
 }

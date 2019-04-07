@@ -13,7 +13,7 @@ public class Player implements Comparable<Player>{
     final Sign playerSign;
     int points;
 
-    Player(String name, Sign playerSign, int points) {
+    private Player(String name, Sign playerSign, int points) {
         this.name = name;
         this.playerSign = playerSign;
         this.points = points;
@@ -59,23 +59,23 @@ public class Player implements Comparable<Player>{
         return this.points - o.points;
     }
 
-    static class PlayerBuilder {
+    public static class PlayerBuilder {
         static final List<Sign> unusedSigns = new LinkedList<>(Arrays.asList(Sign.values()));
 
         private String name;
         private Sign playerSign;
         private final int points;
 
-        PlayerBuilder() {
+        public PlayerBuilder() {
             this.points = 0;
             unusedSigns.remove(Sign.DEFAULT);
         }
 
-        Player build() {
+        public Player build() {
             return new Player(this);
         }
 
-        PlayerBuilder withName(String name) throws PlayerNameException {
+        public PlayerBuilder withName(String name) throws PlayerNameException {
             if(!PlayerDataValidation.validateName(name)) {
                 throw new PlayerNameException(Localization.getLocalizedText(
                         Localization.LanguageKey.PLAYER_NAME_EXCEPTION));
@@ -84,7 +84,7 @@ public class Player implements Comparable<Player>{
             return this;
         }
 
-        PlayerBuilder withSign(String signString) throws PlayerSignException {
+        public PlayerBuilder withSign(String signString) throws PlayerSignException {
             if(!PlayerDataValidation.validateSignString(signString)) {
                 throw new PlayerSignException(Localization.getLocalizedText(
                         Localization.LanguageKey.PLAYER_SIGN_EXCEPTION));

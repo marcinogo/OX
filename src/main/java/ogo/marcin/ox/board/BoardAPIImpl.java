@@ -192,8 +192,8 @@ public class BoardAPIImpl implements BoardAPI {
     }
 
     @Override
-    public void clearBoard(Sign sing) {
-        this.board = board.setBoardMatrixCells(sing);
+    public void clearBoard(Sign sign) {
+        this.board = board.setBoardMatrixCells(sign);
         this.occupiedFields = 0;
     }
 }

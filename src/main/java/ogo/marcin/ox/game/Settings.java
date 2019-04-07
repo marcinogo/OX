@@ -37,13 +37,32 @@ public class Settings {
         private int winCondition;
         private int numberOfRounds;
 
+        private boolean isAutomated;
+
+        public SettingsBuilder() {
+        }
+
+        public SettingsBuilder(boolean isAutomated) {
+            this.isAutomated = isAutomated;
+        }
+
         public Settings build() {
-            defaultSetup();
+            if(!isAutomated) defaultSetup();
             return new Settings(this);
         }
 
         public SettingsBuilder withWinConditionInRange(int winCondition) {
             this.winCondition = winCondition;
+            return this;
+        }
+
+        public SettingsBuilder withNumberOfRounds(int numberOfRounds) {
+            this.numberOfRounds = numberOfRounds;
+            return this;
+        }
+
+        public SettingsBuilder withDefaultSing(Sign sign) {
+            this.defaultSign = sign;
             return this;
         }
 

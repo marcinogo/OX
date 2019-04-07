@@ -1,5 +1,6 @@
-package ogo.marcin.ox;
+package ogo.marcin.ox.main;
 
+import ogo.marcin.ox.automation.AutoMatchSettings;
 import ogo.marcin.ox.board.*;
 import ogo.marcin.ox.io.Localization;
 import ogo.marcin.ox.io.Output;
@@ -17,13 +18,14 @@ import java.util.*;
 class Main {
     public static void main(String[] args) {
         try(Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8)) {
-            PlayerAPI playerAPI = new PlayerAPIImpl();
+
 
             Output output = new Output(System.out);
             Input input = new Input(scanner, output);
             chooseLanguage(input, output);
 
-            List<Player> players = playerAPI.createPlayers(input, output);
+            PlayerAPI playerAPI = new PlayerAPIImpl(new PlayerListCreator(input, output).createPlayers());
+//            List<Player> players = playerAPI.createPlayers(input, output);
 
             Board board = new Board.BoardBuilder()
                     .withDimension(input.getBoardDimensions())
@@ -37,7 +39,9 @@ class Main {
                     .withWinConditionInRange(input.getWinConditionInRange(MIN_WIN_CONDITION, MAX_WIN_CONDITION))
                     .build();
 
-            Game game = new Game(settings, boardAPI, playerAPI, input, output, players);
+            AutoMatchSettings autoMatchSettings = new AutoMatchSettings(boardAPI, false);
+
+            Game game = new Game(settings, boardAPI, playerAPI, input, output, autoMatchSettings);
             game.play();
         }
     }

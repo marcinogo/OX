@@ -9,16 +9,16 @@ import java.util.*;
 /**
  * @author Marcin Ogorzalek
  */
-class PlayerListCreator {
+public class PlayerListCreator {
     private final Input input;
     private final Output output;
 
-    PlayerListCreator(Input input, Output output) {
+    public PlayerListCreator(Input input, Output output) {
         this.input = input;
         this.output = output;
     }
 
-    List<Player> createPlayers() {
+    public List<Player> createPlayers() {
         List<Player> players = new ArrayList<>();
         for(int i = 1; i <= 2; i++) {
             players.add(createPlayer(i));
