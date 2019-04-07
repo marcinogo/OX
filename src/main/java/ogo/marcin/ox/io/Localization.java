@@ -61,6 +61,7 @@ public class Localization {
         PLAYER_WITH_MOVE, ENTER_COORDINATE,
         PLAYER_MOVE_EXCEPTION, COORDINATE_NOT_FREE_EXCEPTION,
 //        Match resolution
+        START_OF_MATCH, END_OF_MATCH,
         DRAW_IN_MATCH, WINNER_OF_MATCH,
 //        Game resolution
         DRAW_OF_GAME, WINNER_OF_GAME,

@@ -12,6 +12,10 @@ public class Output {
         this.printStream = printStream;
     }
 
+    public void print(String content) {
+        printStream.println(content);
+    }
+
     public void print(Localization.LanguageKey languageKey) {
         printStream.println(Localization.getLocalizedText(languageKey));
     }

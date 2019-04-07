@@ -39,9 +39,10 @@ class Match {
 
     private Optional<Player> playMatch(Judge judge) {
         Player winner = null;
+        output.print(Localization.LanguageKey.START_OF_MATCH);
         do {
             for (Player player: players) {
-                System.out.println(boardAPI.getBoard());
+                output.print(boardAPI.getBoard().toString());
                 if (!judge.isFreeSpaceOnBoard()) break;
                 output.printf(Localization.LanguageKey.PLAYER_WITH_MOVE,
                         playerAPI.getPlayerName(player), playerAPI.getPlayerSign(player));
@@ -51,6 +52,8 @@ class Match {
                 }
             }
         } while (judge.isFreeSpaceOnBoard() && !isWinner);
+        output.print(Localization.LanguageKey.END_OF_MATCH);
+        output.print(boardAPI.getBoard().toString());
         return Optional.ofNullable(winner);
     }
 
