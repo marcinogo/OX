@@ -18,7 +18,7 @@ import java.util.Scanner;
 /**
  * @author Marcin Ogorzalek
  */
-public class AutoMain {
+class AutoMain {
     public static void main(String[] args) {
         try(Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8)) {
 
@@ -56,10 +56,8 @@ public class AutoMain {
                     .withDefaultSing(Sign.DEFAULT)
                     .build();
 
-            boolean isAutomated = true;
-
             AutoMatchSettings autoMatchSettings = new AutoMatchSettings(boardAPI,
-                    isAutomated, winConditionGenerator.winPatterns);
+                    true, winConditionGenerator.winPatterns);
 
             Game game = new Game(settings, boardAPI, playerAPI, input, output, autoMatchSettings);
             game.play();

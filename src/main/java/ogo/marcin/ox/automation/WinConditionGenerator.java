@@ -57,7 +57,7 @@ public class WinConditionGenerator {
         for (int i = 0; i <= boardEdge - winCondition; i++) {
             diagonalCount++;
             int version = 0;
-            for (int j = 0; j<= (boardEdge*boardEdge-(i/winCondition)) - winCondition*boardEdge; j+=boardEdge) {
+            for (int j = 0; j<= (boardEdge*boardEdge-i/winCondition) - winCondition*boardEdge; j+=boardEdge) {
                 List<Integer> winPattern = new LinkedList<>();
                 for(int z = 0; z < winCondition; z++) {
                     winPattern.add(i+1+z*boardEdge+z+j);
@@ -74,7 +74,7 @@ public class WinConditionGenerator {
         for (int i = boardEdge; i >= winCondition; i--) {
             diagonalCount++;
             int version = 0;
-            for (int j = 0; j<= (boardEdge*boardEdge+(i/winCondition)) - winCondition*boardEdge; j+=boardEdge) {
+            for (int j = 0; j<= (boardEdge*boardEdge+i/winCondition) - winCondition*boardEdge; j+=boardEdge) {
                 List<Integer> winPattern = new LinkedList<>();
                 for(int z = 0; z < winCondition*(boardEdge-1); z+=boardEdge-1) {
                     winPattern.add(i+z+j);
