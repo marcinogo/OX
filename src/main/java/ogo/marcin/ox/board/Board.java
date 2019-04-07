@@ -1,6 +1,6 @@
 package ogo.marcin.ox.board;
 
-import ogo.marcin.ox.dimension.Dimension;
+import ogo.marcin.ox.game.Coordinates;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -9,24 +9,18 @@ import java.util.Objects;
  * @author Marcin Ogorzalek
  */
 public class Board {
-    final int width;
-    final int height;
+    private final int edge;
 
-    Field[][] matrix;
+    final Field[][] matrix;
 
-    Board(Dimension boardDimension) {
-        if(!validateDimensions(boardDimension.getXDimension(), boardDimension.getYDimension())) {
-            throw new IllegalArgumentException("Width and height have to be at least 3 and no more than 40");
-        }
-        this.width = boardDimension.getXDimension();
-        this.height = boardDimension.getYDimension();
-        this.matrix = new Field[height][width];
+    private Board(BoardDimension boardDimension) {
+        this.edge = boardDimension.getBoardEdge();
+        this.matrix = new Field[edge][edge];
     }
 
     private Board(Board board) {
-        this.width = board.width;
-        this.height = board.height;
-        this.matrix = new Field[board.height][];
+        this.edge = board.edge;
+        this.matrix = new Field[board.edge][];
         copyMatrixContent(this.matrix, board.matrix);
     }
 
@@ -36,15 +30,10 @@ public class Board {
         }
     }
 
-    private boolean validateDimensions(int width, int height) {
-        return width >=3 && width <= 40
-                && height >=3  && height <= 40;
-    }
-
     Board setField(Coordinates coordinates, Sign sign) {
         Board newBoard = new Board(this);
-        Field fieldToChange = newBoard.matrix[coordinates.getYDimension()][coordinates.getXDimension()];
-        newBoard.matrix[coordinates.getYDimension()][coordinates.getXDimension()] = fieldToChange.changeSign(sign);
+        Field fieldToChange = newBoard.matrix[coordinates.getyOfMove()][coordinates.getxOfMove()];
+        newBoard.matrix[coordinates.getyOfMove()][coordinates.getxOfMove()] = fieldToChange.changeSign(sign);
         return newBoard;
     }
 
@@ -55,7 +44,7 @@ public class Board {
             for (int j = 0; j < matrix[i].length; j++) {
                 stringBuilder.append(matrix[i][j]);
             }
-            if(i < matrix.length - 1) {
+            if (i < matrix.length - 1) {
                 stringBuilder.append(System.lineSeparator());
             }
         }
@@ -64,8 +53,12 @@ public class Board {
 
     Board setBoardMatrixCells(Sign sign) {
         Board board = new Board(this);
-        for (Field[] row: board.matrix) {
-            Arrays.fill(row, new Field(sign));
+        int count = 0;
+        for(int i = 0; i < board.matrix.length; i++) {
+            for (int j = 0; j < board.matrix[i].length; j++) {
+                count++;
+                board.matrix[i][j] = new Field(sign, count);
+            }
         }
         return board;
     }
@@ -75,22 +68,33 @@ public class Board {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Board board = (Board) o;
-        if(width != board.width || height != board.height) return false;
-
-        for (int i = 0; i < height; i++) {
-            if(!Arrays.equals(matrix[i], board.matrix[i])) return false;
-        }
-
-        return true;
+        if(edge != board.edge) return false;
+        return !Arrays.deepEquals(matrix, board.matrix);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(width, height);
+        int result = Objects.hash(edge);
         result = 31 * result;
-        for (int i = 0; i < height; i++) {
-            result += Arrays.hashCode(matrix[i]);
-        }
+        result += Arrays.deepHashCode(matrix);
         return result;
+    }
+
+    int getBoardEdge() {
+        return edge;
+    }
+
+    public static class BoardBuilder {
+        private BoardDimension dimension;
+
+        public Board build() {
+            Board board = new Board(dimension);
+            return board.setBoardMatrixCells(Sign.DEFAULT);
+        }
+
+        public BoardBuilder withDimension(BoardDimension dimension) {
+            this.dimension = dimension;
+            return this;
+        }
     }
 }

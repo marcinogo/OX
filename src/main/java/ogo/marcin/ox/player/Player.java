@@ -1,8 +1,9 @@
 package ogo.marcin.ox.player;
 
 import ogo.marcin.ox.board.Sign;
+import ogo.marcin.ox.io.Localization;
 
-import java.util.Objects;
+import java.util.*;
 
 /**
  * @author Marcin Ogorzalek
@@ -12,37 +13,18 @@ public class Player implements Comparable<Player>{
     final Sign playerSign;
     int points;
 
-    Player(String name, Sign playerSign) {
-        this(name, playerSign, 0);
-    }
-
-    Player(String name, Sign playerSign, int points) {
-        validatePlayerData(name, playerSign, points);
+    private Player(String name, Sign playerSign, int points) {
         this.name = name;
         this.playerSign = playerSign;
         this.points = points;
     }
 
+    private Player(PlayerBuilder playerBuilder) {
+        this(playerBuilder.name, playerBuilder.playerSign, playerBuilder.points);
+    }
+
     private Player(Player player) {
         this(player.name, player.playerSign, player.points);
-    }
-
-    private void validatePlayerData(String name, Sign sign, int points) {
-        if(!validateName(name)) throw new IllegalArgumentException("Player must have name");
-        if(!validateSign(sign)) throw new IllegalArgumentException("Player must have not default sign");
-        if(!validatePoints(points)) throw new IllegalArgumentException("Player can not have points below 0");
-    }
-
-    private boolean validateName(String name) {
-        return name != null && !name.equals("");
-    }
-
-    private boolean validateSign(Sign sign) {
-        return sign != null && !sign.equals(Sign.DEFAULT);
-    }
-
-    private boolean validatePoints(int points) {
-        return points >= 0;
     }
 
     @Override
@@ -66,14 +48,65 @@ public class Player implements Comparable<Player>{
         return player;
     }
 
-//    In extending class change string parts to localized version from ResourceBundle
     @Override
     public String toString() {
-        return String.format("%s with sign %s have: %d points", name, playerSign, points);
+        return String.format("%s with sign %s have: %d points",
+                name, playerSign, points);
     }
 
     @Override
     public int compareTo(Player o) {
         return this.points - o.points;
+    }
+
+    public static class PlayerBuilder {
+        static final List<Sign> unusedSigns = new LinkedList<>(Arrays.asList(Sign.values()));
+
+        private String name;
+        private Sign playerSign;
+        private final int points;
+
+        public PlayerBuilder() {
+            this.points = 0;
+            unusedSigns.remove(Sign.DEFAULT);
+        }
+
+        public Player build() {
+            return new Player(this);
+        }
+
+        public PlayerBuilder withName(String name) throws PlayerNameException {
+            if(!PlayerDataValidation.validateName(name)) {
+                throw new PlayerNameException(Localization.getLocalizedText(
+                        Localization.LanguageKey.PLAYER_NAME_EXCEPTION));
+            }
+            this.name = name;
+            return this;
+        }
+
+        public PlayerBuilder withSign(String signString) throws PlayerSignException {
+            if(!PlayerDataValidation.validateSignString(signString)) {
+                throw new PlayerSignException(Localization.getLocalizedText(
+                        Localization.LanguageKey.PLAYER_SIGN_EXCEPTION));
+            }
+            this.playerSign = Sign.valueOf(signString);
+            unusedSigns.remove(this.playerSign);
+            return this;
+        }
+    }
+
+    private static class PlayerDataValidation {
+        private static boolean validateName(String name) {
+            return name != null && !name.isBlank() && !name.isEmpty();
+        }
+
+        private static boolean validateSignString(String signString) {
+            try {
+                Sign.valueOf(signString);
+            } catch (IllegalArgumentException e) {
+                return false;
+            }
+            return true;
+        }
     }
 }

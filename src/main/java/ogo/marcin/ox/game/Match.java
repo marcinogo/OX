@@ -1,11 +1,10 @@
 package ogo.marcin.ox.game;
 
-import ogo.marcin.ox.Settings;
+import ogo.marcin.ox.automation.AutoMatchSettings;
 import ogo.marcin.ox.board.BoardAPI;
-import ogo.marcin.ox.board.Coordinates;
-import ogo.marcin.ox.dimension.CoordinatesBuilder;
-import ogo.marcin.ox.dimension.DimensionBuilder;
 import ogo.marcin.ox.io.Input;
+import ogo.marcin.ox.io.Localization;
+import ogo.marcin.ox.io.Output;
 import ogo.marcin.ox.player.Player;
 import ogo.marcin.ox.player.PlayerAPI;
 
@@ -16,86 +15,101 @@ import java.util.Optional;
  * @author Marcin Ogorzalek
  */
 class Match {
+    private final Input input;
+    private final Output output;
     private final BoardAPI boardAPI;
     private final PlayerAPI playerAPI;
-    private final Input input;
+    private final Judge judge;
 
-    private final List<Player> players;
-    private final Integer winCondition;
+    private final AutoMatchSettings autoMatchSettings;
 
     private boolean isWinner;
 
-    Match(BoardAPI boardAPI, PlayerAPI playerAPI, Input input, Settings settings, List<Player> players) {
-        this.boardAPI = boardAPI;
+    Match(Input input, Output output,
+          BoardAPI boardAPI, PlayerAPI playerAPI,
+          Judge judge, AutoMatchSettings autoMatchSettings) {
         this.input = input;
-        this.players = players;
-        this.winCondition = settings.getWinCondition();
+        this.output = output;
+        this.boardAPI = boardAPI;
         this.playerAPI = playerAPI;
+        this.judge = judge;
+        this.autoMatchSettings = autoMatchSettings;
     }
 
     void play() {
-        Judge judge = new Judge(boardAPI, winCondition);
         Optional<Player> winner = playMatch(judge);
-        giveMatchResult(winner);
-    }
-
-//    TODO: move this to some class / API
-    private Coordinates getCoordinates(Judge judge) {
-        Coordinates coordinates = null;
-        boolean coordinatesWithinBoard;
-         do {
-            try {
-                DimensionBuilder<Coordinates> coordinatesDimensionBuilder = new CoordinatesBuilder(input);
-                coordinates = coordinatesDimensionBuilder.withXDimension("Enter x")
-                        .withYDimension("Enter y")
-                        .build();
-                coordinatesWithinBoard = true;
-            } catch (IllegalArgumentException e) {
-                coordinatesWithinBoard = false;
-            }
-         } while (!coordinatesWithinBoard ||
-                 !judge.isPlayerSignSetOnFreeSpace(coordinates));
-        return coordinates;
-    }
-
-    private Boolean playPlayerTurn(Judge judge, Player player) {
-        Coordinates coordinates = getCoordinates(judge);
-        boardAPI.setField(coordinates, playerAPI.getPlayerSign(player));
-        return isWinner = judge.isPlayerWon(playerAPI.getPlayerSign(player), coordinates);
+        winner.ifPresentOrElse(this::announceWinner, this::announceDraw);
     }
 
     private Optional<Player> playMatch(Judge judge) {
         Player winner = null;
+        if(!autoMatchSettings.isAutomated()) output.print(Localization.LanguageKey.START_OF_MATCH);
         do {
-            for (Player player: players) {
-                System.out.println(boardAPI.getBoard());
+            for (Player player: playerAPI.getPlayers()) {
+                if(!autoMatchSettings.isAutomated()) output.print(boardAPI.getBoard().toString());
                 if (!judge.isFreeSpaceOnBoard()) break;
-                System.out.printf("It is turn of %s - %s%n",
+                if(!autoMatchSettings.isAutomated()) output.printf(Localization.LanguageKey.PLAYER_WITH_MOVE,
                         playerAPI.getPlayerName(player), playerAPI.getPlayerSign(player));
-                if(playPlayerTurn(judge, player)) {
+                if(playPlayerTurn(player)) {
                     winner = player;
                     break;
                 }
             }
         } while (judge.isFreeSpaceOnBoard() && !isWinner);
+        if(!autoMatchSettings.isAutomated()) output.print(Localization.LanguageKey.END_OF_MATCH);
+        output.print(boardAPI.getBoard().toString());
         return Optional.ofNullable(winner);
     }
 
-    private void giveMatchResult(Optional<Player> winner) {
-        if(winner.isEmpty()) {
-            System.out.println("Draw");
-            for(int i = 0; i < players.size(); i++) {
-                Player player = players.get(i);
-                Integer playerPoints = playerAPI.getPlayerPoints(player);
-                players.set(i, playerAPI.setPlayerPoints(player, playerPoints + 1));
-            }
+    private Boolean playPlayerTurn(Player player) {
+        Coordinates coordinates;
+        if(!autoMatchSettings.isAutomated()) {
+            coordinates = input.getCoordinates(judge);
         } else {
-            Player victoriusPlayer = winner.get();
-            Integer playerPoints = playerAPI.getPlayerPoints(victoriusPlayer);
-            int i = players.indexOf(victoriusPlayer);
-            victoriusPlayer = playerAPI.setPlayerPoints(victoriusPlayer, playerPoints + 3);
-            players.set(i, victoriusPlayer);
-            System.out.printf("Winner of match is %s%n", playerAPI.getPlayerName(victoriusPlayer));
+            coordinates = playAiPlayer(player);
         }
+        boardAPI.setField(coordinates, playerAPI.getPlayerSign(player));
+        return isWinner = judge.isPlayerWon(playerAPI.getPlayerSign(player), coordinates);
+    }
+
+    private Coordinates playAiPlayer(Player player) {
+        Coordinates coordinates;
+        if(playerAPI.getPlayerName(player).equals("O-AI")) {
+            coordinates = moveAiPlayer(autoMatchSettings.getListOfMovesOAi());
+        } else {
+            coordinates = moveAiPlayer(autoMatchSettings.getListOfMovesXAi());
+        }
+        return coordinates;
+    }
+
+    private Coordinates moveAiPlayer(List<Integer> listOfMoves) {
+        return new Coordinates.CoordinatesBuilder()
+                .withMovePosition(listOfMoves.remove(0))
+                .build();
+    }
+
+    private void announceDraw() {
+        output.print(Localization.LanguageKey.DRAW_IN_MATCH);
+        givePointsForDraw();
+    }
+
+    private void givePointsForDraw() {
+        for(int i = 0; i < playerAPI.getPlayers().size(); i++) {
+            Player player = playerAPI.getPlayerOnIndex(i);
+            int playerPoints = playerAPI.getPlayerPoints(player);
+            playerAPI.getPlayers().set(i, playerAPI.setPlayerPoints(player, playerPoints + 1));
+        }
+    }
+
+    private void announceWinner(Player victoriousPlayer) {
+        givePointsForWinn(victoriousPlayer);
+        output.printf(Localization.LanguageKey.WINNER_OF_MATCH, playerAPI.getPlayerName(victoriousPlayer));
+    }
+
+    private void givePointsForWinn(Player victoriousPlayer) {
+        int playerPoints = playerAPI.getPlayerPoints(victoriousPlayer);
+        int i = playerAPI.getPlayers().indexOf(victoriousPlayer);
+        victoriousPlayer = playerAPI.setPlayerPoints(victoriousPlayer, playerPoints + 3);
+        playerAPI.getPlayers().set(i, victoriousPlayer);
     }
 }
