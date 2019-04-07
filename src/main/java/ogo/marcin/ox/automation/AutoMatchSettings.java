@@ -54,4 +54,9 @@ public class AutoMatchSettings {
     public List<Integer> getListOfMovesOAi() {
         return listOfMovesOAi;
     }
+
+    public String getPatternName(int i) {
+        List<String> listOfKeys = new ArrayList<>(this.winPatterns.keySet());
+        return listOfKeys.get(i);
+    }
 }

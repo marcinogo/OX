@@ -36,6 +36,7 @@ public class Game {
             Match match;
             if(autoMatchSettings.isAutomated()) {
                 autoMatchSettings.setXAiMoves(i);
+                output.print(autoMatchSettings.getPatternName(i));
             }
             match = new Match(input, output, boardAPI, playerAPI, judge, autoMatchSettings);
             match.play();
