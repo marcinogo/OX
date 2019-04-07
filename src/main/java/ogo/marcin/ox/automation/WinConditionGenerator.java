@@ -11,9 +11,9 @@ import java.util.List;
 public class WinConditionGenerator {
     private final int boardEdge;
     private final int winCondition;
-    HashMap<String, List<Integer>> winPatterns;
+    final HashMap<String, List<Integer>> winPatterns;
 
-    public WinConditionGenerator(int boardEdge, int winCondition) {
+    WinConditionGenerator(int boardEdge, int winCondition) {
         this.boardEdge = boardEdge;
         this.winCondition = winCondition;
         this.winPatterns = new LinkedHashMap<>();
@@ -56,16 +56,17 @@ public class WinConditionGenerator {
     }
 //    TODO this an atidiagonal
     public WinConditionGenerator generateWinPatternDiagonal() {
-//        board edge to szerokość
         int diagonalCount = 0;
-        for (int i = 1; i <= boardEdge; i++) {
+        for (int i = 0; i <= boardEdge - winCondition; i++) {
+            System.err.println(i);
             diagonalCount++;
-//            boar edge to wysokość
             int version = 0;
-            for (int j = 0; j <= boardEdge*boardEdge; j+=boardEdge + 1) {
+            for (int j = 0; j<= (boardEdge*boardEdge-(i-1)) - winCondition*boardEdge; j+=boardEdge) {
+                System.out.println(j);
                 List<Integer> winPattern = new LinkedList<>();
                 for(int z = 0; z < winCondition; z++) {
-                    winPattern.add(z*boardEdge+j+i);
+//                    j+1
+                    winPattern.add((i+1)+(z*boardEdge)+z+(j));
                 }
                 winPatterns.putIfAbsent(String.format("Diagonal %d - version %d", diagonalCount, ++version), winPattern);
             }
