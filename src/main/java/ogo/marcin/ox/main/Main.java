@@ -25,7 +25,6 @@ class Main {
             chooseLanguage(input, output);
 
             PlayerAPI playerAPI = new PlayerAPIImpl(new PlayerListCreator(input, output).createPlayers());
-//            List<Player> players = playerAPI.createPlayers(input, output);
 
             Board board = new Board.BoardBuilder()
                     .withDimension(input.getBoardDimensions())
