@@ -75,17 +75,19 @@ public class Player implements Comparable<Player>{
             return new Player(this);
         }
 
-        PlayerBuilder withName(String name) throws IllegalArgumentException{
+        PlayerBuilder withName(String name) throws PlayerNameException {
             if(!PlayerDataValidation.validateName(name)) {
-                throw new IllegalArgumentException(Localization.getLocalizedText(Localization.LanguageKey.PLAYER_NAME_EXCEPTION));
+                throw new PlayerNameException(Localization.getLocalizedText(
+                        Localization.LanguageKey.PLAYER_NAME_EXCEPTION));
             }
             this.name = name;
             return this;
         }
 
-        PlayerBuilder withSign(String signString) throws IllegalArgumentException {
+        PlayerBuilder withSign(String signString) throws PlayerSignException {
             if(!PlayerDataValidation.validateSignString(signString)) {
-                throw new IllegalArgumentException(Localization.getLocalizedText(Localization.LanguageKey.PLAYER_SIGN_EXCEPTION));
+                throw new PlayerSignException(Localization.getLocalizedText(
+                        Localization.LanguageKey.PLAYER_SIGN_EXCEPTION));
             }
             this.playerSign = Sign.valueOf(signString);
             unusedSigns.remove(this.playerSign);

@@ -36,7 +36,7 @@ class PlayerListCreator {
                         .withSign(getPlayerSignString(playerNumber))
                         .build();
                 playerCreated = true;
-            } catch (IllegalArgumentException e) {
+            } catch (PlayerNameException | PlayerSignException e) {
                 output.print(System.err, e.getMessage());
                 playerCreated = false;
             }
