@@ -19,9 +19,9 @@ class Main {
         try(Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8)) {
             PlayerAPI playerAPI = new PlayerAPIImpl();
 
-//            TODO problem with how set language without input
-            Output output = new Output(System.out, Localization.setLanguage("english"));
+            Output output = new Output(System.out);
             Input input = new Input(scanner, output);
+            chooseLanguage(input, output);
 
             List<Player> players = playerAPI.createPlayers(input, output);
 
@@ -40,5 +40,10 @@ class Main {
             Game game = new Game(settings, boardAPI, playerAPI, input, output, players);
             game.play();
         }
+    }
+
+    private static void chooseLanguage(Input input, Output output) {
+        output.print(Localization.LanguageKey.CHOOSE_LANGUAGE);
+        Localization.setResourceBundleLanguage(input.getStringInput());
     }
 }

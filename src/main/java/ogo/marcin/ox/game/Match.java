@@ -43,7 +43,7 @@ class Match {
             for (Player player: players) {
                 System.out.println(boardAPI.getBoard());
                 if (!judge.isFreeSpaceOnBoard()) break;
-                output.printf(Localization.Key.PLAYER_WITH_MOVE,
+                output.printf(Localization.LanguageKey.PLAYER_WITH_MOVE,
                         playerAPI.getPlayerName(player), playerAPI.getPlayerSign(player));
                 if(playPlayerTurn(player)) {
                     winner = player;
@@ -61,7 +61,7 @@ class Match {
     }
 
     private void announceDraw() {
-        output.print(Localization.Key.DRAW_IN_MATCH);
+        output.print(Localization.LanguageKey.DRAW_IN_MATCH);
         givePointsForDraw();
     }
 
@@ -75,7 +75,7 @@ class Match {
 
     private void announceWinner(Player victoriousPlayer) {
         givePointsForWinn(victoriousPlayer);
-        output.printf(Localization.Key.WINNER_OF_MATCH, playerAPI.getPlayerName(victoriousPlayer));
+        output.printf(Localization.LanguageKey.WINNER_OF_MATCH, playerAPI.getPlayerName(victoriousPlayer));
     }
 
     private void givePointsForWinn(Player victoriousPlayer) {

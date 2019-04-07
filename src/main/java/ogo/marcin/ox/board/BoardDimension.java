@@ -1,6 +1,7 @@
 package ogo.marcin.ox.board;
 
 import ogo.marcin.ox.game.Coordinates;
+import ogo.marcin.ox.io.Localization;
 
 /**
  * @author Marcin Ogorzalek
@@ -33,8 +34,10 @@ public class BoardDimension{
 
         public BoardDimensionBuilder withBoardEdgeSize(int boardEdge) throws IllegalArgumentException {
             if (!isEdgeCorrect(boardEdge)) {
-                throw new IllegalArgumentException(String.format("Board edge have to be between %d and %d",
-                        MIN_EDGE_SIZE, MAX_EDGE_SIZE));
+                throw new IllegalArgumentException(String.format(
+                        Localization.getLocalizedText(Localization.LanguageKey.BOARD_SIZE_EXCEPTION),
+                        MIN_EDGE_SIZE, MAX_EDGE_SIZE
+                ));
             }
             this.boardEdge = boardEdge;
             return this;

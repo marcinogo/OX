@@ -37,7 +37,6 @@ class PlayerListCreator {
                         .build();
                 playerCreated = true;
             } catch (IllegalArgumentException e) {
-//                TODO localize error messages
                 output.print(System.err, e.getMessage());
                 playerCreated = false;
             }
@@ -46,17 +45,17 @@ class PlayerListCreator {
     }
 
     private String getPlayerName(int playerNumber) {
-        output.printf(Localization.Key.GET_PLAYER_NAME, playerNumber);
+        output.printf(Localization.LanguageKey.GET_PLAYER_NAME, playerNumber);
         return input.getStringInput();
     }
 
     private String getPlayerSignString(int playerNumber) {
         if(Player.PlayerBuilder.unusedSigns.size() == 1) {
             String playerSignString = Player.PlayerBuilder.unusedSigns.get(0).name();
-            output.printf(Localization.Key.GET_SECOND_PLAYER_SIGN, playerNumber, playerSignString);
+            output.printf(Localization.LanguageKey.GET_SECOND_PLAYER_SIGN, playerNumber, playerSignString);
             return playerSignString;
         }
-        output.printf(Localization.Key.GET_PLAYER_SIGN, playerNumber);
+        output.printf(Localization.LanguageKey.GET_PLAYER_SIGN, playerNumber);
         return input.getStringInput().toUpperCase();
     }
 }

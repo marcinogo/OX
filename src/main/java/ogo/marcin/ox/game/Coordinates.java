@@ -1,5 +1,7 @@
 package ogo.marcin.ox.game;
 
+import ogo.marcin.ox.io.Localization;
+
 /**
  * @author Marcin Ogorzalek
  */
@@ -48,7 +50,9 @@ public class Coordinates {
         private void setXOfMove(int move) throws IllegalArgumentException {
             int xOfMove = recalculateUserInputToX(move);
             if(isComponentOfMoveNotCorrect(xOfMove)) {
-                throw new IllegalArgumentException("Move is not inside board");
+                throw new IllegalArgumentException(
+                        Localization.getLocalizedText(Localization.LanguageKey.PLAYER_MOVE_EXCEPTION
+                        ));
             }
             this.xOfMove = xOfMove;
         }
@@ -64,7 +68,9 @@ public class Coordinates {
         private void setYOfMove(int move) throws IllegalArgumentException {
             int yOfMove = recalculateUserInputToY(move);
             if(isComponentOfMoveNotCorrect(yOfMove)) {
-                throw new IllegalArgumentException("Move is not inside board");
+                throw new IllegalArgumentException(
+                        Localization.getLocalizedText(Localization.LanguageKey.PLAYER_MOVE_EXCEPTION
+                        ));
             }
             this.yOfMove = yOfMove;
         }

@@ -44,12 +44,12 @@ public class Game {
 
     private void printResult() {
         if(players.get(0).compareTo(players.get(1)) == 0) {
-            output.print(Localization.Key.DRAW_OF_GAME);
+            output.print(Localization.LanguageKey.DRAW_OF_GAME);
         } else if(players.get(0).compareTo(players.get(1)) > 0){
-            output.printf(Localization.Key.WINNER_OF_GAME,
+            output.printf(Localization.LanguageKey.WINNER_OF_GAME,
                     playerAPI.getPlayerName(players.get(0)), playerAPI.getPlayerPoints(players.get(0)));
         } else {
-            output.printf(Localization.Key.WINNER_OF_GAME,
+            output.printf(Localization.LanguageKey.WINNER_OF_GAME,
                     playerAPI.getPlayerName(players.get(1)), playerAPI.getPlayerPoints(players.get(1)));
         }
     }

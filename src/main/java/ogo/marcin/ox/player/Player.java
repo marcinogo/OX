@@ -1,6 +1,7 @@
 package ogo.marcin.ox.player;
 
 import ogo.marcin.ox.board.Sign;
+import ogo.marcin.ox.io.Localization;
 
 import java.util.*;
 
@@ -76,7 +77,7 @@ public class Player implements Comparable<Player>{
 
         PlayerBuilder withName(String name) throws IllegalArgumentException{
             if(!PlayerDataValidation.validateName(name)) {
-                throw new IllegalArgumentException("You have to enter player name");
+                throw new IllegalArgumentException(Localization.getLocalizedText(Localization.LanguageKey.PLAYER_NAME_EXCEPTION));
             }
             this.name = name;
             return this;
@@ -84,7 +85,7 @@ public class Player implements Comparable<Player>{
 
         PlayerBuilder withSign(String signString) throws IllegalArgumentException {
             if(!PlayerDataValidation.validateSignString(signString)) {
-                throw new IllegalArgumentException("This is not proper sign, choose X or O");
+                throw new IllegalArgumentException(Localization.getLocalizedText(Localization.LanguageKey.PLAYER_SIGN_EXCEPTION));
             }
             this.playerSign = Sign.valueOf(signString);
             unusedSigns.remove(this.playerSign);

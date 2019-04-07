@@ -23,15 +23,40 @@ public class Input {
         return scanner.nextLine();
     }
 
-    private int getIntegerInput(Localization.Key localizationKey) {
+    public Coordinates getCoordinates(Judge judge) {
+        Coordinates coordinates = null;
+        boolean coordinatesWithinBoardAndOnFreeSpace;
+        do {
+            try {
+                coordinates = createCoordinates();
+                coordinatesWithinBoardAndOnFreeSpace = isCoordinateOnFreeSpace(judge, coordinates);
+            } catch (IllegalArgumentException e) {
+                output.print(System.err, e.getMessage());
+                coordinatesWithinBoardAndOnFreeSpace = false;
+            }
+        } while (!coordinatesWithinBoardAndOnFreeSpace);
+        return coordinates;
+    }
+
+    private Coordinates createCoordinates() {
+        int move = getIntegerInput(Localization.LanguageKey.ENTER_COORDINATE);
+        return new Coordinates.CoordinatesBuilder()
+                .withMovePosition(move)
+                .build();
+    }
+
+    private int getIntegerInput(Localization.LanguageKey localizationLanguageKey) {
         int result = 0;
         boolean inputIsCorrect;
         do {
-            output.print(localizationKey);
+            output.print(localizationLanguageKey);
             inputIsCorrect = true;
             try {
                 result = scanner.nextInt();
             } catch (InputMismatchException e) {
+                output.print(System.err, Localization.getLocalizedText(
+                        Localization.LanguageKey.NOT_INTEGER_EXCEPTION
+                ));
                 inputIsCorrect = false;
                 scanner.next();
             }
@@ -39,31 +64,15 @@ public class Input {
         return result;
     }
 
-    public Coordinates getCoordinates(Judge judge) {
-        Coordinates coordinates = null;
-        boolean coordinatesWithinBoard;
-        do {
-            try {
-                coordinates = createCoordinates();
-                coordinatesWithinBoard = true;
-            } catch (IllegalArgumentException e) {
-//                TODO change to output one
-//                TODO different serr for coordinate on non default field
-                System.err.println(e.getMessage());
-                coordinatesWithinBoard = false;
-            }
-        } while (!coordinatesWithinBoard ||
-                !judge.isPlayerSignSetOnFreeSpace(coordinates));
-        return coordinates;
+    private boolean isCoordinateOnFreeSpace(Judge judge, Coordinates coordinates) {
+        if(!judge.isPlayerSignSetOnFreeSpace(coordinates)) {
+            output.print(System.err, Localization.getLocalizedText(
+                    Localization.LanguageKey.COORDINATE_NOT_FREE_EXCEPTION
+            ));
+            return false;
+        }
+        return true;
     }
-
-    private Coordinates createCoordinates() {
-        int move = getIntegerInput(Localization.Key.ENTER_COORDINATE);
-        return new Coordinates.CoordinatesBuilder()
-                .withMovePosition(move)
-                .build();
-    }
-
 
     public BoardDimension getBoardDimensions() {
         BoardDimension boardDimension = null;
@@ -73,8 +82,7 @@ public class Input {
                 boardDimension = createBoard();
                 dimensionsCreated = true;
             } catch (IllegalArgumentException e) {
-//                TODO change to output one
-                System.err.println(e.getMessage());
+                output.print(System.err, e.getMessage());
                 dimensionsCreated = false;
             }
         } while (!dimensionsCreated);
@@ -82,18 +90,44 @@ public class Input {
     }
 
     private BoardDimension createBoard() {
-        int dimension = getIntegerInput(Localization.Key.BOARD_SIZE);
+        int dimension = getIntegerInput(Localization.LanguageKey.BOARD_SIZE);
         return new BoardDimension.BoardDimensionBuilder()
                 .withBoardEdgeSize(dimension)
                 .build();
     }
 
     public int getWinConditionInRange(int minWinCondition, int maxWinCondition) {
-        int winCondition;
+        return getIntegerInputBetween(minWinCondition, maxWinCondition);
+    }
+
+    private int getIntegerInputBetween(int minWinCondition, int maxWinCondition) {
+        int winCondition = 0;
+        boolean inputIsCorrect;
         do {
-            winCondition = getIntegerInput(Localization.Key.WIN_CONDITION);
-//            TODO move validation to method add print of wrong length of this
-        } while (!(winCondition >= minWinCondition && winCondition <= maxWinCondition));
+            output.printf(Localization.LanguageKey.WIN_CONDITION, minWinCondition, maxWinCondition);
+            try {
+                winCondition = scanner.nextInt();
+                if(!isIntegerBetween(winCondition, minWinCondition, maxWinCondition)) {
+                    throw new IllegalArgumentException(Localization.getLocalizedText(
+                            Localization.LanguageKey.WIN_CONDITION_EXCEPTION
+                    ));
+                }
+                inputIsCorrect = true;
+            } catch (InputMismatchException e) {
+                output.print(System.err, Localization.getLocalizedText(
+                        Localization.LanguageKey.NOT_INTEGER_EXCEPTION
+                ));
+                inputIsCorrect = false;
+                scanner.next();
+            } catch (IllegalArgumentException e) {
+                output.print(System.err, e.getMessage());
+                inputIsCorrect = false;
+            }
+        } while (!inputIsCorrect);
         return winCondition;
+    }
+
+    private boolean isIntegerBetween(int number, int minNumber, int maxNumber) {
+        return number >= minNumber && number <= maxNumber;
     }
 }
