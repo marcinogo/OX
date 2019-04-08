@@ -10,6 +10,9 @@ import ogo.marcin.ox.player.Player;
 import ogo.marcin.ox.player.PlayerAPI;
 import ogo.marcin.ox.player.PlayerAPIImpl;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import java.util.LinkedList;
 import java.util.List;
@@ -22,7 +25,7 @@ class AutoMain {
     public static void main(String[] args) {
         try(Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8)) {
 
-            Output output = new Output(System.out);
+            Output output = new Output(new PrintStream(new File("automated_test.txt"), StandardCharsets.UTF_8));
             Input input = new Input(scanner, output);
             Localization.setResourceBundleLanguage("ENGLISH");
 
@@ -61,6 +64,8 @@ class AutoMain {
 
             Game game = new Game(settings, boardAPI, playerAPI, input, output, autoMatchSettings);
             game.play();
+        } catch (IOException e) {
+//            TODO print exception message
         }
     }
 }

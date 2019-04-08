@@ -54,7 +54,7 @@ public class Input {
         int result = 0;
         boolean inputIsCorrect;
         do {
-            output.print(localizationLanguageKey);
+            output.print(System.out, localizationLanguageKey);
             inputIsCorrect = true;
             try {
                 result = scanner.nextInt();
@@ -99,7 +99,8 @@ public class Input {
         int winCondition = 0;
         boolean inputIsCorrect;
         do {
-            output.printf(Localization.LanguageKey.WIN_CONDITION, minWinCondition, maxWinCondition);
+            output.printf(System.out, Localization.LanguageKey.WIN_CONDITION,
+                    minWinCondition, maxWinCondition);
             try {
                 winCondition = scanner.nextInt();
                 if(!isIntegerBetween(winCondition, minWinCondition, maxWinCondition)) {

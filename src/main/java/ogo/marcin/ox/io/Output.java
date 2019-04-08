@@ -20,11 +20,19 @@ public class Output {
         printStream.println(Localization.getLocalizedText(languageKey));
     }
 
+    public void print(PrintStream newPrintStream, Localization.LanguageKey languageKey) {
+        newPrintStream.println(Localization.getLocalizedText(languageKey));
+    }
+
     public void print(PrintStream newPrintStream, String message) {
         newPrintStream.println(message);
     }
 
     public void printf(Localization.LanguageKey languageKey, Object... args) {
+        printStream.printf(Localization.getLocalizedText(languageKey), args);
+    }
+
+    public void printf(PrintStream newPrintStream, Localization.LanguageKey languageKey, Object... args) {
         printStream.printf(Localization.getLocalizedText(languageKey), args);
     }
 }
