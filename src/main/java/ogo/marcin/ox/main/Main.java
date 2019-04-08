@@ -18,8 +18,6 @@ import java.util.*;
 class Main {
     public static void main(String[] args) {
         try(Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8)) {
-
-
             Output output = new Output(System.out);
             Input input = new Input(scanner, output);
             chooseLanguage(input, output);

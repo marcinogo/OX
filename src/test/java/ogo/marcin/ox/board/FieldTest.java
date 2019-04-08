@@ -88,18 +88,38 @@ public class FieldTest {
     }
 
 
-//    @DataProvider
-//    public static Object[][] testToString(){
-//        return new Object[][] {
-//                {Sign.DEFAULT, "[ ]"},
-//                {Sign.X, "[X]"},
-//                {Sign.O, "[O]"},
-//        };
-//    }
+    @DataProvider
+    public static Object[][] testToString(){
+        return new Object[][] {
+                {Sign.DEFAULT, "[0]"},
+                {Sign.X, "[X]"},
+                {Sign.O, "[O]"},
+        };
+    }
 
-//    @Test(dataProvider = "testToString")
-//    public void testIfToStringReturnCorrectString(Sign sign, String toStringResult) {
-//        Field field = new Field(sign);
-//        assert field.toString().equals(toStringResult) : String.format("Produced string should be %s", toStringResult);
-//    }
+    @Test(dataProvider = "testToString")
+    public void testIfToStringReturnCorrectString(Sign sign, String toStringResult) {
+        Field field = new Field(sign);
+        assert field.toString().equals(toStringResult) : String.format("Produced string should be %s", toStringResult);
+    }
+
+    @DataProvider
+    public static Object[][] createFieldWithNumber(){
+        return new Object[][] {
+                {Sign.DEFAULT, 1},
+                {Sign.X, 2},
+                {Sign.O, 30},
+                {Sign.DEFAULT, 30},
+                {Sign.O, 50},
+                {Sign.X, 30},
+                {Sign.X, 1},
+                {Sign.O, 0},
+        };
+    }
+
+    @Test(dataProvider = "createFieldWithNumber")
+    public void testIfFieldHaveCorrectNumber(Sign sign, int fieldNumber) {
+        Field field = new Field(sign, fieldNumber);
+        assert field.getFieldNumber() == fieldNumber : String.format("Field should have %d field number", fieldNumber);
+    }
 }

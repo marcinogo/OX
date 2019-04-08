@@ -37,7 +37,7 @@ public class BoardAPIImpl implements BoardAPI {
 
     @Override
     public boolean isCoordinatesPointsToDefaultSign(Sign defaultSign, Coordinates coordinates) {
-        return board.matrix[coordinates.getyOfMove()][coordinates.getxOfMove()].sign.equals(defaultSign);
+        return board.matrix[coordinates.getYOfMove()][coordinates.getXOfMove()].sign.equals(defaultSign);
     }
 
     public boolean whetherWinningConditionHasBeenMet(Sign playerSign, Coordinates coordinates, int winCondition) {
@@ -54,8 +54,8 @@ public class BoardAPIImpl implements BoardAPI {
     }
     
     private int numberOfPlayerFieldsRight(Sign playerSign, Coordinates coordinates) {
-        int x = coordinates.getxOfMove();
-        int y = coordinates.getyOfMove();
+        int x = coordinates.getXOfMove();
+        int y = coordinates.getYOfMove();
         int count = 0;
         Field[] row = board.matrix[y];
         for(int i = x + 1; i < row.length; i++) {
@@ -69,8 +69,8 @@ public class BoardAPIImpl implements BoardAPI {
     }
 
     private int numberOfPlayerFieldsLeft(Sign playerSign, Coordinates coordinates) {
-        int x = coordinates.getxOfMove();
-        int y = coordinates.getyOfMove();
+        int x = coordinates.getXOfMove();
+        int y = coordinates.getYOfMove();
         int count = 0;
         Field[] row = board.matrix[y];
         for(int i = x - 1; i >= 0; i--) {
@@ -90,8 +90,8 @@ public class BoardAPIImpl implements BoardAPI {
     }
 
         private int numberOfPlayerFieldsDown(Sign playerSign, Coordinates coordinates) {
-            int x = coordinates.getxOfMove();
-            int y = coordinates.getyOfMove();
+            int x = coordinates.getXOfMove();
+            int y = coordinates.getYOfMove();
             int count = 0;
 
             for (int i = y + 1; i < getBoardDimension(); i++) {
@@ -105,8 +105,8 @@ public class BoardAPIImpl implements BoardAPI {
         }
 
     private int numberOfPlayerFieldsUp(Sign playerSign, Coordinates coordinates) {
-        int x = coordinates.getxOfMove();
-        int y = coordinates.getyOfMove();
+        int x = coordinates.getXOfMove();
+        int y = coordinates.getYOfMove();
         int count = 0;
 
         for (int i = y - 1; i >= 0; i--) {
@@ -126,8 +126,8 @@ public class BoardAPIImpl implements BoardAPI {
     }
 
         private int numberOfPlayerFieldsDownRight(Sign playerSign, Coordinates coordinates){
-            int x = coordinates.getxOfMove();
-            int y = coordinates.getyOfMove();
+            int x = coordinates.getXOfMove();
+            int y = coordinates.getYOfMove();
             int count = 0;
 
             for (int i = y + 1, j = x + 1; i < getBoardDimension() && j < board.matrix[i].length; i++, j++) {
@@ -141,8 +141,8 @@ public class BoardAPIImpl implements BoardAPI {
         }
 
     private int numberOfPlayerFieldsUpLeft(Sign playerSign, Coordinates coordinates) {
-        int x = coordinates.getxOfMove();
-        int y = coordinates.getyOfMove();
+        int x = coordinates.getXOfMove();
+        int y = coordinates.getYOfMove();
         int count = 0;
 
         for (int i = y - 1, j = x - 1; i >= 0 && j >= 0; i--, j--) {
@@ -162,8 +162,8 @@ public class BoardAPIImpl implements BoardAPI {
     }
 
         private int numberOfPlayerFieldsDownLeft(Sign playerSign, Coordinates coordinates){
-            int x = coordinates.getxOfMove();
-            int y = coordinates.getyOfMove();
+            int x = coordinates.getXOfMove();
+            int y = coordinates.getYOfMove();
             int count = 0;
 
             for (int i = y + 1, j = x - 1; i < getBoardDimension() && j >= 0; i++, j--) {
@@ -177,8 +177,8 @@ public class BoardAPIImpl implements BoardAPI {
         }
 
     private int numberOfPlayerFieldsUpRight(Sign playerSign, Coordinates coordinates) {
-        int x = coordinates.getxOfMove();
-        int y = coordinates.getyOfMove();
+        int x = coordinates.getXOfMove();
+        int y = coordinates.getYOfMove();
         int count = 0;
 
         for (int i = y - 1, j = x + 1; i >= 0 && j < getBoardDimension(); i--, j++) {

@@ -13,10 +13,14 @@ public class Player implements Comparable<Player>{
     final Sign playerSign;
     int points;
 
-    private Player(String name, Sign playerSign, int points) {
+    Player(String name, Sign playerSign, int points) {
         this.name = name;
         this.playerSign = playerSign;
         this.points = points;
+    }
+
+    Player(String name, Sign playerSign) {
+        this(name, playerSign, 0);
     }
 
     private Player(PlayerBuilder playerBuilder) {
