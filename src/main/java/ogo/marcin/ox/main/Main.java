@@ -18,14 +18,11 @@ import java.util.*;
 class Main {
     public static void main(String[] args) {
         try(Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8)) {
-
-
             Output output = new Output(System.out);
             Input input = new Input(scanner, output);
             chooseLanguage(input, output);
 
             PlayerAPI playerAPI = new PlayerAPIImpl(new PlayerListCreator(input, output).createPlayers());
-//            List<Player> players = playerAPI.createPlayers(input, output);
 
             Board board = new Board.BoardBuilder()
                     .withDimension(input.getBoardDimensions())

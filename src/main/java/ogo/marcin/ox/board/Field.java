@@ -40,4 +40,8 @@ class Field {
         if(!sign.equals(Sign.DEFAULT))return String.format("[%s]", sign);
         return String.format("[%d]", fieldNumber);
     }
+
+    int getFieldNumber() {
+        return fieldNumber;
+    }
 }

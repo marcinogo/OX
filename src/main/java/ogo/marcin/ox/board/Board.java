@@ -13,7 +13,7 @@ public class Board {
 
     final Field[][] matrix;
 
-    private Board(BoardDimension boardDimension) {
+    Board(BoardDimension boardDimension) {
         this.edge = boardDimension.getBoardEdge();
         this.matrix = new Field[edge][edge];
     }
@@ -32,8 +32,8 @@ public class Board {
 
     Board setField(Coordinates coordinates, Sign sign) {
         Board newBoard = new Board(this);
-        Field fieldToChange = newBoard.matrix[coordinates.getyOfMove()][coordinates.getxOfMove()];
-        newBoard.matrix[coordinates.getyOfMove()][coordinates.getxOfMove()] = fieldToChange.changeSign(sign);
+        Field fieldToChange = newBoard.matrix[coordinates.getYOfMove()][coordinates.getXOfMove()];
+        newBoard.matrix[coordinates.getYOfMove()][coordinates.getXOfMove()] = fieldToChange.changeSign(sign);
         return newBoard;
     }
 
@@ -69,7 +69,7 @@ public class Board {
         if (o == null || getClass() != o.getClass()) return false;
         Board board = (Board) o;
         if(edge != board.edge) return false;
-        return !Arrays.deepEquals(matrix, board.matrix);
+        return Arrays.deepEquals(matrix, board.matrix);
     }
 
     @Override

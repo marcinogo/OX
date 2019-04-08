@@ -18,43 +18,46 @@ import java.util.Scanner;
 /**
  * @author Marcin Ogorzalek
  */
-public class AutoMain {
+class AutoMain {
     public static void main(String[] args) {
-        int winC = 3;
-        int boardE = 3;
-        WinConditionGenerator winConditionGenerator = new WinConditionGenerator(boardE,winC);
-        winConditionGenerator.generateWinPatternRows()
-                .generateWinPatternColumns();
-
-        int numberOfRounds = winConditionGenerator.winPatterns.size();
-
         try(Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8)) {
 
             Output output = new Output(System.out);
             Input input = new Input(scanner, output);
             Localization.setResourceBundleLanguage("ENGLISH");
 
-            List<Player> players = new LinkedList<>();
-            PlayerAPI playerAPI = new PlayerAPIImpl(players);
-            players.add(new Player.PlayerBuilder().withName("X-AI").withSign("X").build());
-            players.add(new Player.PlayerBuilder().withName("O-AI").withSign("O").build());
-
-            BoardDimension boardDimension = new BoardDimension.BoardDimensionBuilder().withBoardEdgeSize(boardE).build();
+            BoardDimension boardDimension = input.getBoardDimensions();
 
             Board board = new Board.BoardBuilder()
                     .withDimension(boardDimension)
                     .build();
             BoardAPI boardAPI = new BoardAPIImpl(board);
 
+            int MIN_BOARD_SIZE = 3;
+            int winCondition = input.getWinConditionInRange(MIN_BOARD_SIZE, boardAPI.getBoardDimension());
+
+            WinConditionGenerator winConditionGenerator = new WinConditionGenerator(boardAPI.getBoardDimension(),
+                    winCondition);
+            winConditionGenerator.generateWinPatternRows()
+                    .generateWinPatternColumns()
+                    .generateWinPatternDiagonal()
+                    .generateWinPatternAntidiagonal();
+
+            int numberOfRounds = winConditionGenerator.winPatterns.size();
+
+            List<Player> players = new LinkedList<>();
+            PlayerAPI playerAPI = new PlayerAPIImpl(players);
+            players.add(new Player.PlayerBuilder().withName("X-AI").withSign("X").build());
+            players.add(new Player.PlayerBuilder().withName("O-AI").withSign("O").build());
+
             Settings settings = new Settings.SettingsBuilder(true)
-                    .withWinConditionInRange(winC)
+                    .withWinConditionInRange(winCondition)
                     .withNumberOfRounds(numberOfRounds)
                     .withDefaultSing(Sign.DEFAULT)
                     .build();
 
-            boolean isAutomated = true;
-
-            AutoMatchSettings autoMatchSettings = new AutoMatchSettings(boardAPI, isAutomated, winConditionGenerator.winPatterns);
+            AutoMatchSettings autoMatchSettings = new AutoMatchSettings(boardAPI,
+                    true, winConditionGenerator.winPatterns);
 
             Game game = new Game(settings, boardAPI, playerAPI, input, output, autoMatchSettings);
             game.play();

@@ -22,9 +22,7 @@ public class AutoMatchSettings {
     }
 
     public AutoMatchSettings(BoardAPI boardAPI, boolean isAutomated) {
-        this.boardAPI = boardAPI;
-        this.isAutomated = isAutomated;
-        this.winPatterns = new HashMap<>();
+        this(boardAPI, isAutomated, new HashMap<>());
     }
 
     public void setXAiMoves(int i) {

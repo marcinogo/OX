@@ -4,6 +4,8 @@ import ogo.marcin.ox.board.Sign;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
+
 /**
  * @author Marcin Ogorzalek
  */
@@ -13,84 +15,71 @@ public class PlayerAPIImplTest {
     @DataProvider
     public static Object[][] createPlayer(){
         return new Object[][] {
-                {"Player 1", Sign.X, 0},
-                {"Player 1", Sign.O, 0},
-                {"Player 2", Sign.X, 10},
-                {"Player 2", Sign.O, 10},
-                {"Tomek", Sign.X, 0},
-                {"Tomek", Sign.O, 0},
-                {"Marcin", Sign.X, 20},
-                {"Marcin", Sign.O, 20},
-                {"Zbyszek", Sign.X, 3},
-                {"Zbyszek", Sign.O, 3},
+                {"Player 1", "X"},
+                {"Player 1", "O"},
+                {"Player 2", "X"},
+                {"Player 2", "O"},
+                {"Tomek", "X"},
+                {"Tomek", "O"},
+                {"Marcin", "X"},
+                {"Marcin", "O"},
+                {"Zbyszek", "X"},
+                {"Zbyszek", "O"},
         };
     }
-//
-//    @Test(dataProvider = "createPlayer")
-//    public void testCreatePlayerDontReturnNull(String name, Sign sign, Integer points) {
-//        PlayerAPI playerAPI = new PlayerAPIImpl();
-//        Player player = playerAPI.createPlayer(name, sign, points);
-//        assert player != null : "Player should not be null";
-//    }
-//
-//    @Test(dataProvider = "createPlayer")
-//    public void testCreatePlayerWithGivenPoints(String name, Sign sign, Integer points) {
-//        PlayerAPI playerAPI = new PlayerAPIImpl();
-//        Player player = playerAPI.createPlayer(name, sign, points);
-//        Player expected = new Player(name, sign, points);
-//        assert player.equals(expected) : "Players should be equals";
-//    }
-//
-//    @Test(dataProvider = "createPlayer")
-//    public void testCreatePlayer(String name, Sign sign, Integer points) {
-//        PlayerAPI playerAPI = new PlayerAPIImpl();
-//        Player player = playerAPI.createPlayer(name, sign);
-//        Player expected = new Player(name, sign);
-//
-//        assert player != null : "Player should not be null";
-//        assert player.equals(expected) : "Players should be equals";
-//    }
+
+    @Test(dataProvider = "createPlayer")
+    public void testCreatePlayerDontReturnNull(String name, String  sign) {
+        Player player = new Player.PlayerBuilder().withName(name).withSign(sign).build();
+        assert player != null : "Player should not be null";
+    }
+
+    @Test(dataProvider = "createPlayer")
+    public void testCreatePlayer(String name, String sign) {
+        Player player = new Player.PlayerBuilder().withName(name).withSign(sign).build();
+        Player expected = new Player(name, Sign.valueOf(sign));
+        assert player.equals(expected) : "Players should be equals";
+    }
 
     @DataProvider
-    public static Object[][] setPlayerPoints(){
+    public static Object[][] testPlayer(){
         return new Object[][] {
-                {"Player 1", Sign.X, 0, 3},
-                {"Player 1", Sign.O, 0, 3},
-                {"Player 2", Sign.X, 10, 3},
-                {"Player 2", Sign.O, 10, 3},
-                {"Tomek", Sign.X, 0, 100},
-                {"Tomek", Sign.O, 0, 100},
+                {"Player 1", "X", 3},
+                {"Player 1", "O", 3},
+                {"Player 2", "X", 3},
+                {"Player 2", "O", 3},
+                {"Tomek", "X", 100},
+                {"Tomek", "O", 100},
         };
     }
 
-//    @Test(dataProvider = "setPlayerPoints")
-//    public void testIfPlayerPointsCanBeSet(String name, Sign sign,
-//                                           Integer startingPoints, Integer newNumberOfPoints) {
-//        Player player = new Player(name, sign, startingPoints);
-//        Player expected = new Player(name, sign, newNumberOfPoints);
-//        PlayerAPI playerAPI = new PlayerAPIImpl();
-//        player = playerAPI.setPlayerPoints(player, newNumberOfPoints);
-//        assert player.equals(expected) : "Players should have should be equals points";
-//    }
-//
-//    @Test(dataProvider = "createPlayer")
-//    public void testGetName(String name, Sign sign, Integer points) {
-//        PlayerAPI playerAPI = new PlayerAPIImpl();
-//        Player player = new Player(name, sign, points);
-//        assert playerAPI.getPlayerName(player).equals(name) : "Player should be returned";
-//    }
-//
-//    @Test(dataProvider = "createPlayer")
-//    public void testGetSign(String name, Sign sign, Integer points) {
-//        PlayerAPI playerAPI = new PlayerAPIImpl();
-//        Player player = new Player(name, sign, points);
-//        assert playerAPI.getPlayerSign(player).equals(sign) : "Player sign be returned";
-//    }
-//
-//    @Test(dataProvider = "createPlayer")
-//    public void testGetPoints(String name, Sign sign, Integer points) {
-//        PlayerAPI playerAPI = new PlayerAPIImpl();
-//        Player player = new Player(name, sign, points);
-//        assert playerAPI.getPlayerPoints(player) == points : "Player sign be returned";
-//    }
+    @Test(dataProvider = "testPlayer")
+    public void testIfPlayerPointsCanBeSet(String name, String sign, Integer newNumberOfPoints) {
+        Player player = new Player.PlayerBuilder().withName(name).withSign(sign).build();
+        Player expected = new Player(name, Sign.valueOf(sign), newNumberOfPoints);
+        PlayerAPI playerAPI = new PlayerAPIImpl(new ArrayList<>());
+        player = playerAPI.setPlayerPoints(player, newNumberOfPoints);
+        assert player.equals(expected) : "Players should have should be equals points";
+    }
+
+    @Test(dataProvider = "testPlayer")
+    public void testGetName(String name, String sign, Integer points) {
+        PlayerAPI playerAPI = new PlayerAPIImpl(new ArrayList<>());
+        Player player = new Player(name, Sign.valueOf(sign), points);
+        assert playerAPI.getPlayerName(player).equals(name) : "Player should be returned";
+    }
+
+    @Test(dataProvider = "testPlayer")
+    public void testGetSign(String name, String sign, Integer points) {
+        PlayerAPI playerAPI = new PlayerAPIImpl(new ArrayList<>());
+        Player player = new Player(name, Sign.valueOf(sign), points);
+        assert playerAPI.getPlayerSign(player).equals(Sign.valueOf(sign)) : "Player sign be returned";
+    }
+
+    @Test(dataProvider = "testPlayer")
+    public void testGetPoints(String name, String  sign, Integer points) {
+        PlayerAPI playerAPI = new PlayerAPIImpl(new ArrayList<>());
+        Player player = new Player(name, Sign.valueOf(sign), points);
+        assert playerAPI.getPlayerPoints(player) == points : "Player sign be returned";
+    }
 }

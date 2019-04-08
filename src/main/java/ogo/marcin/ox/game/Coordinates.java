@@ -25,11 +25,11 @@ public class Coordinates {
         this(coordinatesBuilder.xOfMove, coordinatesBuilder.yOfMove);
     }
 
-    public int getxOfMove() {
+    public int getXOfMove() {
         return xOfMove;
     }
 
-    public int getyOfMove() {
+    public int getYOfMove() {
         return yOfMove;
     }
 
