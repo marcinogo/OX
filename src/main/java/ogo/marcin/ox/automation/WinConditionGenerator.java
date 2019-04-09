@@ -20,7 +20,7 @@ class WinConditionGenerator {
     this.winPatterns = new LinkedHashMap<>();
   }
 
-  public WinConditionGenerator generateWinPatternRows() {
+  WinConditionGenerator generateWinPatternRows() {
     int rowCount = 0;
     for (int i = 1; i <= boardEdge * boardEdge; i += boardEdge) {
       rowCount++;
@@ -37,7 +37,7 @@ class WinConditionGenerator {
     return this;
   }
 
-  public WinConditionGenerator generateWinPatternColumns() {
+  WinConditionGenerator generateWinPatternColumns() {
     int columnCount = 0;
     for (int i = 1; i <= boardEdge; i++) {
       columnCount++;
@@ -54,7 +54,7 @@ class WinConditionGenerator {
     return this;
   }
 
-  public WinConditionGenerator generateWinPatternDiagonal() {
+  WinConditionGenerator generateWinPatternDiagonal() {
     int diagonalCount = 0;
     for (int i = 0; i <= boardEdge - winCondition; i++) {
       diagonalCount++;
@@ -72,7 +72,7 @@ class WinConditionGenerator {
     return this;
   }
 
-  public void generateWinPatternAntidiagonal() {
+  void generateWinPatternAntidiagonal() {
     int diagonalCount = 0;
     for (int i = boardEdge; i >= winCondition; i--) {
       diagonalCount++;

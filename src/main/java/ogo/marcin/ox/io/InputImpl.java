@@ -13,6 +13,7 @@ import ogo.marcin.ox.game.WinConditionException;
  * @author Marcin Ogorzalek
  */
 public class InputImpl implements Input {
+
   private final Scanner scanner;
   private final Output output;
   private final InputValidation inputValidation;
@@ -29,7 +30,6 @@ public class InputImpl implements Input {
     inputValidation.ifUserInputEqualsQuitEndApp(userInput);
     return userInput;
   }
-
 
 
   @Override

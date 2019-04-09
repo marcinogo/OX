@@ -8,14 +8,10 @@ import java.util.Objects;
 class Field {
 
   final Sign sign;
-  private int fieldNumber;
+  private final int fieldNumber;
 
   Field(Sign sign) {
     this(sign, 0);
-  }
-
-  public Field(int fieldNumber) {
-    this(Sign.DEFAULT, fieldNumber);
   }
 
   Field(Sign sign, int fieldNumber) {

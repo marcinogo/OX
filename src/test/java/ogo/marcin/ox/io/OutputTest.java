@@ -6,8 +6,6 @@ import org.testng.annotations.Test;
 
 import java.io.PrintStream;
 
-import static org.mockito.ArgumentMatchers.eq;
-
 /**
  * @author Marcin Ogorzalek
  */
