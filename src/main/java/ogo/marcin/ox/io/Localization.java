@@ -23,9 +23,9 @@ public class Localization {
         resourceBundle = Language.ENGLISH.getResourceBundle();
         break;
       default:
-        new Output(System.err).print(LanguageKey.NO_LANGUAGE_EXCEPTION);
+        new OutputImpl(System.err).print(LanguageKey.NO_LANGUAGE_EXCEPTION);
         resourceBundle = Language.ENGLISH.getResourceBundle();
-        new Output(System.err).print(LanguageKey.NO_LANGUAGE_EXCEPTION);
+        new OutputImpl(System.err).print(LanguageKey.NO_LANGUAGE_EXCEPTION);
         break;
     }
   }
@@ -54,7 +54,7 @@ public class Localization {
     CHOOSE_LANGUAGE, NO_LANGUAGE_EXCEPTION,
     //        Game creation
     BOARD_SIZE, WIN_CONDITION, BOARD_SIZE_EXCEPTION,
-    WIN_CONDITION_EXCEPTION,
+    WIN_CONDITION_EXCEPTION, ENTER_INT,
     //        Player creation
     GET_PLAYER_NAME, GET_PLAYER_SIGN, GET_SECOND_PLAYER_SIGN,
     PLAYER_NAME_EXCEPTION, PLAYER_SIGN_EXCEPTION,

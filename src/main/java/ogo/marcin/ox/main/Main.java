@@ -9,8 +9,11 @@ import ogo.marcin.ox.board.BoardAPIImpl;
 import ogo.marcin.ox.game.Game;
 import ogo.marcin.ox.game.Settings;
 import ogo.marcin.ox.io.Input;
+import ogo.marcin.ox.io.InputImpl;
+import ogo.marcin.ox.io.InputValidation;
 import ogo.marcin.ox.io.Localization;
 import ogo.marcin.ox.io.Output;
+import ogo.marcin.ox.io.OutputImpl;
 import ogo.marcin.ox.player.PlayerAPI;
 import ogo.marcin.ox.player.PlayerAPIImpl;
 import ogo.marcin.ox.player.PlayerListCreator;
@@ -22,8 +25,9 @@ class Main {
 
   public static void main(String[] args) {
     try (Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8)) {
-      Output output = new Output(System.out);
-      Input input = new Input(scanner, output);
+      Output output = new OutputImpl(System.out);
+      InputValidation inputValidation = new InputValidation();
+      Input input = new InputImpl(scanner, output, inputValidation);
       chooseLanguage(input, output);
 
       PlayerAPI playerAPI = new PlayerAPIImpl(new PlayerListCreator(input, output).createPlayers());

@@ -15,8 +15,11 @@ import ogo.marcin.ox.board.Sign;
 import ogo.marcin.ox.game.Game;
 import ogo.marcin.ox.game.Settings;
 import ogo.marcin.ox.io.Input;
+import ogo.marcin.ox.io.InputImpl;
+import ogo.marcin.ox.io.InputValidation;
 import ogo.marcin.ox.io.Localization;
 import ogo.marcin.ox.io.Output;
+import ogo.marcin.ox.io.OutputImpl;
 import ogo.marcin.ox.player.Player;
 import ogo.marcin.ox.player.PlayerAPI;
 import ogo.marcin.ox.player.PlayerAPIImpl;
@@ -29,9 +32,10 @@ class AutoMain {
   public static void main(String[] args) {
     try (Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8)) {
 
-      Output output = new Output(
+      Output output = new OutputImpl(
           new PrintStream(new File("automated_test.txt"), StandardCharsets.UTF_8));
-      Input input = new Input(scanner, output);
+      InputValidation inputValidation = new InputValidation();
+      Input input = new InputImpl(scanner, output, inputValidation);
       Localization.setResourceBundleLanguage("ENGLISH");
 
       BoardDimension boardDimension = input.getBoardDimensions();

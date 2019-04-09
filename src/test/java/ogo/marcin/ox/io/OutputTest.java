@@ -16,14 +16,14 @@ import static org.mockito.ArgumentMatchers.eq;
 public class OutputTest {
     public void testPrintWithStingParam() {
         PrintStream printStream = Mockito.mock(PrintStream.class);
-        Output output = new Output(printStream);
+        Output output = new OutputImpl(printStream);
         output.print(Mockito.anyString());
         Mockito.verify(printStream).println(Mockito.anyString());
     }
 
     public void testPrintWithLocalizationKeyParam() {
         PrintStream printStream = Mockito.mock(PrintStream.class);
-        Output output = new Output(printStream);
+        Output output = new OutputImpl(printStream);
         output.print(Localization.LanguageKey.BOARD_SIZE);
         Mockito.verify(printStream).println(Localization.getLocalizedText(Localization.LanguageKey.BOARD_SIZE));
     }
@@ -31,7 +31,7 @@ public class OutputTest {
     public void testPrintWithNewPrintStreamParam() {
         PrintStream printStream = Mockito.mock(PrintStream.class);
         PrintStream newPrintStream = Mockito.mock(PrintStream.class);
-        Output output = new Output(printStream);
+        Output output = new OutputImpl(printStream);
         output.print(newPrintStream, Mockito.anyString());
         Mockito.verify(newPrintStream).println(Mockito.anyString());
     }
