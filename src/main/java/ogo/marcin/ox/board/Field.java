@@ -10,7 +10,11 @@ class Field {
     private int fieldNumber;
 
     Field(Sign sign) {
-        this.sign = sign;
+        this(sign, 0);
+    }
+
+    public Field(int fieldNumber) {
+        this(Sign.DEFAULT, fieldNumber);
     }
 
     Field(Sign sign, int fieldNumber) {
@@ -37,8 +41,8 @@ class Field {
 
     @Override
     public String toString() {
-        if(!sign.equals(Sign.DEFAULT))return String.format("[%s]", sign);
-        return String.format("[%d]", fieldNumber);
+        if(!sign.equals(Sign.DEFAULT))return String.format("[%4s ]", sign);
+        return String.format("[%4d ]", fieldNumber);
     }
 
     int getFieldNumber() {

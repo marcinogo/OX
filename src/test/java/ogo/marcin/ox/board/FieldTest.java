@@ -91,9 +91,9 @@ public class FieldTest {
     @DataProvider
     public static Object[][] testToString(){
         return new Object[][] {
-                {Sign.DEFAULT, "[0]"},
-                {Sign.X, "[X]"},
-                {Sign.O, "[O]"},
+                {Sign.DEFAULT, String.format("[%4d ]",0)},
+                {Sign.X, String.format("[%4s ]","X")},
+                {Sign.O, String.format("[%4s ]","O")},
         };
     }
 
