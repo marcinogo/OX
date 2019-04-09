@@ -33,6 +33,6 @@ public class Output {
     }
 
     public void printf(PrintStream newPrintStream, Localization.LanguageKey languageKey, Object... args) {
-        printStream.printf(Localization.getLocalizedText(languageKey), args);
+        newPrintStream.printf(Localization.getLocalizedText(languageKey), args);
     }
 }
