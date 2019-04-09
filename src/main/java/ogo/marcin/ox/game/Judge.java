@@ -7,23 +7,25 @@ import ogo.marcin.ox.board.Sign;
  * @author Marcin Ogorzalek
  */
 public class Judge {
-    private final BoardAPI boardAPI;
-    private final Settings settings;
 
-    Judge(BoardAPI boardAPI, Settings settings) {
-        this.boardAPI = boardAPI;
-        this.settings = settings;
-    }
+  private final BoardAPI boardAPI;
+  private final Settings settings;
 
-    boolean isFreeSpaceOnBoard() {
-        return boardAPI.isFreeSpaceOnBoard();
-    }
+  Judge(BoardAPI boardAPI, Settings settings) {
+    this.boardAPI = boardAPI;
+    this.settings = settings;
+  }
 
-    public boolean isPlayerSignSetOnFreeSpace(Coordinates coordinates) {
-        return boardAPI.isCoordinatesPointsToDefaultSign(settings.getDefaultSign(), coordinates);
-    }
+  boolean isFreeSpaceOnBoard() {
+    return boardAPI.isFreeSpaceOnBoard();
+  }
 
-    boolean isPlayerWon(Sign playerSign, Coordinates coordinates) {
-        return boardAPI.whetherWinningConditionHasBeenMet(playerSign, coordinates, settings.getWinCondition());
-    }
+  public boolean isPlayerSignSetOnFreeSpace(Coordinates coordinates) {
+    return boardAPI.isCoordinatesPointsToDefaultSign(settings.getDefaultSign(), coordinates);
+  }
+
+  boolean isPlayerWon(Sign playerSign, Coordinates coordinates) {
+    return boardAPI
+        .whetherWinningConditionHasBeenMet(playerSign, coordinates, settings.getWinCondition());
+  }
 }
