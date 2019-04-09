@@ -65,7 +65,7 @@ public class Localization {
     START_OF_MATCH, END_OF_MATCH,
     DRAW_IN_MATCH, WINNER_OF_MATCH,
     //        Game resolution
-    DRAW_OF_GAME, WINNER_OF_GAME,
+    DRAW_OF_GAME, WINNER_OF_GAME, QUIT,
     //        Input exception
     NOT_INTEGER_EXCEPTION,
   }

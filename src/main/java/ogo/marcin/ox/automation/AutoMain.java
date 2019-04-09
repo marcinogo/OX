@@ -20,6 +20,7 @@ import ogo.marcin.ox.io.InputValidation;
 import ogo.marcin.ox.io.Localization;
 import ogo.marcin.ox.io.Output;
 import ogo.marcin.ox.io.OutputImpl;
+import ogo.marcin.ox.io.QuitGameException;
 import ogo.marcin.ox.player.Player;
 import ogo.marcin.ox.player.PlayerAPI;
 import ogo.marcin.ox.player.PlayerAPIImpl;
@@ -75,7 +76,9 @@ class AutoMain {
       Game game = new Game(settings, boardAPI, playerAPI, input, output, autoMatchSettings);
       game.play();
     } catch (IOException e) {
-      e.printStackTrace();
+      System.err.println(e.getMessage());
+    } catch (QuitGameException e) {
+      System.out.println(e.getMessage());
     }
   }
 }
