@@ -65,7 +65,7 @@ class AutoMain {
             Game game = new Game(settings, boardAPI, playerAPI, input, output, autoMatchSettings);
             game.play();
         } catch (IOException e) {
-//            TODO print exception message
+            e.getMessage();
         }
     }
 }
