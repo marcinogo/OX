@@ -81,8 +81,8 @@ public class GameTest {
     Output output = Mockito.mock(Output.class);
     InputValidation inputValidation = new InputValidation();
     Input input = new InputImpl(scanner, output, inputValidation);
-    if(PlayerBuilder.unusedSigns.isEmpty()) {
-      PlayerBuilder.unusedSigns = new LinkedList<>(Arrays.asList(Sign.values()));
+    if(PlayerBuilder.getUnusedSigns().isEmpty()) {
+      PlayerBuilder.getUnusedSigns().addAll(Arrays.asList(Sign.values()));
     }
     PlayerAPI playerAPI = new PlayerAPIImpl(new PlayerListCreator(input, output)
         .createPlayers());
