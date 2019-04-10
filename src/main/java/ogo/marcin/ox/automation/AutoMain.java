@@ -13,7 +13,7 @@ import ogo.marcin.ox.board.BoardApiImpl;
 import ogo.marcin.ox.board.BoardDimension;
 import ogo.marcin.ox.board.Sign;
 import ogo.marcin.ox.game.Game;
-import ogo.marcin.ox.game.Settings;
+import ogo.marcin.ox.game.Setting;
 import ogo.marcin.ox.io.Input;
 import ogo.marcin.ox.io.InputImpl;
 import ogo.marcin.ox.io.InputValidation;
@@ -67,16 +67,16 @@ class AutoMain {
       players.add(new Player.PlayerBuilder().withName("X-AI").withSign("X").build());
       players.add(new Player.PlayerBuilder().withName("O-AI").withSign("O").build());
 
-      Settings settings = new Settings.SettingsBuilder(true)
+      Setting setting = new Setting.SettingsBuilder(true)
           .withWinConditionInRange(winCondition)
           .withNumberOfRounds(numberOfRounds)
           .withDefaultSing(Sign.DEFAULT)
           .build();
 
-      AutoMatchSettings autoMatchSettings = new AutoMatchSettings(boardApi,
+      AutoMatchSetting autoMatchSetting = new AutoMatchSetting(boardApi,
           true, winConditionGenerator.winPatterns);
 
-      Game game = new Game(settings, boardApi, playerApi, input, output, autoMatchSettings);
+      Game game = new Game(setting, boardApi, playerApi, input, output, autoMatchSetting);
       game.play();
     } catch (IOException e) {
       System.err.println(e.getMessage());

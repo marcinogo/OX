@@ -14,9 +14,9 @@ public class JudgeTest {
 
   public void testFreeSpaceOnBoardReturnTrue() {
     BoardApi boardAPI = Mockito.mock(BoardApi.class);
-    Settings settings = Mockito.mock(Settings.class);
+    Setting setting = Mockito.mock(Setting.class);
 
-    Judge judge = new Judge(boardAPI, settings);
+    Judge judge = new Judge(boardAPI, setting);
 
     judge.isFreeSpaceOnBoard();
     Mockito.verify(boardAPI).isFreeSpaceOnBoard();
@@ -24,24 +24,24 @@ public class JudgeTest {
 
   public void testIsPlayerSignSetOnFreeSpace() {
     BoardApi boardAPI = Mockito.mock(BoardApi.class);
-    Settings settings = Mockito.mock(Settings.class);
+    Setting setting = Mockito.mock(Setting.class);
 
-    Judge judge = new Judge(boardAPI, settings);
+    Judge judge = new Judge(boardAPI, setting);
     Coordinates coordinates = Mockito.mock(Coordinates.class);
     judge.isPlayerSignSetOnFreeSpace(coordinates);
     Mockito.verify(boardAPI)
-        .isCoordinatesPointsToDefaultSign(settings.getDefaultSign(), coordinates);
+        .isCoordinatesPointsToDefaultSign(setting.getDefaultSign(), coordinates);
   }
 
   public void testIsPlayerWon() {
     BoardApi boardAPI = Mockito.mock(BoardApi.class);
-    Settings settings = Mockito.mock(Settings.class);
+    Setting setting = Mockito.mock(Setting.class);
 
-    Judge judge = new Judge(boardAPI, settings);
+    Judge judge = new Judge(boardAPI, setting);
     Coordinates coordinates = Mockito.mock(Coordinates.class);
     Sign sign = Sign.X;
     judge.isPlayerWon(sign, coordinates);
     Mockito.verify(boardAPI)
-        .whetherWinningConditionHasBeenMet(sign, coordinates, settings.getWinCondition());
+        .whetherWinningConditionHasBeenMet(sign, coordinates, setting.getWinCondition());
   }
 }

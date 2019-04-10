@@ -1,7 +1,7 @@
 package ogo.marcin.ox.game;
 
 import java.util.Collections;
-import ogo.marcin.ox.automation.AutoMatchSettings;
+import ogo.marcin.ox.automation.AutoMatchSetting;
 import ogo.marcin.ox.board.BoardApi;
 import ogo.marcin.ox.io.Input;
 import ogo.marcin.ox.io.Localization;
@@ -13,39 +13,39 @@ import ogo.marcin.ox.player.PlayerApi;
  */
 public class Game {
 
-  private final Settings settings;
+  private final Setting setting;
   private final BoardApi boardAPI;
   private final PlayerApi playerAPI;
   private final Input input;
   private final Output output;
-  private final AutoMatchSettings autoMatchSettings;
+  private final AutoMatchSetting autoMatchSetting;
 
-  public Game(Settings settings, BoardApi boardAPI, PlayerApi playerAPI,
-      Input input, Output output, AutoMatchSettings autoMatchSettings) {
-    this.settings = settings;
+  public Game(Setting setting, BoardApi boardAPI, PlayerApi playerAPI,
+      Input input, Output output, AutoMatchSetting autoMatchSetting) {
+    this.setting = setting;
     this.boardAPI = boardAPI;
     this.playerAPI = playerAPI;
     this.input = input;
     this.output = output;
-    this.autoMatchSettings = autoMatchSettings;
+    this.autoMatchSetting = autoMatchSetting;
   }
 
   public void play() {
-    for (int i = 0; i < settings.getNumberOfRounds(); i++) {
-      Judge judge = new Judge(boardAPI, settings);
+    for (int i = 0; i < setting.getNumberOfRounds(); i++) {
+      Judge judge = new Judge(boardAPI, setting);
       Match match;
-      if (autoMatchSettings.isAutomated()) {
-        autoMatchSettings.setXAiMoves(i);
-        output.print(autoMatchSettings.getPatternName(i));
+      if (autoMatchSetting.isAutomated()) {
+        autoMatchSetting.setXAiMoves(i);
+        output.print(autoMatchSetting.getPatternName(i));
       }
-      match = new Match(input, output, boardAPI, playerAPI, judge, autoMatchSettings);
+      match = new Match(input, output, boardAPI, playerAPI, judge, autoMatchSetting);
       match.play();
-      boardAPI.clearBoard(settings.getDefaultSign());
-      if (!autoMatchSettings.isAutomated()) {
+      boardAPI.clearBoard(setting.getDefaultSign());
+      if (!autoMatchSetting.isAutomated()) {
         Collections.reverse(playerAPI.getPlayers());
       }
     }
-    if (!autoMatchSettings.isAutomated()) {
+    if (!autoMatchSetting.isAutomated()) {
       printResult();
     }
   }

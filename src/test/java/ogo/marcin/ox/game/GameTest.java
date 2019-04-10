@@ -2,7 +2,7 @@ package ogo.marcin.ox.game;
 
 import java.util.Arrays;
 import java.util.Scanner;
-import ogo.marcin.ox.automation.AutoMatchSettings;
+import ogo.marcin.ox.automation.AutoMatchSetting;
 import ogo.marcin.ox.board.Board;
 import ogo.marcin.ox.board.BoardApi;
 import ogo.marcin.ox.board.BoardApiImpl;
@@ -100,13 +100,13 @@ public class GameTest {
         .build();
     BoardApi boardAPI = new BoardApiImpl(board);
 
-    Settings settings = new Settings.SettingsBuilder()
+    Setting setting = new Setting.SettingsBuilder()
         .withWinConditionInRange(
             input.getWinConditionInRange(3, boardAPI.getBoardDimension()))
         .build();
 
-    AutoMatchSettings autoMatchSettings = new AutoMatchSettings(boardAPI, false);
+    AutoMatchSetting autoMatchSetting = new AutoMatchSetting(boardAPI, false);
 
-    return new Game(settings, boardAPI, playerAPI, input, output, autoMatchSettings);
+    return new Game(setting, boardAPI, playerAPI, input, output, autoMatchSetting);
   }
 }

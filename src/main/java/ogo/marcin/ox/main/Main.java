@@ -2,12 +2,12 @@ package ogo.marcin.ox.main;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
-import ogo.marcin.ox.automation.AutoMatchSettings;
+import ogo.marcin.ox.automation.AutoMatchSetting;
 import ogo.marcin.ox.board.Board;
 import ogo.marcin.ox.board.BoardApi;
 import ogo.marcin.ox.board.BoardApiImpl;
 import ogo.marcin.ox.game.Game;
-import ogo.marcin.ox.game.Settings;
+import ogo.marcin.ox.game.Setting;
 import ogo.marcin.ox.io.Input;
 import ogo.marcin.ox.io.InputImpl;
 import ogo.marcin.ox.io.InputValidation;
@@ -43,14 +43,14 @@ class Main {
       int MIN_WIN_CONDITION = 3;
       int MAX_WIN_CONDITION = boardAPI.getBoardDimension();
 
-      Settings settings = new Settings.SettingsBuilder()
+      Setting setting = new Setting.SettingsBuilder()
           .withWinConditionInRange(
               input.getWinConditionInRange(MIN_WIN_CONDITION, MAX_WIN_CONDITION))
           .build();
 
-      AutoMatchSettings autoMatchSettings = new AutoMatchSettings(boardAPI, false);
+      AutoMatchSetting autoMatchSetting = new AutoMatchSetting(boardAPI, false);
 
-      Game game = new Game(settings, boardAPI, playerAPI, input, output, autoMatchSettings);
+      Game game = new Game(setting, boardAPI, playerAPI, input, output, autoMatchSetting);
       game.play();
     } catch (QuitGameException e) {
       System.out.println(e.getMessage());

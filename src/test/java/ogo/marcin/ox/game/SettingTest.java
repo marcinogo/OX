@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
  * @author Marcin Ogorzalek
  */
 @Test
-public class SettingsTest {
+public class SettingTest {
 
   @DataProvider
   public static Object[][] createSettings() {
@@ -25,11 +25,11 @@ public class SettingsTest {
 
   @Test(dataProvider = "createSettings")
   public void testCreateSettings(int winCondition, int numberOfRounds, Sign sign) {
-    Settings settings = new Settings.SettingsBuilder().withWinConditionInRange(winCondition)
+    Setting setting = new Setting.SettingsBuilder().withWinConditionInRange(winCondition)
         .withDefaultSing(sign)
         .withNumberOfRounds(numberOfRounds)
         .build();
-    Optional<Settings> optionalSettings = Optional.ofNullable(settings);
+    Optional<Setting> optionalSettings = Optional.ofNullable(setting);
     assert optionalSettings.isPresent() : "Setting should be created";
   }
 }

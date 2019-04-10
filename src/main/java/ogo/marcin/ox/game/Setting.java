@@ -5,19 +5,19 @@ import ogo.marcin.ox.board.Sign;
 /**
  * @author Marcin Ogorzalek
  */
-public class Settings {
+public class Setting {
 
   private final Sign defaultSign;
   private final int winCondition;
   private final int numberOfRounds;
 
-  private Settings(Sign defaultSign, int winCondition, int numberOfRounds) {
+  private Setting(Sign defaultSign, int winCondition, int numberOfRounds) {
     this.defaultSign = defaultSign;
     this.winCondition = winCondition;
     this.numberOfRounds = numberOfRounds;
   }
 
-  private Settings(SettingsBuilder settingsBuilder) {
+  private Setting(SettingsBuilder settingsBuilder) {
     this(settingsBuilder.defaultSign, settingsBuilder.winCondition, settingsBuilder.numberOfRounds);
   }
 
@@ -48,11 +48,11 @@ public class Settings {
       this.isAutomated = isAutomated;
     }
 
-    public Settings build() {
+    public Setting build() {
       if (!isAutomated) {
         defaultSetup();
       }
-      return new Settings(this);
+      return new Setting(this);
     }
 
     public SettingsBuilder withWinConditionInRange(int winCondition) {

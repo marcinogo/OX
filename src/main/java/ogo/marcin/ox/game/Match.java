@@ -2,7 +2,7 @@ package ogo.marcin.ox.game;
 
 import java.util.List;
 import java.util.Optional;
-import ogo.marcin.ox.automation.AutoMatchSettings;
+import ogo.marcin.ox.automation.AutoMatchSetting;
 import ogo.marcin.ox.board.BoardApi;
 import ogo.marcin.ox.io.Input;
 import ogo.marcin.ox.io.Localization;
@@ -21,19 +21,19 @@ class Match {
   private final PlayerApi playerAPI;
   private final Judge judge;
 
-  private final AutoMatchSettings autoMatchSettings;
+  private final AutoMatchSetting autoMatchSetting;
 
   private boolean isWinner;
 
   Match(Input input, Output output,
       BoardApi boardAPI, PlayerApi playerAPI,
-      Judge judge, AutoMatchSettings autoMatchSettings) {
+      Judge judge, AutoMatchSetting autoMatchSetting) {
     this.input = input;
     this.output = output;
     this.boardAPI = boardAPI;
     this.playerAPI = playerAPI;
     this.judge = judge;
-    this.autoMatchSettings = autoMatchSettings;
+    this.autoMatchSetting = autoMatchSetting;
   }
 
   void play() {
@@ -43,18 +43,18 @@ class Match {
 
   private Optional<Player> playMatch(Judge judge) {
     Player winner = null;
-    if (!autoMatchSettings.isAutomated()) {
+    if (!autoMatchSetting.isAutomated()) {
       output.print(Localization.LanguageKey.START_OF_MATCH);
     }
     do {
       for (Player player : playerAPI.getPlayers()) {
-        if (!autoMatchSettings.isAutomated()) {
+        if (!autoMatchSetting.isAutomated()) {
           output.print(boardAPI.getBoard().toString());
         }
         if (!judge.isFreeSpaceOnBoard()) {
           break;
         }
-        if (!autoMatchSettings.isAutomated()) {
+        if (!autoMatchSetting.isAutomated()) {
           output.printf(Localization.LanguageKey.PLAYER_WITH_MOVE,
               playerAPI.getPlayerName(player), playerAPI.getPlayerSign(player));
         }
@@ -64,7 +64,7 @@ class Match {
         }
       }
     } while (judge.isFreeSpaceOnBoard() && !isWinner);
-    if (!autoMatchSettings.isAutomated()) {
+    if (!autoMatchSetting.isAutomated()) {
       output.print(Localization.LanguageKey.END_OF_MATCH);
     }
     output.print(boardAPI.getBoard().toString());
@@ -73,7 +73,7 @@ class Match {
 
   private Boolean playPlayerTurn(Player player) {
     Coordinates coordinates;
-    if (!autoMatchSettings.isAutomated()) {
+    if (!autoMatchSetting.isAutomated()) {
       coordinates = input.getCoordinates(judge);
     } else {
       coordinates = playAiPlayer(player);
@@ -85,9 +85,9 @@ class Match {
   private Coordinates playAiPlayer(Player player) {
     Coordinates coordinates;
     if (playerAPI.getPlayerName(player).equals("O-AI")) {
-      coordinates = moveAiPlayer(autoMatchSettings.getListOfMovesOAi());
+      coordinates = moveAiPlayer(autoMatchSetting.getListOfMovesOAi());
     } else {
-      coordinates = moveAiPlayer(autoMatchSettings.getListOfMovesXAi());
+      coordinates = moveAiPlayer(autoMatchSetting.getListOfMovesXAi());
     }
     return coordinates;
   }

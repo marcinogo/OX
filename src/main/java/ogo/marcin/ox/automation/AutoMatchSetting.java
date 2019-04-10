@@ -11,7 +11,7 @@ import ogo.marcin.ox.board.BoardApi;
 /**
  * @author Marcin Ogorzalek
  */
-public class AutoMatchSettings {
+public class AutoMatchSetting {
 
   private final BoardApi boardAPI;
   private final boolean isAutomated;
@@ -19,14 +19,14 @@ public class AutoMatchSettings {
   private List<Integer> listOfMovesXAi;
   private List<Integer> listOfMovesOAi;
 
-  AutoMatchSettings(BoardApi boardAPI, boolean isAutomated,
+  AutoMatchSetting(BoardApi boardAPI, boolean isAutomated,
       Map<String, List<Integer>> winPatterns) {
     this.boardAPI = boardAPI;
     this.isAutomated = isAutomated;
     this.winPatterns = winPatterns;
   }
 
-  public AutoMatchSettings(BoardApi boardAPI, boolean isAutomated) {
+  public AutoMatchSetting(BoardApi boardAPI, boolean isAutomated) {
     this(boardAPI, isAutomated, new HashMap<>());
   }
 

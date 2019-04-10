@@ -9,11 +9,11 @@ import ogo.marcin.ox.board.Sign;
 public class Judge {
 
   private final BoardApi boardAPI;
-  private final Settings settings;
+  private final Setting setting;
 
-  Judge(BoardApi boardAPI, Settings settings) {
+  Judge(BoardApi boardAPI, Setting setting) {
     this.boardAPI = boardAPI;
-    this.settings = settings;
+    this.setting = setting;
   }
 
   boolean isFreeSpaceOnBoard() {
@@ -21,11 +21,11 @@ public class Judge {
   }
 
   public boolean isPlayerSignSetOnFreeSpace(Coordinates coordinates) {
-    return boardAPI.isCoordinatesPointsToDefaultSign(settings.getDefaultSign(), coordinates);
+    return boardAPI.isCoordinatesPointsToDefaultSign(setting.getDefaultSign(), coordinates);
   }
 
   boolean isPlayerWon(Sign playerSign, Coordinates coordinates) {
     return boardAPI
-        .whetherWinningConditionHasBeenMet(playerSign, coordinates, settings.getWinCondition());
+        .whetherWinningConditionHasBeenMet(playerSign, coordinates, setting.getWinCondition());
   }
 }
