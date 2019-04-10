@@ -6,7 +6,7 @@ import ogo.marcin.ox.board.Sign;
 /**
  * @author Marcin Ogorzalek
  */
-public interface PlayerAPI {
+public interface PlayerApi {
 
   //    List<Player> createPlayers(Input input, Output output);
   Player setPlayerPoints(Player player, int newNumberOfPoints);

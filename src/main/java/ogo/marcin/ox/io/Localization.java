@@ -4,6 +4,8 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 /**
+ * Contains logic for bilingualism of application
+ *
  * @author Marcin Ogorzalek
  */
 public class Localization {
@@ -14,6 +16,11 @@ public class Localization {
     setResourceBundleLanguage("POLISH");
   }
 
+  /**
+   * Allow to choose application language. Default option is english.
+   *
+   * @param language name of a language choose by a user
+   */
   public static void setResourceBundleLanguage(String language) {
     switch (language.toUpperCase()) {
       case "POLISH":
@@ -30,6 +37,11 @@ public class Localization {
     }
   }
 
+  /**
+   * Return localized version of text with given key from file .properties
+   *
+   * @return localized text
+   */
   public static String getLocalizedText(LanguageKey languageKey) {
     return Localization.resourceBundle.getString(languageKey.name());
   }
@@ -49,6 +61,10 @@ public class Localization {
     }
   }
 
+  /**
+   * Contains keys for all possible text messages defined in OX_en_EN.properties
+   * and OX_pl_PL.properties
+   */
   public enum LanguageKey {
     //        Language configuration
     CHOOSE_LANGUAGE, NO_LANGUAGE_EXCEPTION,

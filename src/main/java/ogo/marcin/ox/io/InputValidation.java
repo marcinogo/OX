@@ -6,6 +6,8 @@ import ogo.marcin.ox.game.Judge;
 import ogo.marcin.ox.io.Localization.LanguageKey;
 
 /**
+ * Contains methods to validate user inputs
+ *
  * @author Marcin Ogorzalek
  */
 public class InputValidation {

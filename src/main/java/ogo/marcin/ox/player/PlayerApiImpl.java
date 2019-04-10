@@ -6,11 +6,11 @@ import ogo.marcin.ox.board.Sign;
 /**
  * @author Marcin Ogorzalek
  */
-public class PlayerAPIImpl implements PlayerAPI {
+public class PlayerApiImpl implements PlayerApi {
 
   private final List<Player> players;
 
-  public PlayerAPIImpl(List<Player> players) {
+  public PlayerApiImpl(List<Player> players) {
     this.players = players;
   }
 

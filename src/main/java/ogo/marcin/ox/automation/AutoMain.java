@@ -8,8 +8,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 import ogo.marcin.ox.board.Board;
-import ogo.marcin.ox.board.BoardAPI;
-import ogo.marcin.ox.board.BoardAPIImpl;
+import ogo.marcin.ox.board.BoardApi;
+import ogo.marcin.ox.board.BoardApiImpl;
 import ogo.marcin.ox.board.BoardDimension;
 import ogo.marcin.ox.board.Sign;
 import ogo.marcin.ox.game.Game;
@@ -22,10 +22,13 @@ import ogo.marcin.ox.io.Output;
 import ogo.marcin.ox.io.OutputImpl;
 import ogo.marcin.ox.io.QuitGameException;
 import ogo.marcin.ox.player.Player;
-import ogo.marcin.ox.player.PlayerAPI;
-import ogo.marcin.ox.player.PlayerAPIImpl;
+import ogo.marcin.ox.player.PlayerApi;
+import ogo.marcin.ox.player.PlayerApiImpl;
 
 /**
+ * Starting point for automated tests. After configuration
+ * results are saved to file "automated_test.txt".
+ *
  * @author Marcin Ogorzalek
  */
 class AutoMain {
@@ -44,13 +47,13 @@ class AutoMain {
       Board board = new Board.BoardBuilder()
           .withDimension(boardDimension)
           .build();
-      BoardAPI boardAPI = new BoardAPIImpl(board);
+      BoardApi boardApi = new BoardApiImpl(board);
 
       int MIN_BOARD_SIZE = 3;
-      int winCondition = input.getWinConditionInRange(MIN_BOARD_SIZE, boardAPI.getBoardDimension());
+      int winCondition = input.getWinConditionInRange(MIN_BOARD_SIZE, boardApi.getBoardDimension());
 
       WinConditionGenerator winConditionGenerator = new WinConditionGenerator(
-          boardAPI.getBoardDimension(),
+          boardApi.getBoardDimension(),
           winCondition);
       winConditionGenerator.generateWinPatternRows()
           .generateWinPatternColumns()
@@ -60,7 +63,7 @@ class AutoMain {
       int numberOfRounds = winConditionGenerator.winPatterns.size();
 
       List<Player> players = new LinkedList<>();
-      PlayerAPI playerAPI = new PlayerAPIImpl(players);
+      PlayerApi playerApi = new PlayerApiImpl(players);
       players.add(new Player.PlayerBuilder().withName("X-AI").withSign("X").build());
       players.add(new Player.PlayerBuilder().withName("O-AI").withSign("O").build());
 
@@ -70,10 +73,10 @@ class AutoMain {
           .withDefaultSing(Sign.DEFAULT)
           .build();
 
-      AutoMatchSettings autoMatchSettings = new AutoMatchSettings(boardAPI,
+      AutoMatchSettings autoMatchSettings = new AutoMatchSettings(boardApi,
           true, winConditionGenerator.winPatterns);
 
-      Game game = new Game(settings, boardAPI, playerAPI, input, output, autoMatchSettings);
+      Game game = new Game(settings, boardApi, playerApi, input, output, autoMatchSettings);
       game.play();
     } catch (IOException e) {
       System.err.println(e.getMessage());

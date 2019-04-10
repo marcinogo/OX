@@ -1,6 +1,6 @@
 package ogo.marcin.ox.game;
 
-import ogo.marcin.ox.board.BoardAPI;
+import ogo.marcin.ox.board.BoardApi;
 import ogo.marcin.ox.board.Sign;
 import org.mockito.Mockito;
 import org.testng.annotations.Test;
@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
 public class JudgeTest {
 
   public void testFreeSpaceOnBoardReturnTrue() {
-    BoardAPI boardAPI = Mockito.mock(BoardAPI.class);
+    BoardApi boardAPI = Mockito.mock(BoardApi.class);
     Settings settings = Mockito.mock(Settings.class);
 
     Judge judge = new Judge(boardAPI, settings);
@@ -23,7 +23,7 @@ public class JudgeTest {
   }
 
   public void testIsPlayerSignSetOnFreeSpace() {
-    BoardAPI boardAPI = Mockito.mock(BoardAPI.class);
+    BoardApi boardAPI = Mockito.mock(BoardApi.class);
     Settings settings = Mockito.mock(Settings.class);
 
     Judge judge = new Judge(boardAPI, settings);
@@ -34,7 +34,7 @@ public class JudgeTest {
   }
 
   public void testIsPlayerWon() {
-    BoardAPI boardAPI = Mockito.mock(BoardAPI.class);
+    BoardApi boardAPI = Mockito.mock(BoardApi.class);
     Settings settings = Mockito.mock(Settings.class);
 
     Judge judge = new Judge(boardAPI, settings);

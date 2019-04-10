@@ -1,6 +1,6 @@
 package ogo.marcin.ox.game;
 
-import ogo.marcin.ox.board.BoardAPI;
+import ogo.marcin.ox.board.BoardApi;
 import ogo.marcin.ox.board.Sign;
 
 /**
@@ -8,10 +8,10 @@ import ogo.marcin.ox.board.Sign;
  */
 public class Judge {
 
-  private final BoardAPI boardAPI;
+  private final BoardApi boardAPI;
   private final Settings settings;
 
-  Judge(BoardAPI boardAPI, Settings settings) {
+  Judge(BoardApi boardAPI, Settings settings) {
     this.boardAPI = boardAPI;
     this.settings = settings;
   }

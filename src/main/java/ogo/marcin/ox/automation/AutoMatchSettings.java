@@ -6,27 +6,27 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.stream.Collectors;
-import ogo.marcin.ox.board.BoardAPI;
+import ogo.marcin.ox.board.BoardApi;
 
 /**
  * @author Marcin Ogorzalek
  */
 public class AutoMatchSettings {
 
-  private final BoardAPI boardAPI;
+  private final BoardApi boardAPI;
   private final boolean isAutomated;
   private final Map<String, List<Integer>> winPatterns;
   private List<Integer> listOfMovesXAi;
   private List<Integer> listOfMovesOAi;
 
-  AutoMatchSettings(BoardAPI boardAPI, boolean isAutomated,
+  AutoMatchSettings(BoardApi boardAPI, boolean isAutomated,
       Map<String, List<Integer>> winPatterns) {
     this.boardAPI = boardAPI;
     this.isAutomated = isAutomated;
     this.winPatterns = winPatterns;
   }
 
-  public AutoMatchSettings(BoardAPI boardAPI, boolean isAutomated) {
+  public AutoMatchSettings(BoardApi boardAPI, boolean isAutomated) {
     this(boardAPI, isAutomated, new HashMap<>());
   }
 

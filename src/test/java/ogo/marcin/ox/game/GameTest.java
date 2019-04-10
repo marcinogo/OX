@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.Scanner;
 import ogo.marcin.ox.automation.AutoMatchSettings;
 import ogo.marcin.ox.board.Board;
-import ogo.marcin.ox.board.BoardAPI;
-import ogo.marcin.ox.board.BoardAPIImpl;
+import ogo.marcin.ox.board.BoardApi;
+import ogo.marcin.ox.board.BoardApiImpl;
 import ogo.marcin.ox.board.Sign;
 import ogo.marcin.ox.io.Input;
 import ogo.marcin.ox.io.InputImpl;
@@ -13,8 +13,8 @@ import ogo.marcin.ox.io.InputValidation;
 import ogo.marcin.ox.io.Output;
 import ogo.marcin.ox.io.QuitGameException;
 import ogo.marcin.ox.player.Player.PlayerBuilder;
-import ogo.marcin.ox.player.PlayerAPI;
-import ogo.marcin.ox.player.PlayerAPIImpl;
+import ogo.marcin.ox.player.PlayerApi;
+import ogo.marcin.ox.player.PlayerApiImpl;
 import ogo.marcin.ox.player.PlayerListCreator;
 import org.mockito.Mockito;
 import org.testng.annotations.Test;
@@ -26,7 +26,7 @@ import org.testng.annotations.Test;
 @Test
 public class GameTest {
 
-  private PlayerAPI playerAPI;
+  private PlayerApi playerAPI;
 
   public void testEndToEndQuitGame() {
     try (Scanner scanner = new Scanner("X\nX\nO\nquit")) {
@@ -93,12 +93,12 @@ public class GameTest {
     if (PlayerBuilder.getUnusedSigns().isEmpty()) {
       PlayerBuilder.getUnusedSigns().addAll(Arrays.asList(Sign.values()));
     }
-    playerAPI = new PlayerAPIImpl(new PlayerListCreator(input, output)
+    playerAPI = new PlayerApiImpl(new PlayerListCreator(input, output)
         .createPlayers());
     Board board = new Board.BoardBuilder()
         .withDimension(input.getBoardDimensions())
         .build();
-    BoardAPI boardAPI = new BoardAPIImpl(board);
+    BoardApi boardAPI = new BoardApiImpl(board);
 
     Settings settings = new Settings.SettingsBuilder()
         .withWinConditionInRange(

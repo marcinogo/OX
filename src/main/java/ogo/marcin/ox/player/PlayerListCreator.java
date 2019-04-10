@@ -7,6 +7,8 @@ import ogo.marcin.ox.io.Localization;
 import ogo.marcin.ox.io.Output;
 
 /**
+ * Create list of 2 players based on provided data from input.
+ *
  * @author Marcin Ogorzalek
  */
 public class PlayerListCreator {
@@ -19,6 +21,11 @@ public class PlayerListCreator {
     this.output = output;
   }
 
+  /**
+   * Return list with users representation in game.
+   *
+   * @return list 2 of players
+   */
   public List<Player> createPlayers() {
     List<Player> players = new ArrayList<>();
     for (int i = 1; i <= 2; i++) {

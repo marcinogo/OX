@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
  * @author Marcin Ogorzalek
  */
 @Test
-public class BoardAPIImplTest {
+public class BoardApiImplTest {
 
   @DataProvider
   public static Object[][] createBoard() {
@@ -29,7 +29,7 @@ public class BoardAPIImplTest {
 
 //    @Test(dataProvider = "createBoard")
 //    public void testCreateBoardDontReturnNull(int width, int height, Sign sign) {
-//        BoardAPI boardAPI = new BoardAPIImpl();
+//        BoardApi boardAPI = new BoardApiImpl();
 //        Coordinates coordinates = new Coordinates(width, height);
 //        Board board = boardAPI.createBoard(coordinates, sign);
 //        assert board != null : "Board should not be null";
@@ -37,7 +37,7 @@ public class BoardAPIImplTest {
 //
 //    @Test(dataProvider = "createBoard")
 //    public void testCreateBoard(int width, int height, Sign sign) {
-//        BoardAPI boardAPI = new BoardAPIImpl();
+//        BoardApi boardAPI = new BoardApiImpl();
 //        Coordinates coordinates = new Coordinates(width, height);
 //        Board board = boardAPI.createBoard(coordinates, sign);
 //        Board expectedBoard = new Board(coordinates).setBoardMatrixCells(sign);
@@ -63,7 +63,7 @@ public class BoardAPIImplTest {
 //    @Test(dataProvider = "setFieldValue")
 //    public void testSetField(int width, int height, int widthToUpdate,
 //                             int heightToUpdate, Sign defaultSign, Sign newSign) {
-//        BoardAPI boardAPI = new BoardAPIImpl();
+//        BoardApi boardAPI = new BoardApiImpl();
 //        Coordinates coordinates = new Coordinates(width, height);
 //        Board defaultBoard = new Board(coordinates).setBoardMatrixCells(defaultSign);
 //        Coordinates coordinatesToUpdate = new Coordinates(widthToUpdate, heightToUpdate);

@@ -2,11 +2,11 @@ package ogo.marcin.ox.game;
 
 import java.util.Collections;
 import ogo.marcin.ox.automation.AutoMatchSettings;
-import ogo.marcin.ox.board.BoardAPI;
+import ogo.marcin.ox.board.BoardApi;
 import ogo.marcin.ox.io.Input;
 import ogo.marcin.ox.io.Localization;
 import ogo.marcin.ox.io.Output;
-import ogo.marcin.ox.player.PlayerAPI;
+import ogo.marcin.ox.player.PlayerApi;
 
 /**
  * @author Marcin Ogorzalek
@@ -14,13 +14,13 @@ import ogo.marcin.ox.player.PlayerAPI;
 public class Game {
 
   private final Settings settings;
-  private final BoardAPI boardAPI;
-  private final PlayerAPI playerAPI;
+  private final BoardApi boardAPI;
+  private final PlayerApi playerAPI;
   private final Input input;
   private final Output output;
   private final AutoMatchSettings autoMatchSettings;
 
-  public Game(Settings settings, BoardAPI boardAPI, PlayerAPI playerAPI,
+  public Game(Settings settings, BoardApi boardAPI, PlayerApi playerAPI,
       Input input, Output output, AutoMatchSettings autoMatchSettings) {
     this.settings = settings;
     this.boardAPI = boardAPI;

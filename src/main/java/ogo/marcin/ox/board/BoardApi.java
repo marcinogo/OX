@@ -5,7 +5,7 @@ import ogo.marcin.ox.game.Coordinates;
 /**
  * @author Marcin Ogorzalek
  */
-public interface BoardAPI {
+public interface BoardApi {
 
   void setField(Coordinates coordinates, Sign sign);
 

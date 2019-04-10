@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
  * @author Marcin Ogorzalek
  */
 @Test
-public class PlayerAPIImplTest {
+public class PlayerApiImplTest {
 
   @DataProvider
   public static Object[][] createPlayer() {
@@ -56,28 +56,28 @@ public class PlayerAPIImplTest {
   public void testIfPlayerPointsCanBeSet(String name, String sign, Integer newNumberOfPoints) {
     Player player = new Player.PlayerBuilder().withName(name).withSign(sign).build();
     Player expected = new Player(name, Sign.valueOf(sign), newNumberOfPoints);
-    PlayerAPI playerAPI = new PlayerAPIImpl(new ArrayList<>());
+    PlayerApi playerAPI = new PlayerApiImpl(new ArrayList<>());
     player = playerAPI.setPlayerPoints(player, newNumberOfPoints);
     assert player.equals(expected) : "Players should have should be equals points";
   }
 
   @Test(dataProvider = "testPlayer")
   public void testGetName(String name, String sign, Integer points) {
-    PlayerAPI playerAPI = new PlayerAPIImpl(new ArrayList<>());
+    PlayerApi playerAPI = new PlayerApiImpl(new ArrayList<>());
     Player player = new Player(name, Sign.valueOf(sign), points);
     assert playerAPI.getPlayerName(player).equals(name) : "Player should be returned";
   }
 
   @Test(dataProvider = "testPlayer")
   public void testGetSign(String name, String sign, Integer points) {
-    PlayerAPI playerAPI = new PlayerAPIImpl(new ArrayList<>());
+    PlayerApi playerAPI = new PlayerApiImpl(new ArrayList<>());
     Player player = new Player(name, Sign.valueOf(sign), points);
     assert playerAPI.getPlayerSign(player).equals(Sign.valueOf(sign)) : "Player sign be returned";
   }
 
   @Test(dataProvider = "testPlayer")
   public void testGetPoints(String name, String sign, Integer points) {
-    PlayerAPI playerAPI = new PlayerAPIImpl(new ArrayList<>());
+    PlayerApi playerAPI = new PlayerApiImpl(new ArrayList<>());
     Player player = new Player(name, Sign.valueOf(sign), points);
     assert playerAPI.getPlayerPoints(player) == points : "Player sign be returned";
   }

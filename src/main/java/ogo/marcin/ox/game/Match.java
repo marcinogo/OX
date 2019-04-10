@@ -3,12 +3,12 @@ package ogo.marcin.ox.game;
 import java.util.List;
 import java.util.Optional;
 import ogo.marcin.ox.automation.AutoMatchSettings;
-import ogo.marcin.ox.board.BoardAPI;
+import ogo.marcin.ox.board.BoardApi;
 import ogo.marcin.ox.io.Input;
 import ogo.marcin.ox.io.Localization;
 import ogo.marcin.ox.io.Output;
 import ogo.marcin.ox.player.Player;
-import ogo.marcin.ox.player.PlayerAPI;
+import ogo.marcin.ox.player.PlayerApi;
 
 /**
  * @author Marcin Ogorzalek
@@ -17,8 +17,8 @@ class Match {
 
   private final Input input;
   private final Output output;
-  private final BoardAPI boardAPI;
-  private final PlayerAPI playerAPI;
+  private final BoardApi boardAPI;
+  private final PlayerApi playerAPI;
   private final Judge judge;
 
   private final AutoMatchSettings autoMatchSettings;
@@ -26,7 +26,7 @@ class Match {
   private boolean isWinner;
 
   Match(Input input, Output output,
-      BoardAPI boardAPI, PlayerAPI playerAPI,
+      BoardApi boardAPI, PlayerApi playerAPI,
       Judge judge, AutoMatchSettings autoMatchSettings) {
     this.input = input;
     this.output = output;

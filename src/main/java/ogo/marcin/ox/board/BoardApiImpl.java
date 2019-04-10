@@ -5,12 +5,12 @@ import ogo.marcin.ox.game.Coordinates;
 /**
  * @author Marcin Ogorzalek
  */
-public class BoardAPIImpl implements BoardAPI {
+public class BoardApiImpl implements BoardApi {
 
   private Board board;
   private int occupiedFields;
 
-  public BoardAPIImpl(Board board) {
+  public BoardApiImpl(Board board) {
     this.board = board;
     this.occupiedFields = 0;
   }

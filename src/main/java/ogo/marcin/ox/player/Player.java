@@ -8,6 +8,8 @@ import ogo.marcin.ox.board.Sign;
 import ogo.marcin.ox.io.Localization;
 
 /**
+ * Representation of user during game.
+ *
  * @author Marcin Ogorzalek
  */
 public class Player implements Comparable<Player> {
@@ -70,6 +72,11 @@ public class Player implements Comparable<Player> {
     return this.points - o.points;
   }
 
+  /**
+   * Build Player object based on user inputs.
+   *
+   * @author Marcin Ogorzalek
+   */
   public static class PlayerBuilder {
 
     static final List<Sign> unusedSigns = new LinkedList<>(Arrays.asList(Sign.values()));
@@ -82,14 +89,29 @@ public class Player implements Comparable<Player> {
       unusedSigns.remove(Sign.DEFAULT);
     }
 
+    /**
+     * Return list of free signs to pick by user.
+     *
+     * @return list of unused signs
+     */
     public static List<Sign> getUnusedSigns() {
       return unusedSigns;
     }
 
+    /**
+     * Build Player based on data provided by user.
+     *
+     * @return user representation in game
+     */
     public Player build() {
       return new Player(this);
     }
 
+    /**
+     * Provide user name for Player creation
+     *
+     * @return PlayerBuilder
+     */
     public PlayerBuilder withName(String name) throws PlayerNameException {
       if (!PlayerDataValidation.validateName(name)) {
         throw new PlayerNameException(Localization.getLocalizedText(
@@ -99,6 +121,11 @@ public class Player implements Comparable<Player> {
       return this;
     }
 
+    /**
+     * Provide user sign for Player creation
+     *
+     * @return PlayerBuilder
+     */
     public PlayerBuilder withSign(String signString) throws PlayerSignException {
       if (signString == null || !PlayerDataValidation.validateSignString(signString)) {
         throw new PlayerSignException(Localization.getLocalizedText(
