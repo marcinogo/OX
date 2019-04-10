@@ -82,6 +82,10 @@ public class Player implements Comparable<Player> {
       unusedSigns.remove(Sign.DEFAULT);
     }
 
+    public static List<Sign> getUnusedSigns() {
+      return unusedSigns;
+    }
+
     public Player build() {
       return new Player(this);
     }
@@ -103,10 +107,6 @@ public class Player implements Comparable<Player> {
       this.playerSign = Sign.valueOf(signString);
       unusedSigns.remove(this.playerSign);
       return this;
-    }
-
-    public static List<Sign> getUnusedSigns() {
-      return unusedSigns;
     }
   }
 

@@ -1,7 +1,6 @@
 package ogo.marcin.ox.game;
 
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.Scanner;
 import ogo.marcin.ox.automation.AutoMatchSettings;
 import ogo.marcin.ox.board.Board;
@@ -28,7 +27,7 @@ import org.testng.annotations.Test;
 public class GameTest {
 
   public void testEndToEndQuitGame() {
-    try (Scanner scanner = new Scanner("X\nX\nO\nquit")){
+    try (Scanner scanner = new Scanner("X\nX\nO\nquit")) {
       setupGame(scanner).play();
     } catch (QuitGameException e) {
       System.out.println(e.getMessage());
@@ -42,7 +41,7 @@ public class GameTest {
             + "1%n2%n3%n4%n5%n6%n7%n"
             + "1%n2%n3%n4%n5%n6%n7"
     );
-    try (Scanner scanner = new Scanner(userSequence)){
+    try (Scanner scanner = new Scanner(userSequence)) {
       setupGame(scanner).play();
     } catch (QuitGameException e) {
       System.out.println(e.getMessage());
@@ -56,7 +55,7 @@ public class GameTest {
             + "2%n1%n4%n3%n6%n5%n8%n7%n"
             + "2%n1%n4%n3%n6%n5%n8%n7"
     );
-    try (Scanner scanner = new Scanner(userSequence)){
+    try (Scanner scanner = new Scanner(userSequence)) {
       setupGame(scanner).play();
     } catch (QuitGameException e) {
       System.out.println(e.getMessage());
@@ -70,7 +69,7 @@ public class GameTest {
             + "1%n3%n2%n4%n5%n8%n6%n9%n7%n"
             + "1%n3%n2%n4%n5%n8%n6%n9%n7"
     );
-    try (Scanner scanner = new Scanner(userSequence)){
+    try (Scanner scanner = new Scanner(userSequence)) {
       setupGame(scanner).play();
     } catch (QuitGameException e) {
       System.out.println(e.getMessage());
@@ -81,7 +80,7 @@ public class GameTest {
     Output output = Mockito.mock(Output.class);
     InputValidation inputValidation = new InputValidation();
     Input input = new InputImpl(scanner, output, inputValidation);
-    if(PlayerBuilder.getUnusedSigns().isEmpty()) {
+    if (PlayerBuilder.getUnusedSigns().isEmpty()) {
       PlayerBuilder.getUnusedSigns().addAll(Arrays.asList(Sign.values()));
     }
     PlayerAPI playerAPI = new PlayerAPIImpl(new PlayerListCreator(input, output)

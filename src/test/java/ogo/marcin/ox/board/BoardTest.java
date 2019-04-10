@@ -89,6 +89,24 @@ public class BoardTest {
     };
   }
 
+  @DataProvider
+  public static Object[][] testBuilder() {
+    return new Object[][]{
+        {3},
+        {5},
+        {5},
+        {7},
+        {4},
+        {30},
+        {20},
+        {3},
+        {30},
+        {30},
+        {30},
+        {20},
+    };
+  }
+
   @Test(dataProvider = "createBoard")
   public void testIfBoardHaveDimensions(int edge) {
     BoardDimension boardDimension = new BoardDimension.BoardDimensionBuilder()
@@ -218,24 +236,6 @@ public class BoardTest {
     Board board1 = new Board(boardDimension);
     Board board2 = new Board(boardDimension);
     assert board1.hashCode() == board2.hashCode() : "HashCodes should be equals";
-  }
-
-  @DataProvider
-  public static Object[][] testBuilder() {
-    return new Object[][]{
-        {3},
-        {5},
-        {5},
-        {7},
-        {4},
-        {30},
-        {20},
-        {3},
-        {30},
-        {30},
-        {30},
-        {20},
-    };
   }
 
   @Test(dataProvider = "testBuilder")
