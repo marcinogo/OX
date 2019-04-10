@@ -4,6 +4,8 @@ import ogo.marcin.ox.game.Coordinates;
 import ogo.marcin.ox.io.Localization;
 
 /**
+ * Enclose board edge size.
+ *
  * @author Marcin Ogorzalek
  */
 public class BoardDimension {
@@ -26,14 +28,29 @@ public class BoardDimension {
     return boardEdge;
   }
 
+  /**
+   * Build BoardDimension based on data provided by user.
+   *
+   * @author Marcin Ogorzalek
+   */
   public static class BoardDimensionBuilder {
 
     private int boardEdge;
 
+    /**
+     * Build BoardDimension based on data provided by user.
+     *
+     * @return representation of board edge
+     */
     public BoardDimension build() {
       return new BoardDimension(this);
     }
 
+    /**
+     * Provide size of board edge for BoardDimension creation
+     *
+     * @return PlayerBuilder
+     */
     public BoardDimensionBuilder withBoardEdgeSize(int boardEdge) throws BoardSizeException {
       if (!isEdgeCorrect(boardEdge)) {
         throw new BoardSizeException(String.format(

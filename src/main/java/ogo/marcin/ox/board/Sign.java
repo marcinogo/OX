@@ -1,6 +1,8 @@
 package ogo.marcin.ox.board;
 
 /**
+ * All possible values of board field.
+ *
  * @author Marcin Ogorzalek
  */
 public enum Sign {

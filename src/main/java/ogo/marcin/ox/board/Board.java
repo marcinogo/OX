@@ -5,6 +5,8 @@ import java.util.Objects;
 import ogo.marcin.ox.game.Coordinates;
 
 /**
+ * Represents game board of Tic Tac Toe.
+ *
  * @author Marcin Ogorzalek
  */
 public class Board {
@@ -90,15 +92,30 @@ public class Board {
     return edge;
   }
 
+  /**
+   * Build Board object based on data provided by user.
+   *
+   * @author Marcin Ogorzalek
+   */
   public static class BoardBuilder {
 
     private BoardDimension dimension;
 
+    /**
+     * Build Board object based on data provided by user.
+     *
+     * @return board representation in game
+     */
     public Board build() {
       Board board = new Board(dimension);
       return board.setBoardMatrixCells(Sign.DEFAULT);
     }
 
+    /**
+     * Provide size of Board edge.
+     *
+     * @return BoardBuilder
+     */
     public BoardBuilder withDimension(BoardDimension dimension) {
       this.dimension = dimension;
       return this;

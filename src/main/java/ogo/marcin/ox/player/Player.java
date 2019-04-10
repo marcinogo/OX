@@ -73,7 +73,7 @@ public class Player implements Comparable<Player> {
   }
 
   /**
-   * Build Player object based on user inputs.
+   * Build Player object based on data provided by user.
    *
    * @author Marcin Ogorzalek
    */
