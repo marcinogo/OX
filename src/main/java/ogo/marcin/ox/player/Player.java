@@ -96,7 +96,7 @@ public class Player implements Comparable<Player> {
     }
 
     public PlayerBuilder withSign(String signString) throws PlayerSignException {
-      if (!PlayerDataValidation.validateSignString(signString)) {
+      if (signString == null || !PlayerDataValidation.validateSignString(signString)) {
         throw new PlayerSignException(Localization.getLocalizedText(
             Localization.LanguageKey.PLAYER_SIGN_EXCEPTION));
       }

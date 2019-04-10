@@ -80,4 +80,40 @@ public class PlayerTest {
         String expected = String.format("%s with sign %s have: %d points", name, sign, points);
         assert player.toString().equals(expected) : "toString give wrong output";
     }
+
+    @DataProvider
+    public static Object[][] testNoName(){
+        return new Object[][] {
+            {null},
+            {""},
+            {"     "},
+            {"  "},
+        };
+    }
+
+    @Test(dataProvider = "testNoName", expectedExceptions = PlayerNameException.class)
+    public void testPlayerThrowsExceptionWhenNoName(String name) {
+        Player player = new Player.PlayerBuilder().withName(name).withSign("X").build();
+        assert player != null : "PlayerBuilder should throw PlayerNameException";
+    }
+
+
+    @DataProvider
+    public static Object[][] testWrongSign(){
+        return new Object[][] {
+            {null},
+            {""},
+            {"     "},
+            {"  "},
+            {"Z"},
+            {"Tomek"},
+            {"1"},
+        };
+    }
+
+    @Test(dataProvider = "testWrongSign", expectedExceptions = PlayerSignException.class)
+    public void testPlayerThrowsExceptionWhenWrongSign(String signString) {
+        Player player = new Player.PlayerBuilder().withName("test").withSign(signString).build();
+        assert player != null : "PlayerBuilder should throw PlayerSignException";
+    }
 }
