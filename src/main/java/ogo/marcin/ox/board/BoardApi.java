@@ -37,7 +37,7 @@ public interface BoardApi {
    * Check if field under given coordinates have default value.
    *
    * @param defaultSign default sign of board.
-   * @param coordinates field on board..
+   * @param coordinates coordinates of field on board.
    */
   boolean isCoordinatesPointsToDefaultSign(Sign defaultSign, Coordinates coordinates);
 

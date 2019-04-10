@@ -9,6 +9,8 @@ import ogo.marcin.ox.io.Output;
 import ogo.marcin.ox.player.PlayerApi;
 
 /**
+ * Connects all parts of application and allow conduct game.
+ *
  * @author Marcin Ogorzalek
  */
 public class Game {
@@ -30,6 +32,9 @@ public class Game {
     this.autoMatchSetting = autoMatchSetting;
   }
 
+  /**
+   * Main loop of the game.
+   */
   public void play() {
     for (int i = 0; i < setting.getNumberOfRounds(); i++) {
       Judge judge = new Judge(boardAPI, setting);

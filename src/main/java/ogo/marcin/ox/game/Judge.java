@@ -4,6 +4,8 @@ import ogo.marcin.ox.board.BoardApi;
 import ogo.marcin.ox.board.Sign;
 
 /**
+ * Provide various validation for game.
+ *
  * @author Marcin Ogorzalek
  */
 public class Judge {
@@ -20,6 +22,11 @@ public class Judge {
     return boardAPI.isFreeSpaceOnBoard();
   }
 
+  /**
+   * Check if field under given coordinates have default value.
+   *
+   * @param coordinates coordinates of field on board.
+   */
   public boolean isPlayerSignSetOnFreeSpace(Coordinates coordinates) {
     return boardAPI.isCoordinatesPointsToDefaultSign(setting.getDefaultSign(), coordinates);
   }

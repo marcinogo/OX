@@ -3,6 +3,8 @@ package ogo.marcin.ox.game;
 import ogo.marcin.ox.io.Localization;
 
 /**
+ * Represents a user move on board
+ *
  * @author Marcin Ogorzalek
  */
 public class Coordinates {
@@ -22,6 +24,11 @@ public class Coordinates {
     this(coordinatesBuilder.xOfMove, coordinatesBuilder.yOfMove);
   }
 
+  /**
+   * Set upper bound for coordinates.
+   *
+   * @param boardEdge size of board edge
+   */
   public static void setCoordinatesMaxXY(int boardEdge) {
     Coordinates.MAX_COMPONENT_OF_MOVE_INDEX = boardEdge;
   }
@@ -34,15 +41,30 @@ public class Coordinates {
     return yOfMove;
   }
 
+  /**
+   * Build Coordinates object based on data provided by user.
+   *
+   * @author Marcin Ogorzalek
+   */
   public static class CoordinatesBuilder {
 
     private int xOfMove;
     private int yOfMove;
 
+    /**
+     * Build Coordinates object based on data provided by user.
+     *
+     * @return Coordinates
+     */
     public Coordinates build() {
       return new Coordinates(this);
     }
 
+    /**
+     * Provide user move position on board
+     *
+     * @return CoordinatesBuilder
+     */
     public CoordinatesBuilder withMovePosition(int move) throws PlayerMoveOutOfBoardException {
       setXOfMove(move);
       setYOfMove(move);

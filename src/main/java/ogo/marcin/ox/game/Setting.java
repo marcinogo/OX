@@ -3,6 +3,8 @@ package ogo.marcin.ox.game;
 import ogo.marcin.ox.board.Sign;
 
 /**
+ * Setting of a game.
+ *
  * @author Marcin Ogorzalek
  */
 public class Setting {
@@ -33,6 +35,11 @@ public class Setting {
     return numberOfRounds;
   }
 
+  /**
+   * Build Settings based on data provided by user.
+   *
+   * @author Marcin Ogorzalek
+   */
   public static class SettingsBuilder {
 
     private Sign defaultSign;
@@ -48,6 +55,11 @@ public class Setting {
       this.isAutomated = isAutomated;
     }
 
+    /**
+     * Build Settings based on data provided by user.
+     *
+     * @return settings of a game.
+     */
     public Setting build() {
       if (!isAutomated) {
         defaultSetup();
@@ -55,16 +67,31 @@ public class Setting {
       return new Setting(this);
     }
 
+    /**
+     * Provide win condition based on user input.
+     *
+     * @return SettingsBuilder
+     */
     public SettingsBuilder withWinConditionInRange(int winCondition) {
       this.winCondition = winCondition;
       return this;
     }
 
+    /**
+     * Provide number of game rounds based on user input.
+     *
+     * @return SettingsBuilder
+     */
     public SettingsBuilder withNumberOfRounds(int numberOfRounds) {
       this.numberOfRounds = numberOfRounds;
       return this;
     }
 
+    /**
+     * Provide default sign of board's fields based on user input.
+     *
+     * @return SettingsBuilder
+     */
     public SettingsBuilder withDefaultSing(Sign sign) {
       this.defaultSign = sign;
       return this;
