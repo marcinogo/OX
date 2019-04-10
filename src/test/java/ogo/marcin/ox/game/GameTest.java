@@ -25,6 +25,7 @@ import org.testng.annotations.Test;
 
 @Test
 public class GameTest {
+
   private PlayerAPI playerAPI;
 
   public void testEndToEndQuitGame() {
