@@ -11,34 +11,37 @@ import org.testng.annotations.Test;
 
 @Test
 public class JudgeTest {
-    public void testFreeSpaceOnBoardReturnTrue() {
-        BoardAPI boardAPI = Mockito.mock(BoardAPI.class);
-        Settings settings = Mockito.mock(Settings.class);
 
-        Judge judge = new Judge(boardAPI, settings);
+  public void testFreeSpaceOnBoardReturnTrue() {
+    BoardAPI boardAPI = Mockito.mock(BoardAPI.class);
+    Settings settings = Mockito.mock(Settings.class);
 
-        judge.isFreeSpaceOnBoard();
-        Mockito.verify(boardAPI).isFreeSpaceOnBoard();
-    }
+    Judge judge = new Judge(boardAPI, settings);
 
-    public void testIsPlayerSignSetOnFreeSpace() {
-        BoardAPI boardAPI = Mockito.mock(BoardAPI.class);
-        Settings settings = Mockito.mock(Settings.class);
+    judge.isFreeSpaceOnBoard();
+    Mockito.verify(boardAPI).isFreeSpaceOnBoard();
+  }
 
-        Judge judge = new Judge(boardAPI, settings);
-        Coordinates coordinates = Mockito.mock(Coordinates.class);
-        judge.isPlayerSignSetOnFreeSpace(coordinates);
-        Mockito.verify(boardAPI).isCoordinatesPointsToDefaultSign(settings.getDefaultSign(), coordinates);
-    }
+  public void testIsPlayerSignSetOnFreeSpace() {
+    BoardAPI boardAPI = Mockito.mock(BoardAPI.class);
+    Settings settings = Mockito.mock(Settings.class);
 
-    public void testIsPlayerWon() {
-        BoardAPI boardAPI = Mockito.mock(BoardAPI.class);
-        Settings settings = Mockito.mock(Settings.class);
+    Judge judge = new Judge(boardAPI, settings);
+    Coordinates coordinates = Mockito.mock(Coordinates.class);
+    judge.isPlayerSignSetOnFreeSpace(coordinates);
+    Mockito.verify(boardAPI)
+        .isCoordinatesPointsToDefaultSign(settings.getDefaultSign(), coordinates);
+  }
 
-        Judge judge = new Judge(boardAPI, settings);
-        Coordinates coordinates = Mockito.mock(Coordinates.class);
-        Sign sign = Sign.X;
-        judge.isPlayerWon(sign, coordinates);
-        Mockito.verify(boardAPI).whetherWinningConditionHasBeenMet(sign, coordinates, settings.getWinCondition());
-    }
+  public void testIsPlayerWon() {
+    BoardAPI boardAPI = Mockito.mock(BoardAPI.class);
+    Settings settings = Mockito.mock(Settings.class);
+
+    Judge judge = new Judge(boardAPI, settings);
+    Coordinates coordinates = Mockito.mock(Coordinates.class);
+    Sign sign = Sign.X;
+    judge.isPlayerWon(sign, coordinates);
+    Mockito.verify(boardAPI)
+        .whetherWinningConditionHasBeenMet(sign, coordinates, settings.getWinCondition());
+  }
 }
