@@ -25,10 +25,13 @@ import org.testng.annotations.Test;
 
 @Test
 public class GameTest {
+  private PlayerAPI playerAPI;
 
   public void testEndToEndQuitGame() {
     try (Scanner scanner = new Scanner("X\nX\nO\nquit")) {
       setupGame(scanner).play();
+      assert playerAPI.getPlayerOnIndex(0).compareTo(playerAPI.getPlayerOnIndex(1)) == 0 :
+          "Game should end";
     } catch (QuitGameException e) {
       System.out.println(e.getMessage());
     }
@@ -43,6 +46,8 @@ public class GameTest {
     );
     try (Scanner scanner = new Scanner(userSequence)) {
       setupGame(scanner).play();
+      assert playerAPI.getPlayerOnIndex(0).compareTo(playerAPI.getPlayerOnIndex(1)) < 0 :
+          "X should win";
     } catch (QuitGameException e) {
       System.out.println(e.getMessage());
     }
@@ -57,6 +62,8 @@ public class GameTest {
     );
     try (Scanner scanner = new Scanner(userSequence)) {
       setupGame(scanner).play();
+      assert playerAPI.getPlayerOnIndex(0).compareTo(playerAPI.getPlayerOnIndex(1)) > 0 :
+          "O should win";
     } catch (QuitGameException e) {
       System.out.println(e.getMessage());
     }
@@ -71,6 +78,8 @@ public class GameTest {
     );
     try (Scanner scanner = new Scanner(userSequence)) {
       setupGame(scanner).play();
+      assert playerAPI.getPlayerOnIndex(0).compareTo(playerAPI.getPlayerOnIndex(1)) == 0 :
+          "There should be draw";
     } catch (QuitGameException e) {
       System.out.println(e.getMessage());
     }
@@ -83,7 +92,7 @@ public class GameTest {
     if (PlayerBuilder.getUnusedSigns().isEmpty()) {
       PlayerBuilder.getUnusedSigns().addAll(Arrays.asList(Sign.values()));
     }
-    PlayerAPI playerAPI = new PlayerAPIImpl(new PlayerListCreator(input, output)
+    playerAPI = new PlayerAPIImpl(new PlayerListCreator(input, output)
         .createPlayers());
     Board board = new Board.BoardBuilder()
         .withDimension(input.getBoardDimensions())
