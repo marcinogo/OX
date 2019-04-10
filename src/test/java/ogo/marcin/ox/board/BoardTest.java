@@ -1,6 +1,7 @@
 package ogo.marcin.ox.board;
 
 import java.util.Arrays;
+import ogo.marcin.ox.board.Board.BoardBuilder;
 import ogo.marcin.ox.game.Coordinates;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -184,11 +185,70 @@ public class BoardTest {
   }
 
   @Test(dataProvider = "createBoard")
+  public void testEqualsSameObject(int edge) {
+    BoardDimension boardDimension = new BoardDimension.BoardDimensionBuilder()
+        .withBoardEdgeSize(edge).build();
+    Board board = new Board(boardDimension);
+    assert board.equals(board) : "Boards should be equals";
+  }
+
+  @Test(dataProvider = "createBoard")
+  public void testNotEqualsDifferentObject(int edge) {
+    BoardDimension boardDimension = new BoardDimension.BoardDimensionBuilder()
+        .withBoardEdgeSize(edge).build();
+    Board board = new Board(boardDimension);
+    assert !board.equals("test") : "Boards should not be equals";
+  }
+
+  @Test(dataProvider = "createBoard")
+  public void testNotEqualsDifferentEdges(int edge) {
+    BoardDimension boardDimension = new BoardDimension.BoardDimensionBuilder()
+        .withBoardEdgeSize(edge).build();
+    BoardDimension otherBoardDimension = new BoardDimension.BoardDimensionBuilder()
+        .withBoardEdgeSize(10).build();
+    Board board1 = new Board(boardDimension);
+    Board board2 = new Board(otherBoardDimension);
+    assert !board1.equals(board2) : "Boards should be equals";
+  }
+
+  @Test(dataProvider = "createBoard")
   public void testHashCoed(int edge) {
     BoardDimension boardDimension = new BoardDimension.BoardDimensionBuilder()
         .withBoardEdgeSize(edge).build();
     Board board1 = new Board(boardDimension);
     Board board2 = new Board(boardDimension);
     assert board1.hashCode() == board2.hashCode() : "HashCodes should be equals";
+  }
+
+  @DataProvider
+  public static Object[][] testBuilder() {
+    return new Object[][]{
+        {3},
+        {5},
+        {5},
+        {7},
+        {4},
+        {30},
+        {20},
+        {3},
+        {30},
+        {30},
+        {30},
+        {20},
+    };
+  }
+
+  @Test(dataProvider = "testBuilder")
+  public void testGetBoardDimension(int edge) {
+
+    BoardBuilder boardBuilder = new BoardBuilder();
+    BoardDimension testDimension = new BoardDimension.BoardDimensionBuilder()
+        .withBoardEdgeSize(edge)
+        .build();
+
+    Board expected = new Board(testDimension).setBoardMatrixCells(Sign.DEFAULT);
+    Board result = boardBuilder.withDimension(testDimension).build();
+
+    assert expected.equals(result) : "Boards should be equals";
   }
 }

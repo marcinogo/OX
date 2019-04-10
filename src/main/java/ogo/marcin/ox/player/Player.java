@@ -72,7 +72,7 @@ public class Player implements Comparable<Player> {
 
   public static class PlayerBuilder {
 
-    static final List<Sign> unusedSigns = new LinkedList<>(Arrays.asList(Sign.values()));
+    public static List<Sign> unusedSigns = new LinkedList<>(Arrays.asList(Sign.values()));
     private final int points;
     private String name;
     private Sign playerSign;
