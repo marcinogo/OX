@@ -47,7 +47,6 @@ public interface BoardApi {
    * @param playerSign player representation on board.
    * @param coordinates field on board.
    * @param winCondition number of sign in combination necessary to win.
-   *
    * @return true if player meet win condition, false otherwise.
    */
   boolean whetherWinningConditionHasBeenMet(Sign playerSign, Coordinates coordinates,

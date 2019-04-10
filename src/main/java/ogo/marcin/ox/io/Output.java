@@ -17,16 +17,15 @@ public interface Output {
   void print(String content);
 
   /**
-   * Display a message from proper .properties file based on
-   * key given in parameter.
+   * Display a message from proper .properties file based on key given in parameter.
    *
    * @param languageKey key to .properties file
    */
   void print(Localization.LanguageKey languageKey);
 
   /**
-   * Display a message from proper .properties file based on
-   * key given in parameter in print stream passed in method call.
+   * Display a message from proper .properties file based on key given in parameter in print stream
+   * passed in method call.
    *
    * @param newPrintStream different print stream
    * @param languageKey key to .properties file
@@ -42,8 +41,8 @@ public interface Output {
   void print(PrintStream newPrintStream, String message);
 
   /**
-   * Display formatted string based on text from proper .properties file under
-   * given key. Take array of objects to represent.
+   * Display formatted string based on text from proper .properties file under given key. Take array
+   * of objects to represent.
    *
    * @param languageKey key to .properties file
    * @param args object to display
@@ -51,9 +50,8 @@ public interface Output {
   void printf(Localization.LanguageKey languageKey, Object... args);
 
   /**
-   * Display formatted string based on text from proper .properties file under
-   * given key and it in print stream passed in method call. Take array of objects
-   * to represent.
+   * Display formatted string based on text from proper .properties file under given key and it in
+   * print stream passed in method call. Take array of objects to represent.
    *
    * @param newPrintStream different print stream
    * @param languageKey key to .properties file

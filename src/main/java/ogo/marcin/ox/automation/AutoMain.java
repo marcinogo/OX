@@ -26,8 +26,8 @@ import ogo.marcin.ox.player.PlayerApi;
 import ogo.marcin.ox.player.PlayerApiImpl;
 
 /**
- * Starting point for automated tests. After configuration
- * results are saved to file "automated_test.txt".
+ * Starting point for automated tests. After configuration results are saved to file
+ * "automated_test.txt".
  *
  * @author Marcin Ogorzalek
  */

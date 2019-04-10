@@ -84,8 +84,8 @@ public class InputImpl implements Input {
   }
 
   /**
-   * Gather an input in from of int and return game board dimension (edge).
-   * Min of the edge is 3 and max is 30.
+   * Gather an input in from of int and return game board dimension (edge). Min of the edge is 3 and
+   * max is 30.
    *
    * @return size of board edge enclosed in object
    */
@@ -112,8 +112,8 @@ public class InputImpl implements Input {
   }
 
   /**
-   * Gather an input in from of int and validate it.
-   * Min of the win condition is 3 and max is 30. Max depends on board size.
+   * Gather an input in from of int and validate it. Min of the win condition is 3 and max is 30.
+   * Max depends on board size.
    *
    * @return size of board edge enclosed in object
    */

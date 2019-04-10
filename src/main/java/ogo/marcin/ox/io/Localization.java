@@ -62,8 +62,8 @@ public class Localization {
   }
 
   /**
-   * Contains keys for all possible text messages defined in OX_en_EN.properties
-   * and OX_pl_PL.properties
+   * Contains keys for all possible text messages defined in OX_en_EN.properties and
+   * OX_pl_PL.properties
    */
   public enum LanguageKey {
     //        Language configuration

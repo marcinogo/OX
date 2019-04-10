@@ -59,7 +59,6 @@ public class BoardApiImpl implements BoardApi {
    *
    * @param defaultSign default sign of board.
    * @param coordinates field on board.
-   *
    * @return tree if there is free space, false otherwise
    */
   @Override
@@ -74,7 +73,6 @@ public class BoardApiImpl implements BoardApi {
    * @param playerSign player representation on board.
    * @param coordinates field on board.
    * @param winCondition number of sign in combination necessary to win.
-   *
    * @return true if player meet win condition, false otherwise.
    */
   public boolean whetherWinningConditionHasBeenMet(Sign playerSign, Coordinates coordinates,
