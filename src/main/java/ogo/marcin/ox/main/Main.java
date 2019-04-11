@@ -1,50 +1,64 @@
 package ogo.marcin.ox.main;
 
-import ogo.marcin.ox.automation.AutoMatchSettings;
-import ogo.marcin.ox.board.*;
+import java.nio.charset.StandardCharsets;
+import java.util.Scanner;
+import ogo.marcin.ox.automation.AutoMatchSetting;
+import ogo.marcin.ox.board.Board;
+import ogo.marcin.ox.board.BoardApi;
+import ogo.marcin.ox.board.BoardApiImpl;
+import ogo.marcin.ox.game.Game;
+import ogo.marcin.ox.game.Setting;
+import ogo.marcin.ox.io.Input;
+import ogo.marcin.ox.io.InputImpl;
+import ogo.marcin.ox.io.InputValidation;
 import ogo.marcin.ox.io.Localization;
 import ogo.marcin.ox.io.Output;
-import ogo.marcin.ox.player.*;
-import ogo.marcin.ox.game.Game;
-import ogo.marcin.ox.game.Settings;
-import ogo.marcin.ox.io.Input;
-
-import java.nio.charset.StandardCharsets;
-import java.util.*;
+import ogo.marcin.ox.io.OutputImpl;
+import ogo.marcin.ox.io.QuitGameException;
+import ogo.marcin.ox.player.PlayerApi;
+import ogo.marcin.ox.player.PlayerApiImpl;
+import ogo.marcin.ox.player.PlayerListCreator;
 
 /**
+ * Tic Tac Toe game.
+ *
  * @author Marcin Ogorzalek
  */
 class Main {
-    public static void main(String[] args) {
-        try(Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8)) {
-            Output output = new Output(System.out);
-            Input input = new Input(scanner, output);
-            chooseLanguage(input, output);
 
-            PlayerAPI playerAPI = new PlayerAPIImpl(new PlayerListCreator(input, output).createPlayers());
+  public static void main(String[] args) {
+    try (Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8)) {
+      Output output = new OutputImpl(System.out);
+      InputValidation inputValidation = new InputValidation();
+      Input input = new InputImpl(scanner, output, inputValidation);
+      chooseLanguage(input, output);
 
-            Board board = new Board.BoardBuilder()
-                    .withDimension(input.getBoardDimensions())
-                    .build();
-            BoardAPI boardAPI = new BoardAPIImpl(board);
+      PlayerApi playerAPI = new PlayerApiImpl(new PlayerListCreator(input, output).createPlayers());
 
-            int MIN_WIN_CONDITION = 3;
-            int MAX_WIN_CONDITION = boardAPI.getBoardDimension();
+      Board board = new Board.BoardBuilder()
+          .withDimension(input.getBoardDimensions())
+          .build();
+      BoardApi boardAPI = new BoardApiImpl(board);
 
-            Settings settings = new Settings.SettingsBuilder()
-                    .withWinConditionInRange(input.getWinConditionInRange(MIN_WIN_CONDITION, MAX_WIN_CONDITION))
-                    .build();
+      int MIN_WIN_CONDITION = 3;
+      int MAX_WIN_CONDITION = boardAPI.getBoardDimension();
 
-            AutoMatchSettings autoMatchSettings = new AutoMatchSettings(boardAPI, false);
+      Setting setting = new Setting.SettingsBuilder()
+          .withWinConditionInRange(
+              input.getWinConditionInRange(MIN_WIN_CONDITION, MAX_WIN_CONDITION))
+          .build();
 
-            Game game = new Game(settings, boardAPI, playerAPI, input, output, autoMatchSettings);
-            game.play();
-        }
+      AutoMatchSetting autoMatchSetting = new AutoMatchSetting(boardAPI, false);
+
+      Game game = new Game(setting, boardAPI, playerAPI, input, output, autoMatchSetting);
+      game.play();
+    } catch (QuitGameException e) {
+      System.out.println(e.getMessage());
     }
+  }
 
-    private static void chooseLanguage(Input input, Output output) {
-        output.print(Localization.LanguageKey.CHOOSE_LANGUAGE);
-        Localization.setResourceBundleLanguage(input.getStringInput());
-    }
+  private static void chooseLanguage(Input input, Output output) {
+    output.print(Localization.LanguageKey.CHOOSE_LANGUAGE);
+    Localization.setResourceBundleLanguage(input.getStringInput());
+  }
 }

@@ -1,6 +1,6 @@
 package ogo.marcin.ox.game;
 
-import ogo.marcin.ox.board.BoardAPI;
+import ogo.marcin.ox.board.BoardApi;
 import ogo.marcin.ox.board.Sign;
 import org.mockito.Mockito;
 import org.testng.annotations.Test;
@@ -11,34 +11,37 @@ import org.testng.annotations.Test;
 
 @Test
 public class JudgeTest {
-    public void testFreeSpaceOnBoardReturnTrue() {
-        BoardAPI boardAPI = Mockito.mock(BoardAPI.class);
-        Settings settings = Mockito.mock(Settings.class);
 
-        Judge judge = new Judge(boardAPI, settings);
+  public void testFreeSpaceOnBoardReturnTrue() {
+    BoardApi boardAPI = Mockito.mock(BoardApi.class);
+    Setting setting = Mockito.mock(Setting.class);
 
-        judge.isFreeSpaceOnBoard();
-        Mockito.verify(boardAPI).isFreeSpaceOnBoard();
-    }
+    Judge judge = new Judge(boardAPI, setting);
 
-    public void testIsPlayerSignSetOnFreeSpace() {
-        BoardAPI boardAPI = Mockito.mock(BoardAPI.class);
-        Settings settings = Mockito.mock(Settings.class);
+    judge.isFreeSpaceOnBoard();
+    Mockito.verify(boardAPI).isFreeSpaceOnBoard();
+  }
 
-        Judge judge = new Judge(boardAPI, settings);
-        Coordinates coordinates = Mockito.mock(Coordinates.class);
-        judge.isPlayerSignSetOnFreeSpace(coordinates);
-        Mockito.verify(boardAPI).isCoordinatesPointsToDefaultSign(settings.getDefaultSign(), coordinates);
-    }
+  public void testIsPlayerSignSetOnFreeSpace() {
+    BoardApi boardAPI = Mockito.mock(BoardApi.class);
+    Setting setting = Mockito.mock(Setting.class);
 
-    public void testIsPlayerWon() {
-        BoardAPI boardAPI = Mockito.mock(BoardAPI.class);
-        Settings settings = Mockito.mock(Settings.class);
+    Judge judge = new Judge(boardAPI, setting);
+    Coordinates coordinates = Mockito.mock(Coordinates.class);
+    judge.isPlayerSignSetOnFreeSpace(coordinates);
+    Mockito.verify(boardAPI)
+        .isCoordinatesPointsToDefaultSign(setting.getDefaultSign(), coordinates);
+  }
 
-        Judge judge = new Judge(boardAPI, settings);
-        Coordinates coordinates = Mockito.mock(Coordinates.class);
-        Sign sign = Sign.X;
-        judge.isPlayerWon(sign, coordinates);
-        Mockito.verify(boardAPI).whetherWinningConditionHasBeenMet(sign, coordinates, settings.getWinCondition());
-    }
+  public void testIsPlayerWon() {
+    BoardApi boardAPI = Mockito.mock(BoardApi.class);
+    Setting setting = Mockito.mock(Setting.class);
+
+    Judge judge = new Judge(boardAPI, setting);
+    Coordinates coordinates = Mockito.mock(Coordinates.class);
+    Sign sign = Sign.X;
+    judge.isPlayerWon(sign, coordinates);
+    Mockito.verify(boardAPI)
+        .whetherWinningConditionHasBeenMet(sign, coordinates, setting.getWinCondition());
+  }
 }

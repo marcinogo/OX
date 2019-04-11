@@ -7,21 +7,33 @@ import java.io.PrintStream;
  *
  * @author Marcin Ogorzalek
  */
-public interface Output {
+public class OutputImpl implements Output {
+
+  private final PrintStream printStream;
+
+  public OutputImpl(PrintStream printStream) {
+    this.printStream = printStream;
+  }
 
   /**
    * Display given string message
    *
    * @param content String with message
    */
-  void print(String content);
+  @Override
+  public void print(String content) {
+    printStream.println(content);
+  }
 
   /**
    * Display a message from proper .properties file based on key given in parameter.
    *
    * @param languageKey key to .properties file
    */
-  void print(Localization.LanguageKey languageKey);
+  @Override
+  public void print(Localization.LanguageKey languageKey) {
+    printStream.println(Localization.getLocalizedText(languageKey));
+  }
 
   /**
    * Display a message from proper .properties file based on key given in parameter in print stream
@@ -30,7 +42,10 @@ public interface Output {
    * @param newPrintStream different print stream
    * @param languageKey key to .properties file
    */
-  void print(PrintStream newPrintStream, Localization.LanguageKey languageKey);
+  @Override
+  public void print(PrintStream newPrintStream, Localization.LanguageKey languageKey) {
+    newPrintStream.println(Localization.getLocalizedText(languageKey));
+  }
 
   /**
    * Display a message from parameter in print stream passed in method call.
@@ -38,7 +53,10 @@ public interface Output {
    * @param newPrintStream different print stream
    * @param message String with message
    */
-  void print(PrintStream newPrintStream, String message);
+  @Override
+  public void print(PrintStream newPrintStream, String message) {
+    newPrintStream.println(message);
+  }
 
   /**
    * Display formatted string based on text from proper .properties file under given key. Take array
@@ -47,7 +65,10 @@ public interface Output {
    * @param languageKey key to .properties file
    * @param args object to display
    */
-  void printf(Localization.LanguageKey languageKey, Object... args);
+  @Override
+  public void printf(Localization.LanguageKey languageKey, Object... args) {
+    printStream.printf(Localization.getLocalizedText(languageKey), args);
+  }
 
   /**
    * Display formatted string based on text from proper .properties file under given key and it in
@@ -57,6 +78,9 @@ public interface Output {
    * @param languageKey key to .properties file
    * @param args object to display
    */
-  void printf(PrintStream newPrintStream, Localization.LanguageKey languageKey,
-      Object... args);
+  @Override
+  public void printf(PrintStream newPrintStream, Localization.LanguageKey languageKey,
+      Object... args) {
+    newPrintStream.printf(Localization.getLocalizedText(languageKey), args);
+  }
 }

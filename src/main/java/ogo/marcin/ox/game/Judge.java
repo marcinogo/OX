@@ -1,29 +1,38 @@
 package ogo.marcin.ox.game;
 
-import ogo.marcin.ox.board.BoardAPI;
+import ogo.marcin.ox.board.BoardApi;
 import ogo.marcin.ox.board.Sign;
 
 /**
+ * Provide various validation for game.
+ *
  * @author Marcin Ogorzalek
  */
 public class Judge {
-    private final BoardAPI boardAPI;
-    private final Settings settings;
 
-    Judge(BoardAPI boardAPI, Settings settings) {
-        this.boardAPI = boardAPI;
-        this.settings = settings;
-    }
+  private final BoardApi boardAPI;
+  private final Setting setting;
 
-    boolean isFreeSpaceOnBoard() {
-        return boardAPI.isFreeSpaceOnBoard();
-    }
+  Judge(BoardApi boardAPI, Setting setting) {
+    this.boardAPI = boardAPI;
+    this.setting = setting;
+  }
 
-    public boolean isPlayerSignSetOnFreeSpace(Coordinates coordinates) {
-        return boardAPI.isCoordinatesPointsToDefaultSign(settings.getDefaultSign(), coordinates);
-    }
+  boolean isFreeSpaceOnBoard() {
+    return boardAPI.isFreeSpaceOnBoard();
+  }
 
-    boolean isPlayerWon(Sign playerSign, Coordinates coordinates) {
-        return boardAPI.whetherWinningConditionHasBeenMet(playerSign, coordinates, settings.getWinCondition());
-    }
+  /**
+   * Check if field under given coordinates have default value.
+   *
+   * @param coordinates coordinates of field on board.
+   */
+  public boolean isPlayerSignSetOnFreeSpace(Coordinates coordinates) {
+    return boardAPI.isCoordinatesPointsToDefaultSign(setting.getDefaultSign(), coordinates);
+  }
+
+  boolean isPlayerWon(Sign playerSign, Coordinates coordinates) {
+    return boardAPI
+        .whetherWinningConditionHasBeenMet(playerSign, coordinates, setting.getWinCondition());
+  }
 }

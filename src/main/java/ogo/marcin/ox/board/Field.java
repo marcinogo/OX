@@ -6,42 +6,49 @@ import java.util.Objects;
  * @author Marcin Ogorzalek
  */
 class Field {
-    final Sign sign;
-    private int fieldNumber;
 
-    Field(Sign sign) {
-        this.sign = sign;
-    }
+  final Sign sign;
+  private final int fieldNumber;
 
-    Field(Sign sign, int fieldNumber) {
-        this.sign = sign;
-        this.fieldNumber = fieldNumber;
-    }
+  Field(Sign sign) {
+    this(sign, 0);
+  }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Field field = (Field) o;
-        return sign == field.sign;
-    }
+  Field(Sign sign, int fieldNumber) {
+    this.sign = sign;
+    this.fieldNumber = fieldNumber;
+  }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(sign);
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
     }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Field field = (Field) o;
+    return sign == field.sign;
+  }
 
-    Field changeSign(Sign newSign) {
-        return new Field(newSign);
-    }
+  @Override
+  public int hashCode() {
+    return Objects.hash(sign);
+  }
 
-    @Override
-    public String toString() {
-        if(!sign.equals(Sign.DEFAULT))return String.format("[%s]", sign);
-        return String.format("[%d]", fieldNumber);
-    }
+  Field changeSign(Sign newSign) {
+    return new Field(newSign);
+  }
 
-    int getFieldNumber() {
-        return fieldNumber;
+  @Override
+  public String toString() {
+    if (!sign.equals(Sign.DEFAULT)) {
+      return String.format("[%4s ]", sign);
     }
+    return String.format("[%4d ]", fieldNumber);
+  }
+
+  int getFieldNumber() {
+    return fieldNumber;
+  }
 }

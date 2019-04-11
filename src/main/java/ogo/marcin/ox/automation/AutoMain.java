@@ -1,66 +1,87 @@
 package ogo.marcin.ox.automation;
 
-import ogo.marcin.ox.board.*;
-import ogo.marcin.ox.game.Game;
-import ogo.marcin.ox.game.Settings;
-import ogo.marcin.ox.io.Input;
-import ogo.marcin.ox.io.Localization;
-import ogo.marcin.ox.io.Output;
-import ogo.marcin.ox.player.Player;
-import ogo.marcin.ox.player.PlayerAPI;
-import ogo.marcin.ox.player.PlayerAPIImpl;
-
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
+import ogo.marcin.ox.board.Board;
+import ogo.marcin.ox.board.BoardApi;
+import ogo.marcin.ox.board.BoardApiImpl;
+import ogo.marcin.ox.board.BoardDimension;
+import ogo.marcin.ox.board.Sign;
+import ogo.marcin.ox.game.Game;
+import ogo.marcin.ox.game.Setting;
+import ogo.marcin.ox.io.Input;
+import ogo.marcin.ox.io.InputImpl;
+import ogo.marcin.ox.io.InputValidation;
+import ogo.marcin.ox.io.Localization;
+import ogo.marcin.ox.io.Output;
+import ogo.marcin.ox.io.OutputImpl;
+import ogo.marcin.ox.io.QuitGameException;
+import ogo.marcin.ox.player.Player;
+import ogo.marcin.ox.player.PlayerApi;
+import ogo.marcin.ox.player.PlayerApiImpl;
 
 /**
+ * Starting point for automated tests. After configuration results are saved to file
+ * "automated_test.txt".
+ *
  * @author Marcin Ogorzalek
  */
 class AutoMain {
-    public static void main(String[] args) {
-        try(Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8)) {
 
-            Output output = new Output(System.out);
-            Input input = new Input(scanner, output);
-            Localization.setResourceBundleLanguage("ENGLISH");
+  public static void main(String[] args) {
+    try (Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8)) {
 
-            BoardDimension boardDimension = input.getBoardDimensions();
+      Output output = new OutputImpl(
+          new PrintStream(new File("automated_test.txt"), StandardCharsets.UTF_8));
+      InputValidation inputValidation = new InputValidation();
+      Input input = new InputImpl(scanner, output, inputValidation);
+      Localization.setResourceBundleLanguage("ENGLISH");
 
-            Board board = new Board.BoardBuilder()
-                    .withDimension(boardDimension)
-                    .build();
-            BoardAPI boardAPI = new BoardAPIImpl(board);
+      BoardDimension boardDimension = input.getBoardDimensions();
 
-            int MIN_BOARD_SIZE = 3;
-            int winCondition = input.getWinConditionInRange(MIN_BOARD_SIZE, boardAPI.getBoardDimension());
+      Board board = new Board.BoardBuilder()
+          .withDimension(boardDimension)
+          .build();
+      BoardApi boardApi = new BoardApiImpl(board);
 
-            WinConditionGenerator winConditionGenerator = new WinConditionGenerator(boardAPI.getBoardDimension(),
-                    winCondition);
-            winConditionGenerator.generateWinPatternRows()
-                    .generateWinPatternColumns()
-                    .generateWinPatternDiagonal()
-                    .generateWinPatternAntidiagonal();
+      int MIN_BOARD_SIZE = 3;
+      int winCondition = input.getWinConditionInRange(MIN_BOARD_SIZE, boardApi.getBoardDimension());
 
-            int numberOfRounds = winConditionGenerator.winPatterns.size();
+      WinConditionGenerator winConditionGenerator = new WinConditionGenerator(
+          boardApi.getBoardDimension(),
+          winCondition);
+      winConditionGenerator.generateWinPatternRows()
+          .generateWinPatternColumns()
+          .generateWinPatternDiagonal()
+          .generateWinPatternAntidiagonal();
 
-            List<Player> players = new LinkedList<>();
-            PlayerAPI playerAPI = new PlayerAPIImpl(players);
-            players.add(new Player.PlayerBuilder().withName("X-AI").withSign("X").build());
-            players.add(new Player.PlayerBuilder().withName("O-AI").withSign("O").build());
+      int numberOfRounds = winConditionGenerator.winPatterns.size();
 
-            Settings settings = new Settings.SettingsBuilder(true)
-                    .withWinConditionInRange(winCondition)
-                    .withNumberOfRounds(numberOfRounds)
-                    .withDefaultSing(Sign.DEFAULT)
-                    .build();
+      List<Player> players = new LinkedList<>();
+      PlayerApi playerApi = new PlayerApiImpl(players);
+      players.add(new Player.PlayerBuilder().withName("X-AI").withSign("X").build());
+      players.add(new Player.PlayerBuilder().withName("O-AI").withSign("O").build());
 
-            AutoMatchSettings autoMatchSettings = new AutoMatchSettings(boardAPI,
-                    true, winConditionGenerator.winPatterns);
+      Setting setting = new Setting.SettingsBuilder(true)
+          .withWinConditionInRange(winCondition)
+          .withNumberOfRounds(numberOfRounds)
+          .withDefaultSing(Sign.DEFAULT)
+          .build();
 
-            Game game = new Game(settings, boardAPI, playerAPI, input, output, autoMatchSettings);
-            game.play();
-        }
+      AutoMatchSetting autoMatchSetting = new AutoMatchSetting(boardApi,
+          true, winConditionGenerator.winPatterns);
+
+      Game game = new Game(setting, boardApi, playerApi, input, output, autoMatchSetting);
+      game.play();
+    } catch (IOException e) {
+      System.err.println(e.getMessage());
+    } catch (QuitGameException e) {
+      System.out.println(e.getMessage());
     }
+  }
 }
