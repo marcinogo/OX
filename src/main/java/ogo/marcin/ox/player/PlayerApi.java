@@ -4,11 +4,12 @@ import java.util.List;
 import ogo.marcin.ox.board.Sign;
 
 /**
+ * Contain method to manipulate Player state
+ *
  * @author Marcin Ogorzalek
  */
 public interface PlayerApi {
 
-  //    List<Player> createPlayers(Input input, Output output);
   Player setPlayerPoints(Player player, int newNumberOfPoints);
 
   String getPlayerName(Player player);
@@ -17,8 +18,18 @@ public interface PlayerApi {
 
   int getPlayerPoints(Player player);
 
+  /**
+   * Return of players in game
+   *
+   * @return list of players in game
+   */
   List<Player> getPlayers();
 
+  /**
+   * Return position of player in players list
+   *
+   * @return index of player
+   */
   Player getPlayerOnIndex(int index);
 
 }
